@@ -1,0 +1,362 @@
+[
+  {
+    "asset": [
+      "hero/curated-retail-hero",
+      1792,
+      1024,
+      "Curated fashion and accessories still life with cognac tote, ivory knit, sunglasses and gold jewelry."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-38fa3bac-8fa8-4b2e-98a3-404158f5495e.png",
+    "prompt": "Curated fashion and accessories still life with cognac tote, ivory knit, sunglasses and gold jewelry. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "hero/wardrobe-alternate",
+      1792,
+      1024,
+      "A neatly styled capsule wardrobe of neutral cotton and knit clothing, folded on cream shelving."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-e84d6250-6e7b-4530-8687-6c43ef281c38.png",
+    "prompt": "Use case: photorealistic-natural. Asset: hero/wardrobe-alternate. Create one 1792x1024 landscape image. Subject: A neatly styled capsule wardrobe of neutral cotton and knit clothing, folded on cream shelving. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/curated-clothing-rack",
+      1792,
+      1024,
+      "A minimal brass clothes rack with cream, beige and navy garments on wooden hangers in an airy room."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-6d9c6da5-0d39-48c9-a27e-3d8e5e347969.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/curated-clothing-rack. Create one 1792x1024 landscape image. Subject: A minimal brass clothes rack with cream, beige and navy garments on wooden hangers in an airy room. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/retail-interior",
+      1792,
+      1024,
+      "Welcoming upscale approachable boutique interior, cream plaster, wood shelves, brass rails with neutral clothing and accessory displays. No people."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-d6074461-a856-4642-b895-fda949bffe3b.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/retail-interior. Create one 1792x1024 landscape image. Subject: Welcoming upscale approachable boutique interior, cream plaster, wood shelves, brass rails with neutral clothing and accessory displays. No people. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "categories/everyday-essentials",
+      1024,
+      1024,
+      "A capsule collection of folded ivory sweater, white crew neck tee, navy fabric backpack and plain white sneakers."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-53b74f5d-86a0-4964-bb43-acb389f4251b.png",
+    "prompt": "Use case: photorealistic-natural. Asset: categories/everyday-essentials. Create one 1024x1024 square image. Subject: A capsule collection of folded ivory sweater, white crew neck tee, navy fabric backpack and plain white sneakers. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "categories/gifts",
+      1024,
+      1024,
+      "Beautiful cream gift boxes tied with navy and gold satin ribbons, small gold jewelry and leather wallet."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-700f157b-6857-48b3-9f9e-c35e1baff2d7.png",
+    "prompt": "Use case: photorealistic-natural. Asset: categories/gifts. Create one 1024x1024 square image. Subject: Beautiful cream gift boxes tied with navy and gold satin ribbons, small gold jewelry and leather wallet. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/gift-arrangement",
+      1792,
+      1024,
+      "A thoughtful gift arrangement of cream ribbon wrapped boxes, gold-tone jewelry, folded patterned scarf and a leather wallet."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-7cbdb3a4-faa0-43eb-b904-f37f7b39dea3.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/gift-arrangement. Create one 1792x1024 landscape image. Subject: A thoughtful gift arrangement of cream ribbon wrapped boxes, gold-tone jewelry, folded patterned scarf and a leather wallet. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/accessories-editorial",
+      1792,
+      1024,
+      "Editorial flat lay of cognac structured tote, black sunglasses, slim leather strap watch, printed scarf and delicate gold-tone jewelry."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-e1ba248f-843c-4c3c-b7d2-aeb18f2937da.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/accessories-editorial. Create one 1792x1024 landscape image. Subject: Editorial flat lay of cognac structured tote, black sunglasses, slim leather strap watch, printed scarf and delicate gold-tone jewelry. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/wardrobe-editorial",
+      1792,
+      1024,
+      "Editorial still life of a cream sweater, plain white tee, beige wide brim fedora and white sneakers on a bench beside navy linen."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-3abca598-2d51-4ce3-892c-5f1903f001a6.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/wardrobe-editorial. Create one 1792x1024 landscape image. Subject: Editorial still life of a cream sweater, plain white tee, beige wide brim fedora and white sneakers on a bench beside navy linen. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/fashion-boutique",
+      1792,
+      1024,
+      "A refined small fashion boutique with wood shelves displaying leather bags, knitwear and delicate jewelry, brass racks and warm cream walls. No people."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-05826d91-9f1a-4081-b316-eeefb7c1bb5c.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/fashion-boutique. Create one 1792x1024 landscape image. Subject: A refined small fashion boutique with wood shelves displaying leather bags, knitwear and delicate jewelry, brass racks and warm cream walls. No people. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/shopping-bags",
+      1792,
+      1024,
+      "Minimal cream and navy paper shopping bags with plain gold ribbon handles on a warm cream counter. Completely blank unbranded bags."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-cf3938c4-8e2a-40c7-9990-bbb8e15ee937.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/shopping-bags. Create one 1792x1024 landscape image. Subject: Minimal cream and navy paper shopping bags with plain gold ribbon handles on a warm cream counter. Completely blank unbranded bags. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "categories/fashion-accessories",
+      1024,
+      1024,
+      "Curated cognac leather bag, classic dark acetate sunglasses and cream navy printed scarf, tasteful gold-tone jewelry."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-0e3890fa-34f5-4f24-b903-c1be134c5640.png",
+    "prompt": "Use case: photorealistic-natural. Asset: categories/fashion-accessories. Create one 1024x1024 square image. Subject: Curated cognac leather bag, classic dark acetate sunglasses and cream navy printed scarf, tasteful gold-tone jewelry. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "categories/unique-finds",
+      1024,
+      1024,
+      "Slim steel watch with clean unnumbered cream dial and brown leather strap, unlabelled glass fragrance bottle and small gold jewelry."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-9de210ab-e989-4973-b061-fc63bb7efce5.png",
+    "prompt": "Use case: photorealistic-natural. Asset: categories/unique-finds. Create one 1024x1024 square image. Subject: Slim steel watch with clean unnumbered cream dial and brown leather strap, unlabelled glass fragrance bottle and small gold jewelry. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/polarized-sunglasses-1",
+      1024,
+      1024,
+      "One pair of classic black acetate sunglasses with dark polarized lenses and timeless lightweight frames. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-78437cc5-e62e-419b-9d62-95ed6365fd6a.png",
+    "prompt": "Use case: product-mockup. Asset: products/polarized-sunglasses-1. Create one 1024x1024 square image. Subject: One pair of classic black acetate sunglasses with dark polarized lenses and timeless lightweight frames. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/classic-leather-tote-1",
+      1024,
+      1024,
+      "One roomy structured tote in smooth cognac full grain leather, reinforced long shoulder handles, laptop sized interior and inner zip pocket. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-b0b01f33-7e21-4044-b5eb-e0d784929e3e.png",
+    "prompt": "Use case: product-mockup. Asset: products/classic-leather-tote-1. Create one 1024x1024 square image. Subject: One roomy structured tote in smooth cognac full grain leather, reinforced long shoulder handles, laptop sized interior and inner zip pocket. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/polarized-sunglasses-2",
+      1024,
+      1024,
+      "One pair of classic black acetate sunglasses with dark polarized lenses and timeless lightweight frames. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-8a6f8aad-dc93-438f-ab6f-03a2c02adc40.png",
+    "prompt": "Use case: product-mockup. Asset: products/polarized-sunglasses-2. Create one 1024x1024 square image. Subject: One pair of classic black acetate sunglasses with dark polarized lenses and timeless lightweight frames. Alternate close three-quarter view of the same product and color, showing material and construction. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/minimalist-watch-1",
+      1024,
+      1024,
+      "One slim stainless steel quartz wristwatch with a clean cream dial, simple hour markers without numbers or lettering, brown genuine leather strap. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-9247fc90-fb9f-48c8-a57c-064bc8c86d20.png",
+    "prompt": "Use case: product-mockup. Asset: products/minimalist-watch-1. Create one 1024x1024 square image. Subject: One slim stainless steel quartz wristwatch with a clean cream dial, simple hour markers without numbers or lettering, brown genuine leather strap. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/classic-leather-tote-2",
+      1024,
+      1024,
+      "One roomy structured tote in smooth cognac full grain leather, reinforced long shoulder handles, laptop sized interior and inner zip pocket. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-b09b6a7a-94b1-49c6-a227-62608f3a6243.png",
+    "prompt": "Use case: product-mockup. Create a single 1024x1024 square alternate product gallery photograph of the exact product in the reference. Change only the camera angle to a three-quarter view of the same cognac tote, preserving its navy lining and long handles. Preserve product construction, color, materials and design. Show exactly ONE product in ONE uninterrupted photograph, centered on plain warm cream #F8F5EF background, soft studio lighting matching the reference. No collage, no split panels, no inset photos, no additional props, no text, no logos, no watermarks, no people."
+  },
+  {
+    "asset": [
+      "products/minimalist-watch-2",
+      1024,
+      1024,
+      "One slim stainless steel quartz wristwatch with a clean cream dial, simple hour markers without numbers or lettering, brown genuine leather strap. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-43c89de0-5948-412d-bc53-836d1d6ab133.png",
+    "prompt": "Use case: product-mockup. Asset: products/minimalist-watch-2. Create one 1024x1024 square image. Subject: One slim stainless steel quartz wristwatch with a clean cream dial, simple hour markers without numbers or lettering, brown genuine leather strap. Alternate close three-quarter view of the same product and color, showing material and construction. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/knit-sweater-1",
+      1024,
+      1024,
+      "One soft oatmeal cotton blend relaxed fit knit sweater with ribbed cuffs and hem, full garment. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-d13cde04-0331-435e-bcdf-aba5595e9e70.png",
+    "prompt": "Use case: product-mockup. Asset: products/knit-sweater-1. Create one 1024x1024 square image. Subject: One soft oatmeal cotton blend relaxed fit knit sweater with ribbed cuffs and hem, full garment. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/knit-sweater-2",
+      1024,
+      1024,
+      "One soft oatmeal cotton blend relaxed fit knit sweater with ribbed cuffs and hem, full garment. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-ecde3a29-3cee-4e0b-8130-9f111152a05f.png",
+    "prompt": "Use case: product-mockup. Create a single 1024x1024 square alternate product gallery photograph of the exact product in the reference. Change only the camera angle to a three-quarter view of the same oatmeal sweater arranged neatly with a sleeve folded inward. Preserve product construction, color, materials and design. Show exactly ONE product in ONE uninterrupted photograph, centered on plain warm cream #F8F5EF background, soft studio lighting matching the reference. No collage, no split panels, no inset photos, no additional props, no text, no logos, no watermarks, no people."
+  },
+  {
+    "asset": [
+      "products/elegant-scarf-2",
+      1024,
+      1024,
+      "One lightweight silk-feel scarf with an elegant abstract printed pattern in cream navy and muted gold. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-92429a12-8317-42b3-83fd-3fc75f5bd191.png",
+    "prompt": "Use case: product-mockup. Asset: products/elegant-scarf-2. Create one 1024x1024 square image. Subject: One lightweight silk-feel scarf with an elegant abstract printed pattern in cream navy and muted gold. Alternate close three-quarter view of the same product and color, showing material and construction. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/elegant-scarf-1",
+      1024,
+      1024,
+      "One lightweight silk-feel scarf with an elegant abstract printed pattern in cream navy and muted gold. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-f230d6e8-b519-4fe8-8285-44d26d967c98.png",
+    "prompt": "Use case: product-mockup. Asset: products/elegant-scarf-1. Create one 1024x1024 square image. Subject: One lightweight silk-feel scarf with an elegant abstract printed pattern in cream navy and muted gold. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/leather-card-wallet-1",
+      1024,
+      1024,
+      "One slim brown leather card wallet with six card slots total and a center folded bill pocket. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-2ac98039-56c4-432d-ad66-e1ead1b8e780.png",
+    "prompt": "Use case: product-mockup. Asset: products/leather-card-wallet-1. Create one 1024x1024 square image. Subject: One slim brown leather card wallet with six card slots total and a center folded bill pocket. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/delicate-jewelry-set-1",
+      1024,
+      1024,
+      "Coordinated delicate gold tone necklace, bracelet and small hoop earrings presented together in an open plain cream gift box. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-2a5b1417-1fe3-460d-b4a1-00aef3728ec9.png",
+    "prompt": "Use case: product-mockup. Asset: products/delicate-jewelry-set-1. Create one 1024x1024 square image. Subject: Coordinated delicate gold tone necklace, bracelet and small hoop earrings presented together in an open plain cream gift box. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/everyday-backpack-1",
+      1024,
+      1024,
+      "One clean navy water resistant fabric commuter backpack with padded shoulder straps, practical zip compartments and padded laptop sleeve. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-1b5a1a03-d23a-4142-9b26-cc80bb9cd84a.png",
+    "prompt": "Use case: product-mockup. Asset: products/everyday-backpack-1. Create one 1024x1024 square image. Subject: One clean navy water resistant fabric commuter backpack with padded shoulder straps, practical zip compartments and padded laptop sleeve. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/signature-fragrance-1",
+      1024,
+      1024,
+      "One unlabelled 50 ml clear glass eau de parfum bottle with amber colored liquid, simple gold cap, subtle soft floral cues. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-1ea29811-6b13-46b8-815b-2a2ec74d0ebc.png",
+    "prompt": "Use case: product-mockup. Asset: products/signature-fragrance-1. Create one 1024x1024 square image. Subject: One unlabelled 50 ml clear glass eau de parfum bottle with amber colored liquid, simple gold cap, subtle soft floral cues. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/gift-box-collection-1",
+      1024,
+      1024,
+      "A curated cream gift box with brown leather card wallet, folded printed scarf and small gold tone jewelry, tied with navy satin ribbon. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-b223fd90-3922-4e8c-b3d5-d78f5df1bffa.png",
+    "prompt": "Use case: product-mockup. Asset: products/gift-box-collection-1. Create one 1024x1024 square image. Subject: A curated cream gift box with brown leather card wallet, folded printed scarf and small gold tone jewelry, tied with navy satin ribbon. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/classic-white-sneakers-1",
+      1024,
+      1024,
+      "A matching pair of clean plain white low top sneakers with white laces, cushioned interior and durable white rubber soles. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-fa894dde-a69a-4934-a40c-ba25eb3f5548.png",
+    "prompt": "Use case: product-mockup. Asset: products/classic-white-sneakers-1. Create one 1024x1024 square image. Subject: A matching pair of clean plain white low top sneakers with white laces, cushioned interior and durable white rubber soles. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/wide-brim-fedora-1",
+      1024,
+      1024,
+      "One structured beige wool blend felt fedora with a wide brim and navy grosgrain band. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-06651004-428e-4068-8fe8-8bbecf489da5.png",
+    "prompt": "Use case: product-mockup. Asset: products/wide-brim-fedora-1. Create one 1024x1024 square image. Subject: One structured beige wool blend felt fedora with a wide brim and navy grosgrain band. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/gift-box-collection-2",
+      1024,
+      1024,
+      "A curated cream gift box with brown leather card wallet, folded printed scarf and small gold tone jewelry, tied with navy satin ribbon. Alternate close three-quarter view of the same product and color, showing material and construction."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-44847839-38ce-4140-a853-e46e6aca7790.png",
+    "prompt": "Use case: product-mockup. Asset: products/gift-box-collection-2. Create one 1024x1024 square image. Subject: A curated cream gift box with brown leather card wallet, folded printed scarf and small gold tone jewelry, tied with navy satin ribbon. Alternate close three-quarter view of the same product and color, showing material and construction. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "blog/everyday-essentials-you-will-always-reach-for",
+      1792,
+      1024,
+      "Editorial wardrobe essentials still life featuring an oatmeal knit sweater, clean white sneakers and a navy commuter backpack."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-6b9f8b07-19b0-404d-9c5d-bbc307a3efe0.png",
+    "prompt": "Use case: photorealistic-natural. Asset: blog/everyday-essentials-you-will-always-reach-for. Create one 1792x1024 landscape image. Subject: Editorial wardrobe essentials still life featuring an oatmeal knit sweater, clean white sneakers and a navy commuter backpack. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "products/classic-cotton-t-shirt-1",
+      1024,
+      1024,
+      "One plain white 100 percent cotton regular fit crew-neck short sleeve T-shirt photographed as a complete flat-lay, no print. Full product centered with generous margins."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-04c060bd-8d2f-4081-881b-90ac3556344e.png",
+    "prompt": "Use case: product-mockup. Asset: products/classic-cotton-t-shirt-1. Create one 1024x1024 square image. Subject: One plain white 100 percent cotton regular fit crew-neck short sleeve T-shirt photographed as a complete flat-lay, no print. Full product centered with generous margins. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "site/og-image",
+      1200,
+      630,
+      "Wide curated retail still life of cognac tote, cream knitwear, sunglasses, plain white tee and gold accessories, elegant warm cream background with navy accents."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-e029d9d8-8fb1-4b0c-89b2-4bd90e801a0e.png",
+    "prompt": "Use case: photorealistic-natural. Asset: site/og-image. Create one 1200x630 landscape image. Subject: Wide curated retail still life of cognac tote, cream knitwear, sunglasses, plain white tee and gold accessories, elegant warm cream background with navy accents. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "blog/the-ultimate-gift-guide-for-every-occasion",
+      1792,
+      1024,
+      "Editorial gift guide still life with sunglasses, printed scarf, slim leather strap watch, leather wallet and gold-tone jewelry in cream gift boxes."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-3322e123-729f-4091-83c4-4b17c2dbc594.png",
+    "prompt": "Use case: photorealistic-natural. Asset: blog/the-ultimate-gift-guide-for-every-occasion. Create one 1792x1024 landscape image. Subject: Editorial gift guide still life with sunglasses, printed scarf, slim leather strap watch, leather wallet and gold-tone jewelry in cream gift boxes. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  },
+  {
+    "asset": [
+      "blog/5-accessory-trends-to-elevate-your-look",
+      1792,
+      1024,
+      "Editorial arrangement of exactly five accessory types: structured cognac tote, classic sunglasses, slim watch, printed scarf, delicate gold jewelry."
+    ],
+    "source": "C:\\Users\\PC\\.codex\\generated_images\\01a1a88a-bf72-7180-8e96-527a9856af80\\exec-9f7e851c-942d-491f-a9c4-6b8d11481a7f.png",
+    "prompt": "Use case: photorealistic-natural. Asset: blog/5-accessory-trends-to-elevate-your-look. Create one 1792x1024 landscape image. Subject: Editorial arrangement of exactly five accessory types: structured cognac tote, classic sunglasses, slim watch, printed scarf, delicate gold jewelry. Premium but approachable ecommerce photography, consistent warm cream #F8F5EF seamless background, navy #172333 and muted gold #B38A46 accents where appropriate. Soft natural studio window lighting, realistic materials, clean minimal styling. No text, no lettering, no logos, no watermarks, no brand names, no people."
+  }
+]

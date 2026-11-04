@@ -1,0 +1,297 @@
+{
+  "note": "Manual reference only; no records have been changed. Update existing records by slug/key/title, never reseed. Also replace thumbnail fields if they still contain stock URLs.",
+  "products": [
+    {
+      "match": {
+        "slug": "classic-leather-tote"
+      },
+      "set": {
+        "images": [
+          "/images/products/classic-leather-tote-1.webp",
+          "/images/products/classic-leather-tote-2.webp"
+        ],
+        "thumbnail": "/images/products/classic-leather-tote-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "polarized-sunglasses"
+      },
+      "set": {
+        "images": [
+          "/images/products/polarized-sunglasses-1.webp",
+          "/images/products/polarized-sunglasses-2.webp"
+        ],
+        "thumbnail": "/images/products/polarized-sunglasses-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "minimalist-watch"
+      },
+      "set": {
+        "images": [
+          "/images/products/minimalist-watch-1.webp",
+          "/images/products/minimalist-watch-2.webp"
+        ],
+        "thumbnail": "/images/products/minimalist-watch-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "knit-sweater"
+      },
+      "set": {
+        "images": [
+          "/images/products/knit-sweater-1.webp",
+          "/images/products/knit-sweater-2.webp"
+        ],
+        "thumbnail": "/images/products/knit-sweater-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "elegant-scarf"
+      },
+      "set": {
+        "images": [
+          "/images/products/elegant-scarf-1.webp",
+          "/images/products/elegant-scarf-2.webp"
+        ],
+        "thumbnail": "/images/products/elegant-scarf-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "leather-card-wallet"
+      },
+      "set": {
+        "images": [
+          "/images/products/leather-card-wallet-1.webp"
+        ],
+        "thumbnail": "/images/products/leather-card-wallet-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "delicate-jewelry-set"
+      },
+      "set": {
+        "images": [
+          "/images/products/delicate-jewelry-set-1.webp"
+        ],
+        "thumbnail": "/images/products/delicate-jewelry-set-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "everyday-backpack"
+      },
+      "set": {
+        "images": [
+          "/images/products/everyday-backpack-1.webp"
+        ],
+        "thumbnail": "/images/products/everyday-backpack-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "signature-fragrance"
+      },
+      "set": {
+        "images": [
+          "/images/products/signature-fragrance-1.webp"
+        ],
+        "thumbnail": "/images/products/signature-fragrance-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "classic-white-sneakers"
+      },
+      "set": {
+        "images": [
+          "/images/products/classic-white-sneakers-1.webp"
+        ],
+        "thumbnail": "/images/products/classic-white-sneakers-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "wide-brim-fedora"
+      },
+      "set": {
+        "images": [
+          "/images/products/wide-brim-fedora-1.webp"
+        ],
+        "thumbnail": "/images/products/wide-brim-fedora-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "gift-box-collection"
+      },
+      "set": {
+        "images": [
+          "/images/products/gift-box-collection-1.webp",
+          "/images/products/gift-box-collection-2.webp"
+        ],
+        "thumbnail": "/images/products/gift-box-collection-1.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "classic-cotton-t-shirt"
+      },
+      "set": {
+        "images": [
+          "/images/products/classic-cotton-t-shirt-1.webp"
+        ],
+        "thumbnail": "/images/products/classic-cotton-t-shirt-1.webp"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "match": {
+        "slug": "fashion-accessories"
+      },
+      "set": {
+        "image": "/images/categories/fashion-accessories.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "everyday-essentials"
+      },
+      "set": {
+        "image": "/images/categories/everyday-essentials.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "unique-finds"
+      },
+      "set": {
+        "image": "/images/categories/unique-finds.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "gifts"
+      },
+      "set": {
+        "image": "/images/categories/gifts.webp"
+      }
+    }
+  ],
+  "blogPosts": [
+    {
+      "match": {
+        "slug": "5-accessory-trends-to-elevate-your-look"
+      },
+      "set": {
+        "featuredImage": "/images/blog/5-accessory-trends-to-elevate-your-look.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "everyday-essentials-you-will-always-reach-for"
+      },
+      "set": {
+        "featuredImage": "/images/blog/everyday-essentials-you-will-always-reach-for.webp"
+      }
+    },
+    {
+      "match": {
+        "slug": "the-ultimate-gift-guide-for-every-occasion"
+      },
+      "set": {
+        "featuredImage": "/images/blog/the-ultimate-gift-guide-for-every-occasion.webp"
+      }
+    }
+  ],
+  "homepageContent": {
+    "match": {
+      "key": "main"
+    },
+    "set": {
+      "hero.image": "/images/hero/curated-retail-hero.webp",
+      "about.image": "/images/site/curated-clothing-rack.webp",
+      "promo.image": "/images/site/shopping-bags.webp",
+      "categoryCardImages": [
+        {
+          "matchByLink": "/shop?category=fashion-accessories",
+          "image": "/images/categories/fashion-accessories.webp"
+        },
+        {
+          "matchByLink": "/shop?category=everyday-essentials",
+          "image": "/images/categories/everyday-essentials.webp"
+        },
+        {
+          "matchByLink": "/shop?category=unique-finds",
+          "image": "/images/categories/unique-finds.webp"
+        },
+        {
+          "matchByLink": "/shop?category=gifts",
+          "image": "/images/categories/gifts.webp"
+        }
+      ]
+    }
+  },
+  "specialOffers": [
+    {
+      "match": {
+        "title": "Seasonal Sale — Up to 25% Off"
+      },
+      "set": {
+        "image": "/images/site/fashion-boutique.webp"
+      }
+    },
+    {
+      "match": {
+        "title": "Free Shipping Over $75"
+      },
+      "set": {
+        "image": "/images/site/shopping-bags.webp"
+      }
+    }
+  ],
+  "siteSettings": {
+    "match": {
+      "key": "main"
+    },
+    "set": {
+      "seo.ogImage": "/images/site/og-image.webp"
+    }
+  },
+  "testimonials": [
+    {
+      "match": {
+        "name": "Emily R."
+      },
+      "unset": [
+        "avatar"
+      ],
+      "note": "Optional cleanup; the storefront always renders initials."
+    },
+    {
+      "match": {
+        "name": "Daniel M."
+      },
+      "unset": [
+        "avatar"
+      ],
+      "note": "Optional cleanup; the storefront always renders initials."
+    },
+    {
+      "match": {
+        "name": "Sophia L."
+      },
+      "unset": [
+        "avatar"
+      ],
+      "note": "Optional cleanup; the storefront always renders initials."
+    }
+  ]
+}
