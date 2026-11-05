@@ -3,7 +3,7 @@ import type {
 } from "./types";
 
 export const IMG = {
-  hero: "/images/hero/curated-retail-hero.webp",
+  hero: "/images/hero/custom-printing-banner.webp",
   heroAlt: "/images/hero/wardrobe-alternate.webp",
   rack: "/images/site/curated-clothing-rack.webp",
   store: "/images/site/retail-interior.webp",
@@ -37,13 +37,13 @@ export const DEFAULT_HOMEPAGE: HomepageDTO = {
     { en: "New Arrivals Available", es: "Nuevos Productos Disponibles" },
   ],
   hero: {
-    titleLine1En: "Seek More.", titleLine2En: "Shop Smart.", titleLine3En: "Save More.",
-    titleLine1Es: "Busca Más.", titleLine2Es: "Compra Inteligente.", titleLine3Es: "Ahorra Más.",
-    subtitleEn: "Discover a curated selection of stylish accessories and everyday essentials for your lifestyle.",
-    subtitleEs: "Descubre una selección de accesorios con estilo y esenciales diarios para tu estilo de vida.",
+    titleLine1En: "Print Your", titleLine2En: "Ideas!", titleLine3En: "Custom Printing",
+    titleLine1Es: "¡Imprime tus", titleLine2Es: "Ideas!", titleLine3Es: "Impresión personalizada",
+    subtitleEn: "Unleash your creativity. Make T-shirts, hoodies, mugs and everyday gifts uniquely yours.",
+    subtitleEs: "Da rienda suelta a tu creatividad. Personaliza camisetas, sudaderas, tazas y regalos a tu manera.",
     image: IMG.hero,
-    primaryLabelEn: "Shop Now", primaryLabelEs: "Comprar Ahora", primaryLink: "/shop",
-    secondaryLabelEn: "Explore Collections", secondaryLabelEs: "Explorar Colecciones", secondaryLink: "/shop?view=collections",
+    primaryLabelEn: "Start Customizing", primaryLabelEs: "Empieza a personalizar", primaryLink: "/custom",
+    secondaryLabelEn: "Shop Collection", secondaryLabelEs: "Ver colección", secondaryLink: "/shop",
   },
   categoryCards: [
     { titleEn: "Fashion Accessories", titleEs: "Accesorios de Moda", image: "/images/categories/fashion-accessories.webp", link: "/shop?category=fashion-accessories" },
