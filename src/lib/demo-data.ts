@@ -20,7 +20,7 @@ export const DEFAULT_SETTINGS: SettingsDTO = {
   businessName: "SeeknPurchase",
   tagline: "Seek. Shop. Save.",
   email: "info@seeknpurchase.com",
-  phone: "310-409-5842",
+  phone: "213-259-3140",
   social: { instagram: "", facebook: "", tiktok: "", pinterest: "", youtube: "" },
   seo: {
     defaultTitle: "SeeknPurchase | Seek More. Shop Smart. Save More.",
@@ -181,6 +181,17 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     variants: [{ name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray"] }],
     tags: ["t-shirt", "custom", "apparel"], createdAt: d(3),
   },
+  ...([
+    ["Custom Crewneck Sweatshirt", "Sudadera Personalizada", "custom-crewneck-sweatshirt", "SP-CUS-014", 29.99, "apparel", "sweatshirt", "A warm fleece crewneck ready for your name, logo or design.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }],
+    ["Custom Pullover Hoodie", "Hoodie Personalizado", "custom-pullover-hoodie", "SP-CUS-015", 34.99, "apparel", "hoodie", "A soft pullover hoodie with a front pocket, ready for your own print.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }],
+    ["Custom Canvas Tote Bag", "Bolsa Tote Personalizada", "custom-canvas-tote-bag", "SP-CUS-016", 12.99, "tote", "tote", "A sturdy cotton canvas tote for events, shops and gifts.", { name: "Color", options: ["Natural", "Black"] }],
+    ["Custom Ceramic Cup", "Taza de Cerámica Personalizada", "custom-ceramic-cup", "SP-CUS-017", 9.99, "cup", "cup", "A glossy ceramic cup printed with your photo, logo or message.", { name: "Size", options: ["11 oz", "15 oz"] }],
+    ["Custom Baseball Cap", "Gorra Personalizada", "custom-baseball-cap", "SP-CUS-018", 14.99, "cap", "cap", "An adjustable cotton cap with your embroidered or printed design.", { name: "Color", options: ["Black", "Navy", "White"] }],
+  ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant]) => ({
+    name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
+    category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/custom/${img}.svg`],
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }], tags: ["custom", img], createdAt: d(2),
+  })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 
 export const DEMO_TESTIMONIALS: TestimonialDTO[] = [

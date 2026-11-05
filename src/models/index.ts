@@ -63,7 +63,8 @@ const ProductSchema = new Schema(
     compareAtPrice: { type: Number, min: 0 },
     wholesalePrice: { type: Number, min: 0 }, // blank/0 = not offered on the wholesale page
     wholesaleMinQty: { type: Number, min: 1, default: 12 },
-    customizable: { type: Boolean, default: false }, // shows the T-shirt customizer
+    customizable: { type: Boolean, default: false }, // shows the product customizer
+    customType: { type: String, enum: ["apparel", "tote", "cup", "cap"], default: "apparel" },
     cost: { type: Number, min: 0 },
     stock: { type: Number, default: 0 },
     lowStockThreshold: { type: Number, default: 5 },
@@ -346,7 +347,7 @@ const SiteSettingsSchema = new Schema(
     logo: String,
     favicon: String,
     email: { type: String, default: "info@seeknpurchase.com" },
-    phone: { type: String, default: "310-409-5842" },
+    phone: { type: String, default: "213-259-3140" },
     address: String,
     social: { instagram: String, facebook: String, tiktok: String, pinterest: String, youtube: String },
     seo: { defaultTitle: String, defaultDescription: String, ogImage: String },

@@ -181,6 +181,13 @@ export async function getWholesaleProducts(): Promise<ProductDTO[]> {
   );
 }
 
+export async function getCustomProducts(): Promise<ProductDTO[]> {
+  return withDb(
+    () => Product.find({ status: "published", customizable: true }).sort({ soldCount: -1 }).limit(60).lean(),
+    DEMO_PRODUCTS.filter((p) => p.customizable),
+  );
+}
+
 export async function getSaleProducts(limit = 12): Promise<ProductDTO[]> {
   return withDb(
     () => Product.find({ status: "published", onSale: true }).sort({ createdAt: -1 }).limit(limit).lean(),
@@ -207,6 +214,7 @@ export function toCard(p: ProductDTO, locale: Locale): ProductCardData {
     wholesalePrice: p.wholesalePrice && p.wholesalePrice > 0 ? p.wholesalePrice : undefined,
     wholesaleMinQty: p.wholesaleMinQty && p.wholesaleMinQty > 0 ? p.wholesaleMinQty : undefined,
     customizable: Boolean(p.customizable),
+    customType: p.customType || "apparel",
     category: p.category,
     sku: p.sku,
   };

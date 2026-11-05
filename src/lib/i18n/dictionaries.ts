@@ -3,7 +3,7 @@ const en = {
     home: "Home", about: "About", shop: "Shop", services: "Services", testimonials: "Testimonials", faq: "FAQ",
     blog: "Blog", contact: "Contact", allProducts: "All Products", newArrivals: "New Arrivals", bestSellers: "Best Sellers",
     fashionAccessories: "Fashion Accessories", everydayEssentials: "Everyday Essentials", uniqueFinds: "Unique Finds",
-    gifts: "Gifts", sale: "Sale", wholesale: "Wholesale", deals: "Deals", team: "Team", assistance: "Shopping Assistance", collections: "Collections",
+    gifts: "Gifts", sale: "Sale", wholesale: "Wholesale", custom: "Custom", deals: "Deals", team: "Team", assistance: "Shopping Assistance", collections: "Collections",
     search: "Search", account: "Account", wishlist: "Wishlist", cart: "Cart", menu: "Menu", close: "Close", language: "Language",
   },
   common: {
@@ -106,7 +106,7 @@ const es: Dictionary = {
     home: "Inicio", about: "Nosotros", shop: "Tienda", services: "Servicios", testimonials: "Testimonios", faq: "Preguntas",
     blog: "Blog", contact: "Contacto", allProducts: "Todos los Productos", newArrivals: "Novedades", bestSellers: "Más Vendidos",
     fashionAccessories: "Accesorios de Moda", everydayEssentials: "Esenciales Diarios", uniqueFinds: "Hallazgos Únicos",
-    gifts: "Regalos", sale: "Ofertas", wholesale: "Mayoreo", deals: "Promociones", team: "Equipo", assistance: "Asistencia de Compra", collections: "Colecciones",
+    gifts: "Regalos", sale: "Ofertas", wholesale: "Mayoreo", custom: "Personalizados", deals: "Promociones", team: "Equipo", assistance: "Asistencia de Compra", collections: "Colecciones",
     search: "Buscar", account: "Cuenta", wishlist: "Favoritos", cart: "Carrito", menu: "Menú", close: "Cerrar", language: "Idioma",
   },
   common: {

@@ -7,7 +7,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Questions about a product or order? Contact SeeknPurchase by email at info@seeknpurchase.com or phone 310-409-5842.",
+  description: "Questions about a product or order? Contact SeeknPurchase by email at info@seeknpurchase.com or phone 213-259-3140.",
   alternates: { canonical: "/contact" },
 };
 

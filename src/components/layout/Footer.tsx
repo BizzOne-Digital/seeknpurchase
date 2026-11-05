@@ -12,7 +12,7 @@ export function Footer({ s, t }: { s: SettingsDTO; t: Dictionary }) {
       title: t.footer.shop,
       links: [
         ["/shop", t.nav.allProducts], ["/shop?flag=new&sort=newest", t.nav.newArrivals], ["/shop?flag=best&sort=best-selling", t.nav.bestSellers],
-        ["/shop?sale=1", t.nav.sale], ["/wholesale", t.nav.wholesale], ["/shop?view=collections", t.nav.collections],
+        ["/shop?sale=1", t.nav.sale], ["/custom", t.nav.custom], ["/wholesale", t.nav.wholesale], ["/shop?view=collections", t.nav.collections],
       ],
     },
     {

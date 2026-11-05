@@ -5,6 +5,7 @@ import { IMG } from "@/lib/demo-data";
 import { LifestyleSection, OffersBanner, ProductRow, TrustBar, homeExtraText } from "@/components/home/ExtraSections";
 import { getDictionary } from "@/lib/i18n/server";
 import { loc } from "@/lib/i18n/localize";
+import { CustomBanner } from "@/components/home/CustomBanner";
 import { Hero } from "@/components/home/Hero";
 import { CategoryCards } from "@/components/home/CategoryCards";
 import { AboutSection } from "@/components/home/AboutSection";
@@ -50,6 +51,7 @@ export default async function HomePage() {
         </ul>
       </section>
 
+      <CustomBanner locale={locale} />
       <OffersBanner offers={offers} locale={locale} />
       <ProductRow title={x.newArrivals} href="/shop?flag=new&sort=newest" products={newest.items} locale={locale} />
 

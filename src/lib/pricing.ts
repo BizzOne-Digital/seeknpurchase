@@ -4,7 +4,7 @@ import { Coupon, Product } from "@/models";
 import { getSettings } from "./data";
 import { HttpError } from "./api";
 import {
-  DEFAULT_WHOLESALE_MIN, RETAIL_MAX_QTY, TEXT_COLORS, WHOLESALE_MAX_QTY, customizationPrice, customizationSummary, type Customization,
+  DEFAULT_WHOLESALE_MIN, RETAIL_MAX_QTY, TEXT_COLORS, WHOLESALE_MAX_QTY, customizationPrice, customizationSummary, type CustomType, type Customization,
 } from "./customization";
 
 export type CartLine = { slug: string; quantity: number; variant?: string; wholesale?: boolean; custom?: Customization };
@@ -62,7 +62,7 @@ export async function priceCart(lines: CartLine[], opts: { couponCode?: string; 
     let customization: (Customization & { unitCharge: number }) | undefined;
     if (l.custom) {
       if (!p.customizable) throw new HttpError(400, `"${p.name}" cannot be customized.`);
-      const charge = customizationPrice(l.custom);
+      const charge = customizationPrice(l.custom, (p.customType || "apparel") as CustomType);
       if (charge == null) throw new HttpError(400, `Please choose valid customization options for "${p.name}".`);
       if (l.custom.textColor && !TEXT_COLORS.some((c) => c.value === l.custom!.textColor)) throw new HttpError(400, "Please choose a valid text color.");
       customization = { ...l.custom, unitCharge: charge };

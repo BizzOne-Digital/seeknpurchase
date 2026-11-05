@@ -47,6 +47,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
     { href: "/", label: t.nav.home },
     { href: "/about", label: t.nav.about },
     { href: "/shop", label: t.nav.shop, dropdown: true },
+    { href: "/custom", label: t.nav.custom },
     { href: "/wholesale", label: t.nav.wholesale },
     { href: "/services", label: t.nav.services },
     { href: "/testimonials", label: t.nav.testimonials },
@@ -62,6 +63,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
     { href: "/shop?category=everyday-essentials", label: t.nav.everydayEssentials },
     { href: "/shop?category=gifts", label: t.nav.gifts },
     { href: "/shop?sale=1", label: t.nav.sale },
+    { href: "/custom", label: t.nav.custom },
     { href: "/wholesale", label: t.nav.wholesale },
   ];
 
@@ -114,7 +116,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
         </div>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1 xl:gap-3">
+          <ul className="flex items-center xl:gap-2">
             {nav.map((n) =>
               n.dropdown ? (
                 <li key={n.href} className="relative" onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)}>
@@ -123,7 +125,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
                     aria-expanded={shopOpen}
                     aria-haspopup="true"
                     onClick={() => setShopOpen((v) => !v)}
-                    className={cn("flex items-center gap-1 px-2 py-2 text-[14px] font-medium transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
+                    className={cn("flex items-center gap-1 px-1.5 py-2 text-[13px] font-medium xl:px-2 xl:text-[14px] transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
                   >
                     {n.label} <ChevronDown className={cn("h-3.5 w-3.5 transition", shopOpen && "rotate-180")} />
                   </button>
@@ -145,7 +147,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
                     href={n.href}
                     aria-current={isActive(n.href) ? "page" : undefined}
                     className={cn(
-                      "relative px-2 py-2 text-[14px] font-medium transition hover:text-gold-600",
+                      "relative px-1.5 py-2 text-[13px] font-medium xl:px-2 xl:text-[14px] transition hover:text-gold-600",
                       isActive(n.href) && "text-gold-600 after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded after:bg-gold",
                     )}
                   >

@@ -1,5 +1,5 @@
 /**
- * T-shirt customization options and wholesale helpers.
+ * Product customization options and wholesale helpers.
  * Shared by the browser (to show prices) and the server (to charge them),
  * so the server always recalculates and never trusts client prices.
  * Edit the prices/options here to change what customers can choose.
@@ -14,18 +14,33 @@ export type Customization = {
   notes?: string; // instructions for the print team
 };
 
-export const PLACEMENTS = [
-  { value: "front", en: "Front", es: "Frente", price: 8 },
-  { value: "back", en: "Back", es: "Espalda", price: 8 },
-  { value: "front-back", en: "Front & Back", es: "Frente y Espalda", price: 14 },
-  { value: "left-chest", en: "Left Chest (small logo)", es: "Pecho Izquierdo (logo pequeño)", price: 5 },
-] as const;
+/** Which set of print options a product gets. */
+export type CustomType = "apparel" | "tote" | "cup" | "cap";
 
-export const METHODS = [
-  { value: "screen-print", en: "Screen Print", es: "Serigrafía", price: 0 },
-  { value: "dtf", en: "Full-Color Print (DTF)", es: "Impresión a Todo Color (DTF)", price: 3 },
-  { value: "embroidery", en: "Embroidery", es: "Bordado", price: 6 },
-] as const;
+type Option = { value: string; en: string; es: string; price: number; types: CustomType[] };
+
+export const PLACEMENTS: Option[] = [
+  { value: "front", en: "Front", es: "Frente", price: 8, types: ["apparel"] },
+  { value: "back", en: "Back", es: "Espalda", price: 8, types: ["apparel"] },
+  { value: "front-back", en: "Front & Back", es: "Frente y Espalda", price: 14, types: ["apparel"] },
+  { value: "left-chest", en: "Left Chest (small logo)", es: "Pecho Izquierdo (logo pequeño)", price: 5, types: ["apparel"] },
+  { value: "one-side", en: "One Side", es: "Un Lado", price: 6, types: ["tote"] },
+  { value: "both-sides", en: "Both Sides", es: "Ambos Lados", price: 10, types: ["tote"] },
+  { value: "cup-one-side", en: "One Side", es: "Un Lado", price: 4, types: ["cup"] },
+  { value: "cup-wrap", en: "Full Wrap", es: "Envolvente", price: 7, types: ["cup"] },
+  { value: "cap-front", en: "Front Panel", es: "Panel Frontal", price: 6, types: ["cap"] },
+  { value: "cap-side", en: "Side", es: "Lateral", price: 4, types: ["cap"] },
+];
+
+export const METHODS: Option[] = [
+  { value: "screen-print", en: "Screen Print", es: "Serigrafía", price: 0, types: ["apparel", "tote"] },
+  { value: "dtf", en: "Full-Color Print (DTF)", es: "Impresión a Todo Color (DTF)", price: 3, types: ["apparel", "tote", "cap"] },
+  { value: "embroidery", en: "Embroidery", es: "Bordado", price: 6, types: ["apparel", "cap"] },
+  { value: "sublimation", en: "Full-Color Sublimation", es: "Sublimación a Todo Color", price: 0, types: ["cup"] },
+];
+
+export const placementsFor = (type: CustomType = "apparel") => PLACEMENTS.filter((o) => o.types.includes(type));
+export const methodsFor = (type: CustomType = "apparel") => METHODS.filter((o) => o.types.includes(type));
 
 export const TEXT_COLORS = [
   { value: "black", en: "Black", es: "Negro", hex: "#111111" },
@@ -38,9 +53,9 @@ export const TEXT_COLORS = [
 export const CUSTOM_TEXT_MAX = 40;
 
 /** Extra cost per shirt for the chosen options. Returns null if an option is invalid. */
-export function customizationPrice(c: Customization): number | null {
-  const pl = PLACEMENTS.find((p) => p.value === c.placement);
-  const me = METHODS.find((m) => m.value === c.method);
+export function customizationPrice(c: Customization, type: CustomType = "apparel"): number | null {
+  const pl = placementsFor(type).find((p) => p.value === c.placement);
+  const me = methodsFor(type).find((m) => m.value === c.method);
   if (!pl || !me) return null;
   return pl.price + me.price;
 }

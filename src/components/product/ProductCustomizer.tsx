@@ -3,10 +3,12 @@
 import { Paintbrush } from "lucide-react";
 import { useI18n } from "@/components/providers/I18nProvider";
 import { useStore } from "@/components/providers/StoreProvider";
-import { CUSTOM_TEXT_MAX, METHODS, PLACEMENTS, TEXT_COLORS, customizationPrice, type Customization } from "@/lib/customization";
+import { CUSTOM_TEXT_MAX, TEXT_COLORS, customizationPrice, methodsFor, placementsFor, type CustomType, type Customization } from "@/lib/customization";
 import { cn } from "@/lib/utils";
 
-export const EMPTY_CUSTOM: Customization = { placement: "front", method: "screen-print", text: "", textColor: "black", artworkUrl: "", notes: "" };
+export const defaultCustom = (type: CustomType = "apparel"): Customization => ({
+  placement: placementsFor(type)[0].value, method: methodsFor(type)[0].value, text: "", textColor: "black", artworkUrl: "", notes: "",
+});
 
 /** Removes empty optional fields so the cart line and order stay clean. */
 export function cleanCustomization(c: Customization): Customization {
@@ -66,20 +68,21 @@ function TeePreview({ c }: { c: Customization }) {
   );
 }
 
-export function TeeCustomizer({
-  enabled, onToggle, value, onChange, basePrice,
+export function ProductCustomizer({
+  enabled, onToggle, value, onChange, basePrice, type = "apparel",
 }: {
   enabled: boolean;
   onToggle: (v: boolean) => void;
   value: Customization;
   onChange: (c: Customization) => void;
   basePrice: number;
+  type?: CustomType;
 }) {
   const { locale } = useI18n();
   const { money } = useStore();
   const es = locale === "es";
   const set = (patch: Partial<Customization>) => onChange({ ...value, ...patch });
-  const extra = customizationPrice(value) ?? 0;
+  const extra = customizationPrice(value, type) ?? 0;
   const opt = "rounded-md border px-3 py-2.5 text-left text-sm transition min-h-[44px]";
   const on = "border-navy bg-navy text-white";
   const off = "border-line bg-white hover:border-navy";
@@ -88,9 +91,9 @@ export function TeeCustomizer({
     <section className="rounded-xl border border-line p-4 sm:p-5" aria-labelledby="customize-heading">
       <div className="flex items-center justify-between gap-3">
         <h2 id="customize-heading" className="flex items-center gap-2 font-sans text-base font-semibold">
-          <Paintbrush className="h-4 w-4 text-gold" strokeWidth={1.75} /> {es ? "Personaliza tu camiseta" : "Customize this T-shirt"}
+          <Paintbrush className="h-4 w-4 text-gold" strokeWidth={1.75} /> {es ? "Personaliza este producto" : "Customize this item"}
         </h2>
-        <div role="group" aria-label={es ? "Tipo de camiseta" : "Shirt type"} className="inline-flex rounded-md border border-line p-0.5 text-xs font-semibold">
+        <div role="group" aria-label={es ? "Tipo de producto" : "Item type"} className="inline-flex rounded-md border border-line p-0.5 text-xs font-semibold">
           {[false, true].map((v) => (
             <button
               key={String(v)}
@@ -99,7 +102,7 @@ export function TeeCustomizer({
               onClick={() => onToggle(v)}
               className={cn("rounded px-3 py-1.5 transition", enabled === v ? "bg-navy text-white" : "text-navy hover:bg-cream")}
             >
-              {v ? (es ? "Personalizada" : "Custom") : es ? "Lisa" : "Plain"}
+              {v ? (es ? "Personalizado" : "Custom") : es ? "Sin diseño" : "Plain"}
             </button>
           ))}
         </div>
@@ -107,12 +110,12 @@ export function TeeCustomizer({
 
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
-          <TeePreview c={value} />
+          {type === "apparel" && <TeePreview c={value} />}
 
           <fieldset>
-            <legend className="mb-2 text-sm font-semibold">{es ? "Ubicación de impresión" : "Print placement"}</legend>
+            <legend className="mb-2 text-sm font-semibold">{es ? "Ubicación del diseño" : "Design placement"}</legend>
             <div className="grid grid-cols-2 gap-2">
-              {PLACEMENTS.map((p) => (
+              {placementsFor(type).map((p) => (
                 <button key={p.value} type="button" aria-pressed={value.placement === p.value} onClick={() => set({ placement: p.value })} className={cn(opt, value.placement === p.value ? on : off)}>
                   <span className="block font-medium">{es ? p.es : p.en}</span>
                   <span className={cn("text-xs", value.placement === p.value ? "text-white/80" : "text-slate-500")}>+{money(p.price)}</span>
@@ -124,7 +127,7 @@ export function TeeCustomizer({
           <fieldset>
             <legend className="mb-2 text-sm font-semibold">{es ? "Método de impresión" : "Print method"}</legend>
             <div className="grid gap-2 sm:grid-cols-3">
-              {METHODS.map((m) => (
+              {methodsFor(type).map((m) => (
                 <button key={m.value} type="button" aria-pressed={value.method === m.value} onClick={() => set({ method: m.value })} className={cn(opt, value.method === m.value ? on : off)}>
                   <span className="block font-medium">{es ? m.es : m.en}</span>
                   <span className={cn("text-xs", value.method === m.value ? "text-white/80" : "text-slate-500")}>
@@ -194,9 +197,9 @@ export function TeeCustomizer({
           </div>
 
           <dl className="space-y-1.5 rounded-lg bg-cream p-3 text-sm">
-            <div className="flex justify-between"><dt>{es ? "Camiseta" : "Shirt"}</dt><dd>{money(basePrice)}</dd></div>
+            <div className="flex justify-between"><dt>{es ? "Producto" : "Item"}</dt><dd>{money(basePrice)}</dd></div>
             <div className="flex justify-between"><dt>{es ? "Personalización" : "Customization"}</dt><dd>+{money(extra)}</dd></div>
-            <div className="flex justify-between border-t border-line pt-1.5 font-semibold"><dt>{es ? "Precio por unidad" : "Price per shirt"}</dt><dd>{money(basePrice + extra)}</dd></div>
+            <div className="flex justify-between border-t border-line pt-1.5 font-semibold"><dt>{es ? "Precio por unidad" : "Price per item"}</dt><dd>{money(basePrice + extra)}</dd></div>
           </dl>
         </div>
       )}

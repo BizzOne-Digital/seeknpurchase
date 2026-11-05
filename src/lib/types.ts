@@ -12,6 +12,7 @@ export type ProductDTO = {
   wholesalePrice?: number;
   wholesaleMinQty?: number;
   customizable?: boolean;
+  customType?: import("./customization").CustomType;
   stock: number;
   lowStockThreshold?: number;
   featured?: boolean;
@@ -53,6 +54,7 @@ export type ProductCardData = {
   wholesalePrice?: number;
   wholesaleMinQty?: number;
   customizable?: boolean;
+  customType?: import("./customization").CustomType;
   category?: string;
   sku?: string;
 };

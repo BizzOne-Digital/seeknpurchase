@@ -30,7 +30,7 @@ We use essential cookies to keep your cart, language preference and account sess
 You may request access to, correction of, or deletion of your personal information by contacting info@seeknpurchase.com.
 
 ## Contact
-Questions about this policy: info@seeknpurchase.com or 310-409-5842.`,
+Questions about this policy: info@seeknpurchase.com or 213-259-3140.`,
   },
   terms: {
     title: "Terms of Service",
@@ -52,7 +52,7 @@ You are responsible for keeping your account password confidential and for activ
 To the fullest extent permitted by law, SeeknPurchase is not liable for indirect or consequential damages arising from use of the site or products.
 
 ## Contact
-info@seeknpurchase.com · 310-409-5842`,
+info@seeknpurchase.com · 213-259-3140`,
   },
   "shipping-policy": {
     title: "Shipping Policy",
@@ -72,7 +72,7 @@ Free standard shipping applies to qualifying orders that meet the free-shipping 
 Once your order ships, you will receive an email with tracking details. You can also view order status in your account.
 
 ## Questions
-Contact info@seeknpurchase.com or call 310-409-5842.`,
+Contact info@seeknpurchase.com or call 213-259-3140.`,
   },
   "return-policy": {
     title: "Return Policy",

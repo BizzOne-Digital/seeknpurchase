@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Heart, Minus, Plus, ShoppingCart, Zap } from "lucide-react";
 import type { ProductCardData } from "@/lib/types";
@@ -9,7 +9,7 @@ import { useI18n } from "@/components/providers/I18nProvider";
 import { useToast } from "@/components/providers/ToastProvider";
 import { cn } from "@/lib/utils";
 import { customizationPrice, customizationSummary } from "@/lib/customization";
-import { EMPTY_CUSTOM, TeeCustomizer, cleanCustomization, validateCustomization } from "./TeeCustomizer";
+import { ProductCustomizer, cleanCustomization, defaultCustom, validateCustomization } from "./ProductCustomizer";
 import Link from "next/link";
 
 export function QtyStepper({ value, onChange, max = 99, min = 1, size = "md" }: { value: number; onChange: (n: number) => void; max?: number; min?: number; size?: "sm" | "md" }) {
@@ -44,7 +44,11 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
   const router = useRouter();
   const [qty, setQty] = useState(1);
   const [customOn, setCustomOn] = useState(false);
-  const [custom, setCustom] = useState(EMPTY_CUSTOM);
+  const [custom, setCustom] = useState(() => defaultCustom(p.customType));
+  // Links from the Custom page (?custom=1) open with customization switched on.
+  useEffect(() => {
+    if (p.customizable && new URLSearchParams(window.location.search).get("custom") === "1") setCustomOn(true);
+  }, [p.customizable]);
   const [sel, setSel] = useState<Record<string, string>>({});
   const [err, setErr] = useState("");
   const out = p.stock <= 0;
@@ -67,7 +71,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
       const c = cleanCustomization(custom);
       const variant = [baseVariant, customizationSummary(c)].filter(Boolean).join(" | ");
       setErr("");
-      add({ slug: p.slug, title: p.title, image: p.image, price: p.price + (customizationPrice(c) ?? 0), stock: p.stock, variant, baseVariant, custom: c }, qty);
+      add({ slug: p.slug, title: p.title, image: p.image, price: p.price + (customizationPrice(c, p.customType) ?? 0), stock: p.stock, variant, baseVariant, custom: c }, qty);
       return true;
     }
     setErr("");
@@ -101,7 +105,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
         </fieldset>
       ))}
       {p.customizable && !out && (
-        <TeeCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} />
+        <ProductCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} type={p.customType} />
       )}
       {err && <p className="field-error" role="alert">{err}</p>}
 
