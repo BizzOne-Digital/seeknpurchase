@@ -19,7 +19,7 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
   const p = (es && hero.primaryLabelEs) || hero.primaryLabelEn;
   const s = (es && hero.secondaryLabelEs) || hero.secondaryLabelEn;
   const { props: mobileImage } = getImageProps({
-    src: "/mobile-hero.png", alt: "", fill: true, sizes: "100vw",
+    src: "/images/hero/mobile-hero.webp", alt: "", fill: true, sizes: "100vw",
   });
 
   return (
