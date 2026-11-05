@@ -3,7 +3,7 @@ import type {
 } from "./types";
 
 export const IMG = {
-  hero: "/images/hero/custom-printing-banner.webp",
+  hero: "/images/hero/custom-printing-theme.webp",
   heroAlt: "/images/hero/wardrobe-alternate.webp",
   rack: "/images/site/curated-clothing-rack.webp",
   store: "/images/site/retail-interior.webp",
