@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { getImageProps } from "next/image";
 import { ArrowRight, Paintbrush } from "lucide-react";
 import { DEFAULT_HOMEPAGE } from "@/lib/demo-data";
 import type { HomepageDTO } from "@/lib/types";
 import type { Locale } from "@/lib/i18n/dictionaries";
-import { SmartImage } from "@/components/ui/SmartImage";
+import { HeroCarousel } from "@/components/home/HeroCarousel";
 
 export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Locale }) {
   // Upgrade the original seeded hero without overwriting a customized CMS hero.
@@ -20,19 +19,9 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
   const s = (es && hero.secondaryLabelEs) || hero.secondaryLabelEn;
   const desktopImage = hero.image === "/images/hero/custom-printing-banner.webp"
     ? DEFAULT_HOMEPAGE.hero.image : hero.image;
-  const { props: mobileImage } = getImageProps({
-    src: "/images/hero/mobile-hero-theme.webp", alt: "", fill: true, sizes: "100vw",
-  });
 
   return (
-    <section className="relative isolate aspect-[3/5] min-h-[680px] overflow-hidden bg-cream text-navy sm:aspect-auto sm:min-h-0" aria-labelledby="hero-heading">
-      <div className="absolute inset-0">
-        <picture>
-          <source media="(max-width: 639px)" srcSet={mobileImage.srcSet} sizes={mobileImage.sizes} />
-          <SmartImage src={desktopImage} alt={es ? "Camiseta personalizada, sudadera azul marino, bolsa de tela, taza y gorra" : "Custom T-shirt reading Choose Your Own Design, navy hoodie, personalized tote, mug and cap"} fill loading="eager" fetchPriority="high" sizes="100vw" className="object-contain object-bottom sm:object-cover sm:object-center" />
-        </picture>
-      </div>
-      <div className="absolute inset-y-0 left-0 hidden w-[60%] bg-gradient-to-r from-cream via-cream/90 to-transparent sm:block lg:w-[45%] lg:via-cream/50" />
+    <HeroCarousel desktopImage={desktopImage} locale={locale}>
       <div className="container relative flex justify-center pb-6 pt-8 text-center sm:min-h-[460px] sm:items-center sm:justify-start sm:py-14 sm:text-left lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
         <div className="w-full max-w-[430px] sm:w-[43%]">
           <p className="mb-3 animate-fade-up text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-700 sm:mb-5 sm:text-xs">{l3}</p>
@@ -49,6 +38,6 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
           </div>
         </div>
       </div>
-    </section>
+    </HeroCarousel>
   );
 }
