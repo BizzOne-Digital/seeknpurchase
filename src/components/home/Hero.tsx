@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getImageProps } from "next/image";
 import { ArrowRight, Paintbrush } from "lucide-react";
 import { DEFAULT_HOMEPAGE } from "@/lib/demo-data";
 import type { HomepageDTO } from "@/lib/types";
@@ -17,15 +18,20 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
   const sub = (es && hero.subtitleEs) || hero.subtitleEn;
   const p = (es && hero.primaryLabelEs) || hero.primaryLabelEn;
   const s = (es && hero.secondaryLabelEs) || hero.secondaryLabelEn;
+  const { props: mobileImage } = getImageProps({
+    src: "/mobile-hero.png", alt: "", fill: true, sizes: "100vw",
+  });
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#08052b] text-white" aria-labelledby="hero-heading">
-      <div className="absolute inset-x-0 bottom-0 h-[230px] sm:inset-0 sm:h-auto">
-        <SmartImage src={hero.image} alt="" fill priority sizes="100vw" className="object-cover object-[12%_center] sm:object-center" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#08052b] via-transparent to-transparent sm:hidden" />
+    <section className="relative isolate aspect-[3/5] min-h-[640px] overflow-hidden bg-[#08052b] text-white sm:aspect-auto sm:min-h-0" aria-labelledby="hero-heading">
+      <div className="absolute inset-0">
+        <picture>
+          <source media="(max-width: 639px)" srcSet={mobileImage.srcSet} sizes={mobileImage.sizes} />
+          <SmartImage src={hero.image} alt="" fill loading="eager" fetchPriority="high" sizes="100vw" className="object-contain object-bottom sm:object-cover sm:object-center" />
+        </picture>
       </div>
       <div className="absolute inset-0 hidden bg-[#08052b]/50 sm:block lg:bg-transparent" />
-      <div className="container relative flex min-h-[590px] justify-center pb-[230px] pt-10 text-center sm:min-h-[460px] sm:items-center sm:py-14 lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
+      <div className="container relative flex justify-center pb-6 pt-8 text-center sm:min-h-[460px] sm:items-center sm:py-14 lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
         <div className="w-full max-w-[460px] lg:w-[40%]">
           <h1 id="hero-heading" className="animate-fade-up font-sans text-[2.8rem] font-black uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-[3.6rem] xl:text-[4.25rem]">
             <span className="block">{l1}</span>
