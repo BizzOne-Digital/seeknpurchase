@@ -38,7 +38,7 @@ export function HeroCarousel({ desktopImage, locale, children }: {
   const rotating = !paused && !hovered && !focused && visible && !reducedMotion;
   useEffect(() => {
     if (!rotating) return;
-    const timer = window.setTimeout(() => setActive((slide) => (slide + 1) % SLIDE_COUNT), 5000);
+    const timer = window.setTimeout(() => setActive((slide) => (slide + 1) % SLIDE_COUNT), 3000);
     return () => window.clearTimeout(timer);
   }, [active, rotating]);
 
