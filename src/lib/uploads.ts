@@ -2,7 +2,7 @@ import "server-only";
 import { connectDB } from "./db";
 import { StoredUpload } from "@/models";
 
-export const UPLOAD_FOLDERS = ["products", "gallery", "pages", "misc"] as const;
+export const UPLOAD_FOLDERS = ["products", "gallery", "pages", "misc", "designs"] as const;
 export type UploadFolder = (typeof UPLOAD_FOLDERS)[number];
 export const ALLOWED_MIME: Record<string, string> = {
   "image/jpeg": "jpg",
@@ -13,6 +13,17 @@ export const ALLOWED_MIME: Record<string, string> = {
 export const EXT_MIME: Record<string, string> = { jpg: "image/jpeg", png: "image/png", webp: "image/webp", gif: "image/gif" };
 export const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
 const FILENAME_RE = /^[0-9]{10,16}-[a-f0-9]{8,32}\.(jpg|png|webp|gif)$/;
+
+/** Checks the file's leading bytes so a renamed non-image can't pass as an image. */
+export function sniffImage(buf: Buffer): string | null {
+  if (buf.length < 12) return null;
+  if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return "image/jpeg";
+  if (buf.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return "image/png";
+  if (buf.subarray(0, 4).toString("ascii") === "RIFF" && buf.subarray(8, 12).toString("ascii") === "WEBP") return "image/webp";
+  const gif = buf.subarray(0, 6).toString("ascii");
+  if (gif === "GIF87a" || gif === "GIF89a") return "image/gif";
+  return null;
+}
 
 export function isUploadFolder(f: unknown): f is UploadFolder {
   return typeof f === "string" && (UPLOAD_FOLDERS as readonly string[]).includes(f);

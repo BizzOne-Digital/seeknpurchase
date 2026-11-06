@@ -142,7 +142,7 @@ const OrderSchema = new Schema(
         quantity: Number,
         wholesale: Boolean,
         customization: {
-          placement: String, method: String, text: String, textColor: String, artworkUrl: String, notes: String, unitCharge: Number,
+          placement: String, method: String, text: String, textColor: String, artworkUrl: String, layout: String, notes: String, unitCharge: Number,
         },
       },
     ],
@@ -388,7 +388,7 @@ export const HomepageContent = m("HomepageContent", HomepageContentSchema);
 /* ---------------- Uploads (binary lives ONLY here) ---------------- */
 const StoredUploadSchema = new Schema(
   {
-    folder: { type: String, required: true, enum: ["products", "gallery", "pages", "misc"] },
+    folder: { type: String, required: true, enum: ["products", "gallery", "pages", "misc", "designs"] },
     filename: { type: String, required: true },
     mimeType: { type: String, required: true },
     size: { type: Number, required: true },

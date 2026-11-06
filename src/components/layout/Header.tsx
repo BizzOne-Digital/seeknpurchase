@@ -43,16 +43,11 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
   const [scrolled, setScrolled] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const nav = [
+  const nav: { href: string; label: string; dropdown?: boolean }[] = [
     { href: "/", label: t.nav.home },
-    { href: "/about", label: t.nav.about },
-    { href: "/shop", label: t.nav.shop, dropdown: true },
     { href: "/custom", label: t.nav.custom },
-    { href: "/wholesale", label: t.nav.wholesale },
-    { href: "/services", label: t.nav.services },
+    { href: "/about", label: t.nav.about },
     { href: "/testimonials", label: t.nav.testimonials },
-    { href: "/faq", label: t.nav.faq },
-    { href: "/blog", label: t.nav.blog },
     { href: "/contact", label: t.nav.contact },
   ];
   const shopLinks = [
@@ -125,7 +120,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
                     aria-expanded={shopOpen}
                     aria-haspopup="true"
                     onClick={() => setShopOpen((v) => !v)}
-                    className={cn("flex items-center gap-1 px-1.5 py-2 text-[13px] font-medium xl:px-2 xl:text-[14px] transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
+                    className={cn("flex items-center gap-1 px-3 py-2 text-[14px] font-medium transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
                   >
                     {n.label} <ChevronDown className={cn("h-3.5 w-3.5 transition", shopOpen && "rotate-180")} />
                   </button>
@@ -147,7 +142,7 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
                     href={n.href}
                     aria-current={isActive(n.href) ? "page" : undefined}
                     className={cn(
-                      "relative px-1.5 py-2 text-[13px] font-medium xl:px-2 xl:text-[14px] transition hover:text-gold-600",
+                      "relative px-3 py-2 text-[14px] font-medium transition hover:text-gold-600",
                       isActive(n.href) && "text-gold-600 after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded after:bg-gold",
                     )}
                   >

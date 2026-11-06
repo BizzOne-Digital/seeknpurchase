@@ -105,7 +105,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
         </fieldset>
       ))}
       {p.customizable && !out && (
-        <ProductCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} type={p.customType} />
+        <ProductCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} image={p.image} type={p.customType} />
       )}
       {err && <p className="field-error" role="alert">{err}</p>}
 

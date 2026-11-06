@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import { Paintbrush } from "lucide-react";
 import { useI18n } from "@/components/providers/I18nProvider";
 import { useStore } from "@/components/providers/StoreProvider";
+import { DesignStage } from "./DesignStage";
 import { CUSTOM_TEXT_MAX, TEXT_COLORS, customizationPrice, methodsFor, placementsFor, type CustomType, type Customization } from "@/lib/customization";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +19,7 @@ export function cleanCustomization(c: Customization): Customization {
     method: c.method,
     ...(c.text?.trim() ? { text: c.text.trim(), textColor: c.textColor || "black" } : {}),
     ...(c.artworkUrl?.trim() ? { artworkUrl: c.artworkUrl.trim() } : {}),
+    ...(c.layout ? { layout: c.layout } : {}),
     ...(c.notes?.trim() ? { notes: c.notes.trim() } : {}),
   };
 }
@@ -28,60 +31,26 @@ export function validateCustomization(c: Customization, es: boolean): string {
   return "";
 }
 
-function TeePreview({ c }: { c: Customization }) {
-  const color = TEXT_COLORS.find((x) => x.value === c.textColor)?.hex ?? "#111";
-  const showFront = c.placement === "front" || c.placement === "front-back" || c.placement === "left-chest";
-  const showBack = c.placement === "back" || c.placement === "front-back";
-  const label = c.text?.trim() || "YOUR DESIGN";
-  const shirt = (side: "front" | "back", active: boolean, chest: boolean) => (
-    <figure className="flex flex-col items-center gap-1">
-      <svg viewBox="0 0 120 120" className="h-28 w-28 sm:h-32 sm:w-32" aria-hidden>
-        <path
-          d="M40 10 L22 18 L6 40 L22 50 L28 44 L28 110 L92 110 L92 44 L98 50 L114 40 L98 18 L80 10 C76 20 66 24 60 24 C54 24 44 20 40 10 Z"
-          fill="#f4f1ea"
-          stroke="#c9c2b3"
-          strokeWidth="1.5"
-        />
-        {side === "front" && <path d="M48 12 C52 20 68 20 72 12" fill="none" stroke="#c9c2b3" strokeWidth="1.5" />}
-        {active &&
-          (chest ? (
-            <text x="76" y="44" textAnchor="middle" fontSize="6" fontWeight="700" fill={color} stroke={c.textColor === "white" ? "#999" : "none"} strokeWidth="0.3">
-              {label.slice(0, 10)}
-            </text>
-          ) : (
-            <>
-              <rect x="40" y="42" width="40" height="34" rx="3" fill="none" stroke="#c9a14a" strokeDasharray="3 2" />
-              <text x="60" y="62" textAnchor="middle" fontSize={label.length > 12 ? 5 : 7} fontWeight="700" fill={color} stroke={c.textColor === "white" ? "#999" : "none"} strokeWidth="0.3">
-                {label.slice(0, 22)}
-              </text>
-            </>
-          ))}
-      </svg>
-      <figcaption className="text-[11px] uppercase tracking-wider text-slate-500">{side}</figcaption>
-    </figure>
-  );
-  return (
-    <div className="flex justify-center gap-4 rounded-lg bg-cream p-3" aria-label="Customization preview">
-      {shirt("front", showFront, c.placement === "left-chest")}
-      {shirt("back", showBack, false)}
-    </div>
-  );
-}
-
 export function ProductCustomizer({
-  enabled, onToggle, value, onChange, basePrice, type = "apparel",
+  enabled, onToggle, value, onChange, basePrice, image, type = "apparel",
 }: {
   enabled: boolean;
   onToggle: (v: boolean) => void;
   value: Customization;
   onChange: (c: Customization) => void;
   basePrice: number;
+  image: string;
   type?: CustomType;
 }) {
   const { locale } = useI18n();
   const { money } = useStore();
   const es = locale === "es";
-  const set = (patch: Partial<Customization>) => onChange({ ...value, ...patch });
+  const latest = useRef(value);
+  latest.current = value;
+  const set = (patch: Partial<Customization>) => {
+    latest.current = { ...latest.current, ...patch };
+    onChange(latest.current);
+  };
   const extra = customizationPrice(value, type) ?? 0;
   const opt = "rounded-md border px-3 py-2.5 text-left text-sm transition min-h-[44px]";
   const on = "border-navy bg-navy text-white";
@@ -110,7 +79,7 @@ export function ProductCustomizer({
 
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
-          {type === "apparel" && <TeePreview c={value} />}
+          <DesignStage image={image} value={value} onChange={set} es={es} />
 
           <fieldset>
             <legend className="mb-2 text-sm font-semibold">{es ? "Ubicación del diseño" : "Design placement"}</legend>
@@ -172,24 +141,6 @@ export function ProductCustomizer({
               </div>
             </fieldset>
           )}
-
-          <div>
-            <label htmlFor="artwork-url" className="label">{es ? "Enlace a tu logo o diseño (opcional)" : "Link to your logo or design (optional)"}</label>
-            <input
-              id="artwork-url"
-              type="url"
-              inputMode="url"
-              className="input"
-              value={value.artworkUrl || ""}
-              onChange={(e) => set({ artworkUrl: e.target.value })}
-              placeholder="https://drive.google.com/..."
-            />
-            <p className="mt-1 text-xs text-slate-500">
-              {es
-                ? "Comparte un enlace de Google Drive, Dropbox o similar. Si no tienes uno, te contactaremos por correo después del pedido."
-                : "Share a Google Drive, Dropbox or similar link. No link? We'll email you to collect your artwork after you order."}
-            </p>
-          </div>
 
           <div>
             <label htmlFor="custom-notes" className="label">{es ? "Instrucciones (opcional)" : "Instructions (optional)"}</label>
