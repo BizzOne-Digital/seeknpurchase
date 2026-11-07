@@ -120,7 +120,7 @@ function EditorDrawer({
   );
 }
 
-export function ResourceManager({ resource, dynamicOptions = {}, description }: { resource: string; dynamicOptions?: Options; description?: string }) {
+export function ResourceManager({ resource, dynamicOptions = {}, description, extraActions }: { resource: string; dynamicOptions?: Options; description?: string; extraActions?: React.ReactNode }) {
   const def = RESOURCES[resource];
   const { toast } = useToast();
   const [items, setItems] = useState<Doc[] | null>(null);
@@ -193,9 +193,12 @@ export function ResourceManager({ resource, dynamicOptions = {}, description }: 
       <AdminPageHeader
         title={def.title}
         description={description || `${total} total`}
-        actions={def.canCreate !== false && (
-          <button onClick={() => setEditing("new")} className="btn-primary btn-sm"><Plus className="h-4 w-4" /> Add {def.singular}</button>
-        )}
+        actions={
+          <div className="flex flex-wrap items-center gap-2">
+            {extraActions}
+            {def.canCreate !== false && <button onClick={() => setEditing("new")} className="btn-primary btn-sm"><Plus className="h-4 w-4" /> Add {def.singular}</button>}
+          </div>
+        }
       />
       <form
         onSubmit={(e) => {

@@ -11,7 +11,9 @@ export const customizationSchema = z.object({
   text: str(CUSTOM_TEXT_MAX).optional(),
   textColor: str(20).optional(),
   artworkUrl: z.union([z.literal(""), z.string().trim().url("Artwork link must be a valid URL").max(500).refine((u) => /^https?:\/\//i.test(u), "Artwork link must start with http(s)://")]).optional(),
-  layout: str(160).optional(),
+  backArtworkUrl: z.union([z.literal(""), z.string().trim().url("Artwork link must be a valid URL").max(500).refine((u) => /^https?:\/\//i.test(u), "Artwork link must start with http(s)://")]).optional(),
+  backText: str(CUSTOM_TEXT_MAX).optional(),
+  layout: str(300).optional(),
   notes: str(500).optional(),
 });
 

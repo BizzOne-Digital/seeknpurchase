@@ -10,7 +10,9 @@ export type Customization = {
   method: string; // METHODS value
   text?: string; // optional custom text printed on the shirt
   textColor?: string; // TEXT_COLORS value
-  artworkUrl?: string; // optional link to a logo / design (Google Drive, Dropbox, etc.)
+  artworkUrl?: string; // uploaded design for the front (or the only side)
+  backText?: string; // text for the back side
+  backArtworkUrl?: string; // uploaded design for the back side
   layout?: string; // where the customer placed the design in the print area
   notes?: string; // instructions for the print team
 };
@@ -68,6 +70,8 @@ export function customizationSummary(c: Customization): string {
   const parts = [`Custom: ${pl}, ${me}`];
   if (c.text) parts.push(`Text "${c.text}"${c.textColor ? ` (${TEXT_COLORS.find((t) => t.value === c.textColor)?.en ?? c.textColor})` : ""}`);
   if (c.artworkUrl) parts.push(`Artwork: ${c.artworkUrl}`);
+  if (c.backText) parts.push(`Back text "${c.backText}"`);
+  if (c.backArtworkUrl) parts.push(`Back artwork: ${c.backArtworkUrl}`);
   if (c.layout) parts.push(`Layout: ${c.layout}`);
   if (c.notes) parts.push(`Notes: ${c.notes}`);
   return parts.join(" · ");

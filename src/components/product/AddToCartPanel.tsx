@@ -9,6 +9,7 @@ import { useI18n } from "@/components/providers/I18nProvider";
 import { useToast } from "@/components/providers/ToastProvider";
 import { cn } from "@/lib/utils";
 import { customizationPrice, customizationSummary } from "@/lib/customization";
+import { colorHex, mockupKind } from "@/lib/mockups";
 import { ProductCustomizer, cleanCustomization, defaultCustom, validateCustomization } from "./ProductCustomizer";
 import Link from "next/link";
 
@@ -54,6 +55,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
   const out = p.stock <= 0;
   const variants = p.variants || [];
   const wished = inWishlist(p.slug);
+  const colorVariant = variants.find((v) => /colou?r/i.test(v.name));
 
   const doAdd = () => {
     const missing = variants.find((v) => !sel[v.name]);
@@ -105,7 +107,8 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
         </fieldset>
       ))}
       {p.customizable && !out && (
-        <ProductCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} image={p.image} type={p.customType} />
+        <ProductCustomizer enabled={customOn} onToggle={setCustomOn} value={custom} onChange={setCustom} basePrice={p.price} type={p.customType} kind={mockupKind(p.slug, p.customType)}
+          color={colorHex(sel[colorVariant?.name || ""] || colorVariant?.options[0])} />
       )}
       {err && <p className="field-error" role="alert">{err}</p>}
 

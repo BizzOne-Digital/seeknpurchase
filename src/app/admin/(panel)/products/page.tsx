@@ -1,4 +1,5 @@
 import { ResourceManager } from "@/components/admin/ResourceManager";
+import { ProductCsvImport } from "@/components/admin/ProductCsvImport";
 import { connectDB } from "@/lib/db";
 import { Category } from "@/models";
 
@@ -11,6 +12,7 @@ export default async function ProductsAdminPage() {
     <ResourceManager
       resource="products"
       description="Create, edit, duplicate and publish products. Click a status badge to publish/unpublish."
+      extraActions={<ProductCsvImport />}
       dynamicOptions={{ category: cats.map((c) => ({ value: c.slug, label: c.name })) }}
     />
   );
