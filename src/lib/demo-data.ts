@@ -189,7 +189,7 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     ["Custom Baseball Cap", "Gorra Personalizada", "custom-baseball-cap", "SP-CUS-018", 14.99, "cap", "cap", "An adjustable cotton cap with your embroidered or printed design.", { name: "Color", options: ["Black", "Navy", "White"] }],
   ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
-    category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/custom/${img}.svg`],
+    category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
     rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }], tags: ["custom", img], createdAt: d(2),
   })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
