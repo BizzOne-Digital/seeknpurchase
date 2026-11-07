@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export function Gallery({ images, title }: { images: string[]; title: string }) {
   const [i, setI] = useState(0);
   return (
-    <div className="flex flex-col-reverse gap-3 md:flex-row">
+    <div className="flex flex-col-reverse gap-3 self-start md:flex-row md:items-start lg:sticky lg:top-24">
       {images.length > 1 && (
         <ul className="no-scrollbar flex gap-3 overflow-x-auto md:w-20 md:flex-col md:overflow-visible" aria-label="Product images">
           {images.map((src, idx) => (
