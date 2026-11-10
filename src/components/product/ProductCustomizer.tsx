@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Paintbrush } from "lucide-react";
 import { useI18n } from "@/components/providers/I18nProvider";
 import { useStore } from "@/components/providers/StoreProvider";
@@ -26,7 +27,7 @@ export function cleanCustomization(c: Customization): Customization {
     ...(front && c.artworkUrl?.trim() ? { artworkUrl: c.artworkUrl.trim() } : {}),
     ...(back && c.backText?.trim() ? { backText: c.backText.trim() } : {}),
     ...(back && c.backArtworkUrl?.trim() ? { backArtworkUrl: c.backArtworkUrl.trim() } : {}),
-    ...((front && c.text?.trim()) || (back && c.backText?.trim()) ? { textColor: c.textColor || "black" } : {}),
+    ...((front && c.text?.trim()) || (back && c.backText?.trim()) ? { textColor: c.textColor || "black", textFont: c.textFont || "sans", textBold: c.textBold !== false } : {}),
     ...(c.layout ? { layout: c.layout } : {}),
     ...(c.notes?.trim() ? { notes: c.notes.trim() } : {}),
   };
@@ -67,6 +68,13 @@ export function ProductCustomizer({
     else if (!isDark(color) && t === "white") set({ textColor: "black" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color]);
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setSlot(document.getElementById("design-slot"));
+    if (!enabled) return;
+    document.documentElement.dataset.designing = "1";
+    return () => { delete document.documentElement.dataset.designing; };
+  }, [enabled]);
   const extra = customizationPrice(value, type) ?? 0;
   const opt = "rounded-md border px-3 py-2.5 text-left text-sm transition min-h-[44px]";
   const on = "border-navy bg-navy text-white";
@@ -95,7 +103,7 @@ export function ProductCustomizer({
 
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
-          <DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />
+          {slot ? createPortal(<DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />, slot) : <DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />}
 
           <fieldset>
             <legend className="mb-2 text-sm font-semibold">{es ? "Ubicación del diseño" : "Design placement"}</legend>
@@ -122,26 +130,6 @@ export function ProductCustomizer({
               ))}
             </div>
           </fieldset>
-
-          {(value.text?.trim() || value.backText?.trim()) && (
-            <fieldset>
-              <legend className="mb-2 text-sm font-semibold">{es ? "Color del texto" : "Text color"}</legend>
-              <div className="flex flex-wrap gap-2">
-                {TEXT_COLORS.map((c) => (
-                  <button
-                    key={c.value}
-                    type="button"
-                    aria-pressed={value.textColor === c.value}
-                    aria-label={es ? c.es : c.en}
-                    title={es ? c.es : c.en}
-                    onClick={() => set({ textColor: c.value })}
-                    className={cn("h-10 w-10 rounded-full border-2 transition", value.textColor === c.value ? "border-gold ring-2 ring-gold/30" : "border-line")}
-                    style={{ backgroundColor: c.hex }}
-                  />
-                ))}
-              </div>
-            </fieldset>
-          )}
 
           <div>
             <label htmlFor="custom-notes" className="label">{es ? "Instrucciones (opcional)" : "Instructions (optional)"}</label>

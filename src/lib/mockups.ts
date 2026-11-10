@@ -101,3 +101,40 @@ export const isDark = (hex: string) => {
   const n = parseInt(hex.slice(1), 16);
   return ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000 < 110;
 };
+
+/** Real product photos (transparent PNG/WebP of a white product) with their print areas, per side. */
+type PhotoSide = { src: string; area: Area; chest?: Area; wrap?: Area; side?: Area };
+export const PHOTOS: Partial<Record<MockupKind, Partial<Record<Side, PhotoSide>>>> = {
+  tee: {
+    front: { src: "/images/mockups/tee-front.webp", area: { x: 32, y: 24, w: 36, h: 46 }, chest: { x: 56, y: 24, w: 12, h: 11 } },
+    back: { src: "/images/mockups/tee-back.webp", area: { x: 31, y: 20, w: 38, h: 50 } },
+  },
+  sweatshirt: {
+    front: { src: "/images/mockups/sweatshirt-front.webp", area: { x: 33, y: 24, w: 34, h: 42 }, chest: { x: 56, y: 25, w: 11, h: 10 } },
+    back: { src: "/images/mockups/sweatshirt-back.webp", area: { x: 32, y: 20, w: 36, h: 48 } },
+  },
+  hoodie: {
+    front: { src: "/images/mockups/hoodie-front.webp", area: { x: 35, y: 31, w: 30, h: 25 }, chest: { x: 56, y: 31, w: 11, h: 10 } },
+    back: { src: "/images/mockups/hoodie-back.webp", area: { x: 32, y: 33, w: 36, h: 40 } },
+  },
+  tote: {
+    front: { src: "/images/mockups/tote-front.webp", area: { x: 26, y: 45, w: 48, h: 44 } },
+    back: { src: "/images/mockups/tote-back.webp", area: { x: 27, y: 45, w: 46, h: 44 } },
+  },
+  cup: {
+    front: { src: "/images/mockups/cup-front.webp", area: { x: 15, y: 25, w: 44, h: 52 }, wrap: { x: 9, y: 23, w: 56, h: 56 } },
+    back: { src: "/images/mockups/cup-back.webp", area: { x: 37, y: 25, w: 44, h: 52 }, wrap: { x: 31, y: 23, w: 56, h: 56 } },
+  },
+  cap: {
+    front: { src: "/images/mockups/cap-front.webp", area: { x: 32, y: 22, w: 36, h: 24 }, side: { x: 12, y: 32, w: 16, h: 16 } },
+    back: { src: "/images/mockups/cap-back.webp", area: { x: 30, y: 20, w: 40, h: 20 } },
+  },
+};
+
+/** Photo and print area for a side, or undefined to fall back to the drawn mockup. */
+export function photoFor(kind: MockupKind, placement: string, side: Side): { src: string; area: Area } | undefined {
+  const p = PHOTOS[kind]?.[side];
+  if (!p || !PRINT_AREAS[placement]?.[side]) return undefined;
+  const area = placement === "left-chest" ? p.chest ?? p.area : placement === "cup-wrap" ? p.wrap ?? p.area : placement === "cap-side" ? p.side ?? p.area : p.area;
+  return { src: p.src, area };
+}

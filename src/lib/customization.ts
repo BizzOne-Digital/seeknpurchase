@@ -10,6 +10,8 @@ export type Customization = {
   method: string; // METHODS value
   text?: string; // optional custom text printed on the shirt
   textColor?: string; // TEXT_COLORS value
+  textFont?: string; // FONTS value
+  textBold?: boolean;
   artworkUrl?: string; // uploaded design for the front (or the only side)
   backText?: string; // text for the back side
   backArtworkUrl?: string; // uploaded design for the back side
@@ -55,6 +57,14 @@ export const TEXT_COLORS = [
 
 export const CUSTOM_TEXT_MAX = 40;
 
+export const FONTS = [
+  { value: "sans", label: "Clean (Sans)", css: "ui-sans-serif, system-ui, Arial, sans-serif" },
+  { value: "serif", label: "Classic (Serif)", css: "Georgia, 'Times New Roman', serif" },
+  { value: "block", label: "Bold Block", css: "Impact, 'Arial Black', 'Helvetica Neue', sans-serif" },
+  { value: "script", label: "Script", css: "'Brush Script MT', 'Segoe Script', cursive" },
+  { value: "mono", label: "Typewriter", css: "'Courier New', ui-monospace, monospace" },
+] as const;
+
 /** Extra cost per shirt for the chosen options. Returns null if an option is invalid. */
 export function customizationPrice(c: Customization, type: CustomType = "apparel"): number | null {
   const pl = placementsFor(type).find((p) => p.value === c.placement);
@@ -68,7 +78,7 @@ export function customizationSummary(c: Customization): string {
   const pl = PLACEMENTS.find((p) => p.value === c.placement)?.en ?? c.placement;
   const me = METHODS.find((m) => m.value === c.method)?.en ?? c.method;
   const parts = [`Custom: ${pl}, ${me}`];
-  if (c.text) parts.push(`Text "${c.text}"${c.textColor ? ` (${TEXT_COLORS.find((t) => t.value === c.textColor)?.en ?? c.textColor})` : ""}`);
+  if (c.text) parts.push(`Text "${c.text}"${c.textColor ? ` (${TEXT_COLORS.find((t) => t.value === c.textColor)?.en ?? c.textColor}${c.textFont ? `, ${FONTS.find((f) => f.value === c.textFont)?.label ?? c.textFont}` : ""}${c.textBold === false ? ", regular" : ""})` : ""}`);
   if (c.artworkUrl) parts.push(`Artwork: ${c.artworkUrl}`);
   if (c.backText) parts.push(`Back text "${c.backText}"`);
   if (c.backArtworkUrl) parts.push(`Back artwork: ${c.backArtworkUrl}`);

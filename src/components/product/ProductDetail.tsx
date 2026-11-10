@@ -76,7 +76,10 @@ export async function ProductDetail({ slug }: { slug: string }) {
       </nav>
 
       <section className="container grid gap-10 py-8 lg:grid-cols-2 lg:gap-14">
-        <Gallery images={card.images} title={title} />
+        <div className="self-start lg:sticky lg:top-24">
+          <div id="design-slot" />
+          <div className="product-gallery"><Gallery images={card.images} title={title} /></div>
+        </div>
         <div>
           <div className="flex gap-2">
             {card.compareAtPrice && <span className="badge bg-[#8a2d1f] text-white">{t.common.sale}</span>}
