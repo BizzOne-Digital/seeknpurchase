@@ -8,10 +8,10 @@ import type { Locale } from "@/lib/i18n/dictionaries";
 
 const SLIDE_COUNT = 3;
 
-export function HeroCarousel({ desktopImage, locale, children }: {
+export function HeroCarousel({ desktopImage, locale, panels }: {
   desktopImage: string;
   locale: Locale;
-  children: ReactNode;
+  panels: ReactNode[]; // one text block per slide
 }) {
   const es = locale === "es";
   const [active, setActive] = useState(0);
@@ -49,14 +49,14 @@ export function HeroCarousel({ desktopImage, locale, children }: {
       alt: es ? "Camiseta personalizada, sudadera azul marino, bolsa, taza y gorra" : "Custom ivory T-shirt, navy hoodie, personalized tote, mug and cap",
     },
     {
-      desktop: "/images/hero/custom-apparel-desktop.webp",
-      mobile: "/images/hero/custom-apparel-mobile.webp",
-      alt: es ? "Camiseta azul marino personalizada, sudadera color avena y accesorios" : "Make It Personal navy T-shirt, oat hoodie, canvas tote and cap",
+      desktop: "/images/hero/western-hats-desktop.webp",
+      mobile: "/images/hero/western-hats-mobile.webp",
+      alt: es ? "Sombreros vaqueros de fieltro y cuero sobre una caja de madera" : "Felt and leather western hats on a wooden crate",
     },
     {
-      desktop: "/images/hero/personalized-gifts-desktop.webp",
-      mobile: "/images/hero/personalized-gifts-mobile.webp",
-      alt: es ? "Bolsa personalizada, tazas, vaso y regalos con detalles dorados" : "Made For You canvas tote, botanical mugs, navy tumbler and personalized gifts",
+      desktop: "/images/hero/summer-hats-desktop.webp",
+      mobile: "/images/hero/summer-hats-mobile.webp",
+      alt: es ? "Sombreros de paja de verano, sombrero de pescador y gafas de sol" : "Straw summer hats, bucket hat and sunglasses",
     },
   ];
   const buttonClass = "flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-navy/10";
@@ -102,7 +102,14 @@ export function HeroCarousel({ desktopImage, locale, children }: {
         })}
       </div>
       <div className="absolute inset-y-0 left-0 hidden w-[60%] bg-gradient-to-r from-cream via-cream/90 to-transparent sm:block lg:w-[45%] lg:via-cream/50" />
-      {children}
+      {/* All text panels share one grid cell so the height stays steady; only the active one is visible. */}
+      <div className="relative grid">
+        {panels.map((panel, index) => (
+          <div key={index} aria-hidden={index !== active} className={`[grid-area:1/1] transition-opacity duration-700 motion-reduce:transition-none ${index === active ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}>
+            {panel}
+          </div>
+        ))}
+      </div>
       <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center sm:bottom-4">
         <div role="group" aria-label={es ? "Controles del carrusel" : "Hero slideshow controls"} className="flex items-center gap-1 rounded-full border border-navy/10 bg-cream/95 px-1.5 py-0.5 shadow-sm backdrop-blur-sm">
           <button type="button" aria-label={es ? "Diapositiva anterior" : "Previous slide"} className={buttonClass} onClick={() => setActive((slide) => (slide + SLIDE_COUNT - 1) % SLIDE_COUNT)}>

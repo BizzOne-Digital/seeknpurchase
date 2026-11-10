@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ClipboardList, PackageCheck, Paintbrush, Truck } from "lucide-react";
+import { ArrowRight, ClipboardList, PackageCheck, Paintbrush, PackageSearch, Search, Truck, BadgeDollarSign } from "lucide-react";
 import { getCategories, getWholesaleProducts, toCard } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n/server";
 import { PageHero } from "@/components/ui/SectionHeading";
@@ -31,6 +31,40 @@ export default async function WholesalePage() {
         title={es ? "Pedidos al Por Mayor" : "Wholesale Ordering"}
         subtitle={es ? "Compra en volumen a precios de mayoreo. Pedido simple, precios claros." : "Buy in bulk at wholesale prices. Simple ordering, clear pricing."}
       />
+      <section className="container pt-10" aria-labelledby="sourcing-heading">
+        <div className="grid gap-8 overflow-hidden rounded-2xl bg-navy p-7 text-white md:grid-cols-[1.4fr_1fr] md:p-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-100">{es ? "Abastecimiento al por mayor" : "Wholesale Sourcing"}</p>
+            <h2 id="sourcing-heading" className="mt-3 text-3xl text-white md:text-4xl">
+              {es ? "¿Cansado de buscar productos a precios de mayoreo?" : "Tired of Outsourcing Your Products at Wholesale Prices?"}
+            </h2>
+            <p className="mt-4 max-w-xl text-white/80">
+              {es
+                ? "En SeeknPurchase te ayudamos. Dinos qué producto necesitas, la cantidad y tu presupuesto, y lo conseguimos por ti a precio de mayoreo, sin complicaciones."
+                : "At SeeknPurchase, we can help with that. Tell us the product you need, the quantity and your target price, and we'll source it for you at wholesale prices, without the hassle."}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/contact" className="btn bg-gold-100 px-6 text-navy hover:bg-gold hover:text-white">
+                {es ? "Envía tu solicitud" : "Send Your Request"} <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a href="#ws-heading" className="btn border border-white/40 px-6 text-white hover:bg-white/10">{es ? "Ver catálogo" : "Browse Catalog"}</a>
+            </div>
+          </div>
+          <ul className="grid content-center gap-4 text-sm">
+            {[
+              { icon: PackageSearch, t: es ? "Buscamos el producto por ti" : "We find the product for you" },
+              { icon: BadgeDollarSign, t: es ? "Precios de mayoreo competitivos" : "Competitive wholesale pricing" },
+              { icon: Search, t: es ? "Revisamos calidad y proveedores" : "We check quality and suppliers" },
+              { icon: Truck, t: es ? "Entrega directa a tu negocio" : "Delivered straight to your business" },
+            ].map((b) => (
+              <li key={b.t} className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-100"><b.icon className="h-4 w-4" /></span>
+                {b.t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
       <section className="container pt-10" aria-label={es ? "Cómo funciona" : "How it works"}>
         <ol className="grid gap-4 md:grid-cols-3">
           {steps.map((s, i) => (

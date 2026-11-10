@@ -176,7 +176,7 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     shortDescription: "A soft, everyday crew-neck tee. Order it plain or customize it with your own text, logo or design.",
     description: "Made from 100% ring-spun cotton with a comfortable regular fit. Choose a plain shirt or add your own print: pick the placement, print method and custom text, or share a link to your logo. Ideal for teams, events, businesses and gifts.",
     descriptionEs: "Hecha de 100% algodón peinado con un corte regular cómodo. Elige una camiseta lisa o personalízala con tu texto, logo o diseño.",
-    price: 14.99, stock: 500, featured: true, newArrival: true, customizable: true, wholesalePrice: 7.99, wholesaleMinQty: 24,
+    price: 14.99, stock: 500, featured: true, newArrival: true, customizable: true,
     images: ["/images/products/classic-cotton-t-shirt-1.webp"], rating: 4.7, reviewCount: 64, soldCount: 290,
     variants: [{ name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray"] }],
     tags: ["t-shirt", "custom", "apparel"], createdAt: d(3),
