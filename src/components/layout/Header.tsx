@@ -103,56 +103,56 @@ export function Header({ businessName, logo }: { businessName: string; logo?: st
   return (
     <header className={cn("sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow", scrolled ? "border-line shadow-soft" : "border-transparent")}>
       <div className="container flex h-16 items-center justify-between gap-4 lg:h-[72px]">
-        <div className="flex items-center gap-2 lg:gap-10">
+        <div className="flex items-center gap-2">
           <button className={cn(iconBtn, "lg:hidden -ml-2")} onClick={() => setMobile(true)} aria-label={t.nav.menu} aria-expanded={mobile}>
             <Menu className="h-5 w-5" strokeWidth={1.6} />
           </button>
           <Logo name={businessName} logo={logo} />
-          <nav aria-label="Main" className="hidden lg:block">
-            <ul className="flex items-center gap-1 xl:gap-2">
-              {nav.map((n) =>
-                n.dropdown ? (
-                  <li key={n.href} className="relative" onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)}>
-                    <button
-                      type="button"
-                      aria-expanded={shopOpen}
-                      aria-haspopup="true"
-                      onClick={() => setShopOpen((v) => !v)}
-                      className={cn("flex items-center gap-1 px-3 py-2 text-[14px] font-medium transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
-                    >
-                      {n.label} <ChevronDown className={cn("h-3.5 w-3.5 transition", shopOpen && "rotate-180")} />
-                    </button>
-                    <div className={cn("absolute left-1/2 top-full w-60 -translate-x-1/2 pt-2 transition-all", shopOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0")}>
-                      <ul className="rounded-xl border border-line bg-white p-2 shadow-lift">
-                        {shopLinks.map((s) => (
-                          <li key={s.href}>
-                            <Link href={s.href} className="block rounded-md px-3 py-2 text-sm text-navy hover:bg-cream hover:text-gold-600">
-                              {s.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </li>
-                ) : (
-                  <li key={n.href}>
-                    <Link
-                      href={n.href}
-                      aria-current={isActive(n.href) ? "page" : undefined}
-                      className={cn(
-                        "relative px-2.5 py-2 text-[14px] font-medium transition hover:text-gold-600",
-                        isActive(n.href) && "text-gold-600 after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded after:bg-gold",
-                      )}
-                    >
-                      {n.label}
-                    </Link>
-                  </li>
-                ),
-              )}
-            </ul>
-          </nav>
         </div>
 
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center xl:gap-2">
+            {nav.map((n) =>
+              n.dropdown ? (
+                <li key={n.href} className="relative" onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)}>
+                  <button
+                    type="button"
+                    aria-expanded={shopOpen}
+                    aria-haspopup="true"
+                    onClick={() => setShopOpen((v) => !v)}
+                    className={cn("flex items-center gap-1 px-3 py-2 text-[14px] font-medium transition hover:text-gold-600", isActive(n.href) && "text-gold-600")}
+                  >
+                    {n.label} <ChevronDown className={cn("h-3.5 w-3.5 transition", shopOpen && "rotate-180")} />
+                  </button>
+                  <div className={cn("absolute left-1/2 top-full w-60 -translate-x-1/2 pt-2 transition-all", shopOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0")}>
+                    <ul className="rounded-xl border border-line bg-white p-2 shadow-lift">
+                      {shopLinks.map((s) => (
+                        <li key={s.href}>
+                          <Link href={s.href} className="block rounded-md px-3 py-2 text-sm text-navy hover:bg-cream hover:text-gold-600">
+                            {s.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ) : (
+                <li key={n.href}>
+                  <Link
+                    href={n.href}
+                    aria-current={isActive(n.href) ? "page" : undefined}
+                    className={cn(
+                      "relative px-3 py-2 text-[14px] font-medium transition hover:text-gold-600",
+                      isActive(n.href) && "text-gold-600 after:absolute after:inset-x-2 after:-bottom-0.5 after:h-0.5 after:rounded after:bg-gold",
+                    )}
+                  >
+                    {n.label}
+                  </Link>
+                </li>
+              ),
+            )}
+          </ul>
+        </nav>
 
         <div className="flex items-center gap-0.5 sm:gap-1">
           <LangSwitch className="mr-2 hidden sm:flex" />
