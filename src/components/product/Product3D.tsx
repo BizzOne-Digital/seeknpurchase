@@ -31,6 +31,7 @@ const HMAP = 256; // heightmap resolution
 /** How much each product "puffs out": depth of the body and how far in from the edge it reaches full depth. */
 const SHAPE: Record<MockupKind, { depth: number; reach: number }> = {
   tee: { depth: 0.075, reach: 0.11 },
+  jersey: { depth: 0.075, reach: 0.11 },
   sweatshirt: { depth: 0.085, reach: 0.12 },
   hoodie: { depth: 0.09, reach: 0.12 },
   tote: { depth: 0.035, reach: 0.12 },

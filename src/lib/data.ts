@@ -54,7 +54,7 @@ export const getCategories = cache(async (): Promise<CategoryDTO[]> =>
 
 /* ---------------- Products ---------------- */
 export type ProductQuery = {
-  q?: string; category?: string; min?: number; max?: number; inStock?: boolean; sale?: boolean;
+  q?: string; category?: string; sub?: string; min?: number; max?: number; inStock?: boolean; sale?: boolean;
   sort?: "featured" | "newest" | "price-asc" | "price-desc" | "best-selling"; page?: number; perPage?: number;
   flag?: "new" | "best";
 };
@@ -90,6 +90,7 @@ export async function queryProducts(q: ProductQuery): Promise<{ items: ProductDT
       list = list.filter((p) => r.test(p.name) || r.test(p.shortDescription || "") || (p.tags || []).some((t) => r.test(t)));
     }
     if (q.category) list = list.filter((p) => p.category === q.category);
+    if (q.sub) list = list.filter((p) => (p.subcategory || "").toLowerCase() === q.sub!.toLowerCase());
     if (q.min != null) list = list.filter((p) => p.price >= q.min!);
     if (q.max != null) list = list.filter((p) => p.price <= q.max!);
     if (q.inStock) list = list.filter((p) => p.stock > 0);
@@ -113,6 +114,7 @@ export async function queryProducts(q: ProductQuery): Promise<{ items: ProductDT
       filter.$or = [{ name: r }, { shortDescription: r }, { tags: r }, { titleEs: r }];
     }
     if (q.category) filter.category = String(q.category);
+    if (q.sub) filter.subcategory = new RegExp(`^${escapeRegex(q.sub.slice(0, 40))}$`, "i");
     if (q.min != null || q.max != null) {
       filter.price = { ...(q.min != null ? { $gte: q.min } : {}), ...(q.max != null ? { $lte: q.max } : {}) };
     }

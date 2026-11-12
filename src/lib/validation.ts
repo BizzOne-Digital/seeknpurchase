@@ -49,6 +49,7 @@ export const contactSchema = z.object({
   phone: str(40).optional().default(""),
   subject: str(200).optional().default(""),
   message: str(5000).min(1, "Message is required"),
+  attachmentUrl: z.string().trim().max(300).regex(/^\/api\/uploads\/designs\/[\w.-]+$/, "Invalid attachment").optional().or(z.literal("")),
   website: z.string().max(0).optional(), // honeypot
 });
 

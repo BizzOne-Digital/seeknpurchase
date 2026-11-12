@@ -100,10 +100,12 @@ export function OffersBanner({ offers, locale }: { offers: OfferDTO[]; locale: L
                 {o.image && <SmartImage src={o.image} alt="" fill sizes="(max-width:768px) 100vw, 50vw" className="object-cover opacity-45 transition duration-700 group-hover:scale-105" />}
                 <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/70 to-transparent" />
                 <div className="relative flex max-w-md flex-col justify-center p-7 md:p-9">
-                  <span className="badge mb-3 w-fit bg-gold text-white">
-                    <BadgePercent className="mr-1 h-3.5 w-3.5" />
-                    {o.discountType === "percentage" && o.discountValue > 0 ? `${o.discountValue}% ${t.off}` : o.discountType === "free_shipping" ? t.freeShip : t.offers}
-                  </span>
+                  {((o.discountType === "percentage" && o.discountValue > 0) || o.discountType === "free_shipping") && (
+                    <span className="badge mb-3 w-fit bg-gold text-white">
+                      <BadgePercent className="mr-1 h-3.5 w-3.5" />
+                      {o.discountType === "percentage" ? `${o.discountValue}% ${t.off}` : t.freeShip}
+                    </span>
+                  )}
                   <h3 className="text-2xl text-white md:text-3xl">{loc(rec, "title", locale)}</h3>
                   <p className="mt-2 text-sm text-white/80">{loc(rec, "description", locale)}</p>
                   <span className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-md bg-gold-100 px-4 py-2 text-sm font-semibold text-navy transition group-hover:bg-gold group-hover:text-white">

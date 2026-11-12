@@ -74,6 +74,8 @@ export const DEMO_CATEGORIES: CategoryDTO[] = [
   { name: "Fashion Accessories", nameEs: "Accesorios de Moda", slug: "fashion-accessories", description: "Bags, sunglasses, scarves and finishing touches.", image: "/images/categories/fashion-accessories.webp", active: true, sortOrder: 1 },
   { name: "Everyday Essentials", nameEs: "Esenciales Diarios", slug: "everyday-essentials", description: "Comfortable, reliable pieces you'll reach for daily.", image: IMG.essentials, active: true, sortOrder: 2 },
   { name: "Unique Finds", nameEs: "Hallazgos Únicos", slug: "unique-finds", description: "Distinctive pieces you won't see everywhere.", image: "/images/categories/unique-finds.webp", active: true, sortOrder: 3 },
+  { name: "Western Hats", nameEs: "Sombreros Vaqueros", slug: "western-hats", description: "Classic felt and leather cowboy hats with timeless western details.", image: "/images/hero/western-hats-desktop.webp", active: true, sortOrder: 5 },
+  { name: "Summer Hats", nameEs: "Sombreros de Verano", slug: "summer-hats", description: "Light, breathable straw and bucket hats for sunny days and the beach.", image: "/images/hero/summer-hats-desktop.webp", active: true, sortOrder: 6 },
   { name: "Gifts", nameEs: "Regalos", slug: "gifts", description: "Thoughtful gifts for every occasion.", image: IMG.gifts, active: true, sortOrder: 4 },
 ];
 
@@ -182,15 +184,17 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     tags: ["t-shirt", "custom", "apparel"], createdAt: d(3),
   },
   ...([
-    ["Custom Crewneck Sweatshirt", "Sudadera Personalizada", "custom-crewneck-sweatshirt", "SP-CUS-014", 29.99, "apparel", "sweatshirt", "A warm fleece crewneck ready for your name, logo or design.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }],
-    ["Custom Pullover Hoodie", "Hoodie Personalizado", "custom-pullover-hoodie", "SP-CUS-015", 34.99, "apparel", "hoodie", "A soft pullover hoodie with a front pocket, ready for your own print.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }],
+    ["Custom Crewneck Sweatshirt", "Sudadera Personalizada", "custom-crewneck-sweatshirt", "SP-CUS-014", 29.99, "apparel", "sweatshirt", "A warm fleece crewneck ready for your name, logo or design.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray", "Red", "Forest Green"] }],
+    ["Custom Pullover Hoodie", "Hoodie Personalizado", "custom-pullover-hoodie", "SP-CUS-015", 34.99, "apparel", "hoodie", "A soft pullover hoodie with a front pocket, ready for your own print.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray", "Red", "Forest Green"] }],
     ["Custom Canvas Tote Bag", "Bolsa Tote Personalizada", "custom-canvas-tote-bag", "SP-CUS-016", 12.99, "tote", "tote", "A sturdy cotton canvas tote for events, shops and gifts.", { name: "Color", options: ["Natural", "Black"] }],
-    ["Custom Ceramic Cup", "Taza de Cerámica Personalizada", "custom-ceramic-cup", "SP-CUS-017", 9.99, "cup", "cup", "A glossy ceramic cup printed with your photo, logo or message.", { name: "Size", options: ["11 oz", "15 oz"] }],
+    ["Custom Ceramic Cup", "Taza de Cerámica Personalizada", "custom-ceramic-cup", "SP-CUS-017", 9.99, "cup", "cup", "A glossy ceramic cup printed with your photo, logo or message.", { name: "Size", options: ["11 oz", "15 oz"] }, { name: "Color", options: ["White", "Black"] }],
     ["Custom Baseball Cap", "Gorra Personalizada", "custom-baseball-cap", "SP-CUS-018", 14.99, "cap", "cap", "An adjustable cotton cap with your embroidered or printed design.", { name: "Color", options: ["Black", "Navy", "White"] }],
-  ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant]) => ({
+    ["Custom Team Jersey - Adult", "Camiseta de Equipo Personalizada - Adulto", "custom-team-jersey-adult", "SP-CUS-019", 24.99, "apparel", "jersey", "A breathable V-neck sports jersey. Upload your team logo or art and add player names and numbers.", { name: "Size", options: ["S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Royal Blue", "Red", "Forest Green", "Yellow"] }],
+    ["Custom Team Jersey - Kids", "Camiseta de Equipo Personalizada - Niños", "custom-team-jersey-kids", "SP-CUS-020", 19.99, "apparel", "jersey", "A lightweight V-neck jersey sized for kids. Upload your team logo or art and add names and numbers.", { name: "Size", options: ["4XS", "3XS", "2XS", "XS", "S"] }, { name: "Color", options: ["White", "Black", "Navy", "Royal Blue", "Red", "Forest Green", "Yellow"] }],
+  ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant, color]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
     category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
-    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }], tags: ["custom", img], createdAt: d(2),
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2),
   })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 
@@ -243,6 +247,6 @@ export const DEMO_SERVICES: ServiceDTO[] = [
 ];
 
 export const DEMO_OFFERS: OfferDTO[] = [
-  { title: "Seasonal Sale — Up to 25% Off", titleEs: "Venta de Temporada — Hasta 25% de Descuento", description: "Save on select bags, knitwear and jewelry while supplies last.", descriptionEs: "Ahorra en bolsos, tejidos y joyería seleccionados.", discountType: "percentage", discountValue: 25, image: IMG.fashionStore, link: "/shop?sale=1" },
+  { title: "Seasonal Sale", titleEs: "Venta de Temporada", description: "Fresh styles at special prices. Discover limited-time savings on selected bags, knitwear and jewelry.", descriptionEs: "Nuevos estilos a precios especiales. Descubre ahorros por tiempo limitado en bolsos, tejidos y joyería seleccionados.", discountType: "percentage", discountValue: 0, image: IMG.fashionStore, link: "/shop?sale=1" },
   { title: "Free Shipping Over $75", titleEs: "Envío Gratis en Compras Mayores a $75", description: "Enjoy free standard shipping on qualifying orders.", descriptionEs: "Disfruta de envío estándar gratis en pedidos elegibles.", discountType: "free_shipping", discountValue: 0, image: IMG.shoppingBags, link: "/shop" },
 ];

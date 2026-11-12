@@ -8,7 +8,7 @@ import { useStore } from "@/components/providers/StoreProvider";
 import { DesignStage } from "./DesignStage";
 import { CUSTOM_TEXT_MAX, TEXT_COLORS, customizationPrice, methodsFor, placementsFor, type CustomType, type Customization } from "@/lib/customization";
 import { cn } from "@/lib/utils";
-import { isDark, sidesFor, type MockupKind } from "@/lib/mockups";
+import { PHOTOS, isDark, sidesFor, type MockupKind } from "@/lib/mockups";
 
 export const defaultCustom = (type: CustomType = "apparel"): Customization => ({
   placement: placementsFor(type)[0].value, method: methodsFor(type)[0].value, text: "", textColor: "black", artworkUrl: "", notes: "",
@@ -38,6 +38,26 @@ export function validateCustomization(c: Customization, es: boolean): string {
   const bad = [c.artworkUrl, c.backArtworkUrl].some((u) => u?.trim() && !/^https?:\/\/\S+/i.test(u.trim()));
   if (bad) return es ? "El enlace del diseño debe comenzar con https://" : "Artwork link must start with https://";
   return "";
+}
+
+/** Plain (not customized) product in the selected color: the white product photo tinted to that color. */
+function ColorPreview({ src, color }: { src: string; color: string }) {
+  const white = color.toLowerCase() === "#f6f5f2";
+  const mask: React.CSSProperties = {
+    backgroundColor: color, mixBlendMode: "multiply", WebkitMaskImage: `url(${src})`, maskImage: `url(${src})`,
+    WebkitMaskSize: "contain", maskSize: "contain", WebkitMaskRepeat: "no-repeat", maskRepeat: "no-repeat", WebkitMaskPosition: "center", maskPosition: "center",
+  };
+  return (
+    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#f3f3f1]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="absolute inset-0 h-full w-full object-contain" />
+      {!white && <div aria-hidden className="absolute inset-0" style={mask} />}
+      {isDark(color) && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt="" aria-hidden className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-30" style={{ mixBlendMode: "soft-light" }} />
+      )}
+    </div>
+  );
 }
 
 export function ProductCustomizer({
@@ -71,10 +91,11 @@ export function ProductCustomizer({
   const [slot, setSlot] = useState<HTMLElement | null>(null);
   useEffect(() => {
     setSlot(document.getElementById("design-slot"));
-    if (!enabled) return;
+    // Plain mode also replaces the gallery once a color photo can be shown.
+    if (!enabled && !PHOTOS[kind]?.front) return;
     document.documentElement.dataset.designing = "1";
     return () => { delete document.documentElement.dataset.designing; };
-  }, [enabled]);
+  }, [enabled, kind]);
   const extra = customizationPrice(value, type) ?? 0;
   const opt = "rounded-md border px-3 py-2.5 text-left text-sm transition min-h-[44px]";
   const on = "border-navy bg-navy text-white";
@@ -101,6 +122,7 @@ export function ProductCustomizer({
         </div>
       </div>
 
+      {!enabled && slot && PHOTOS[kind]?.front && createPortal(<ColorPreview src={PHOTOS[kind]!.front!.src} color={color} />, slot)}
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
           {slot ? createPortal(<DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />, slot) : <DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />}

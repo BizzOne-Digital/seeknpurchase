@@ -28,6 +28,7 @@ export async function ShopPage({ searchParams }: { searchParams: ShopSearchParam
   const q: ProductQuery = {
     q: str(searchParams.q)?.slice(0, 80),
     category: str(searchParams.category),
+    sub: str(searchParams.sub)?.slice(0, 40),
     min: num(searchParams.min),
     max: num(searchParams.max),
     inStock: str(searchParams.inStock) === "1",
@@ -58,7 +59,32 @@ export async function ShopPage({ searchParams }: { searchParams: ShopSearchParam
 
   return (
     <>
-      <PageHero title={title} subtitle={activeCat?.description || t.shop.subtitle} eyebrow={t.nav.shop} />
+      {activeCat?.image && !q.q ? (
+        <section className="relative overflow-hidden bg-cream">
+          <SmartImage src={activeCat.image} alt="" fill priority sizes="100vw" className="object-cover object-right" />
+          <div className="absolute inset-0 bg-gradient-to-r from-cream via-cream/85 to-transparent" aria-hidden />
+          <div className="container relative py-16 md:py-24">
+            <p className="eyebrow mb-3">{locale === "es" ? "Colección" : "Collection"}</p>
+            <h1 className="max-w-lg text-4xl md:text-5xl">{title}</h1>
+            {activeCat.description && <p className="mt-4 max-w-md text-navy/75">{activeCat.description}</p>}
+          </div>
+        </section>
+      ) : (
+        <PageHero title={title} subtitle={activeCat?.description || t.shop.subtitle} eyebrow={t.nav.shop} />
+      )}
+      {activeCat && /hats?$/.test(activeCat.slug) && (
+        <nav aria-label={locale === "es" ? "Filtrar por" : "Shop by"} className="container flex flex-wrap gap-2 pt-8">
+          {[["", locale === "es" ? "Todos" : "All"], ["women", locale === "es" ? "Mujer" : "Women"], ["men", locale === "es" ? "Hombre" : "Men"], ["kids", locale === "es" ? "Niños" : "Kids"]].map(([v, l]) => {
+            const on = (q.sub || "").toLowerCase() === v;
+            return (
+              <Link key={v || "all"} href={`/shop?category=${activeCat.slug}${v ? `&sub=${v}` : ""}`} aria-current={on ? "page" : undefined}
+                className={cn("rounded-full border px-5 py-2 text-sm font-medium transition", on ? "border-navy bg-navy text-white" : "border-line hover:border-navy")}>
+                {l}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
 
       {str(searchParams.view) === "collections" && (
         <section className="container pt-10" aria-label={t.nav.collections}>
@@ -92,7 +118,14 @@ export async function ShopPage({ searchParams }: { searchParams: ShopSearchParam
           </div>
 
           {items.length === 0 ? (
-            <EmptyState icon={SearchX} title={t.shop.noProducts} text={t.shop.noProductsText} actionHref="/shop" actionLabel={t.shop.clear} />
+            activeCat && !q.q ? (
+              <EmptyState icon={SearchX}
+                title={locale === "es" ? "Nuevos estilos muy pronto" : "New styles arriving soon"}
+                text={locale === "es" ? "Estamos preparando esta colección. Escríbenos si buscas un modelo, talla o pedido al por mayor." : "We're stocking this collection now. Message us if you're looking for a specific style, size or bulk order."}
+                actionHref={`/contact?subject=${encodeURIComponent(activeCat.name)}`} actionLabel={locale === "es" ? "Contáctanos" : "Contact us"} />
+            ) : (
+              <EmptyState icon={SearchX} title={t.shop.noProducts} text={t.shop.noProductsText} actionHref="/shop" actionLabel={t.shop.clear} />
+            )
           ) : (
             <ul className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4">
               {items.map((p, i) => (

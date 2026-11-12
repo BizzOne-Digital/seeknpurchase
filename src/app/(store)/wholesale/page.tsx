@@ -44,7 +44,7 @@ export default async function WholesalePage() {
                 : "At SeeknPurchase, we can help with that. Tell us the product you need, the quantity and your target price, and we'll source it for you at wholesale prices, without the hassle."}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/contact" className="btn bg-gold-100 px-6 text-navy hover:bg-gold hover:text-white">
+              <Link href="/contact?subject=Wholesale%20sourcing%20request" className="btn bg-gold-100 px-6 text-navy hover:bg-gold hover:text-white">
                 {es ? "Envía tu solicitud" : "Send Your Request"} <ArrowRight className="h-4 w-4" />
               </Link>
               <a href="#ws-heading" className="btn border border-white/40 px-6 text-white hover:bg-white/10">{es ? "Ver catálogo" : "Browse Catalog"}</a>
@@ -84,7 +84,7 @@ export default async function WholesalePage() {
           <p className="flex items-center gap-2 text-sm text-slate-600">
             <Paintbrush className="h-4 w-4 text-gold" />
             {es ? "¿Camisetas personalizadas en volumen?" : "Need custom-printed shirts in bulk?"}{" "}
-            <Link href="/contact" className="font-semibold underline hover:text-gold-600">{es ? "Solicita una cotización" : "Request a quote"}</Link>
+            <Link href="/contact?subject=Custom%20bulk%20order" className="font-semibold underline hover:text-gold-600">{es ? "Solicita una cotización" : "Request a quote"}</Link>
           </p>
         </div>
         <WholesaleOrder products={cards} categories={categories} />

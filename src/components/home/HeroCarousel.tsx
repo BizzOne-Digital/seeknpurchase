@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { SmartImage } from "@/components/ui/SmartImage";
 import type { Locale } from "@/lib/i18n/dictionaries";
 
-const SLIDE_COUNT = 3;
+const SLIDE_COUNT = 4;
 
 export function HeroCarousel({ desktopImage, locale, panels }: {
   desktopImage: string;
@@ -57,6 +57,11 @@ export function HeroCarousel({ desktopImage, locale, panels }: {
       desktop: "/images/hero/summer-hats-desktop.webp",
       mobile: "/images/hero/summer-hats-mobile.webp",
       alt: es ? "Sombreros de paja de verano, sombrero de pescador y gafas de sol" : "Straw summer hats, bucket hat and sunglasses",
+    },
+    {
+      desktop: "/images/hero/sportswear-desktop.webp",
+      mobile: "/images/hero/sportswear-mobile.webp",
+      alt: es ? "Uniforme deportivo negro y lima, camiseta blanca, balón y botella" : "Black and lime team jersey and shorts, white jersey, soccer ball and bottle",
     },
   ];
   const buttonClass = "flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-navy/10";

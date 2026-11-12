@@ -326,6 +326,7 @@ export const RESOURCES: Record<string, ResourceDef> = {
       { name: "preferredDate", label: "Preferred date", type: "text", readOnly: true, half: true },
       { name: "preferredTime", label: "Preferred time", type: "text", readOnly: true, half: true },
       { name: "message", label: "Message", type: "textarea", readOnly: true },
+      { name: "attachmentUrl", label: "Attached image / art", type: "image", readOnly: true, help: "Open the image to download the customer's artwork" },
       { name: "status", label: "Status", type: "select", options: ["new", "confirmed", "completed", "cancelled"].map((v) => ({ value: v, label: v })) },
     ],
   },

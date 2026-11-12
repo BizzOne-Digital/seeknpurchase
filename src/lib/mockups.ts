@@ -3,7 +3,7 @@
  * and show a back side. All coordinates use a 400x400 box; print areas are percentages of it.
  */
 
-export type MockupKind = "tee" | "sweatshirt" | "hoodie" | "tote" | "cup" | "cap";
+export type MockupKind = "tee" | "sweatshirt" | "hoodie" | "tote" | "cup" | "cap" | "jersey";
 export type Side = "front" | "back";
 export type Area = { x: number; y: number; w: number; h: number };
 
@@ -11,13 +11,14 @@ export function mockupKind(slug: string, customType?: string): MockupKind {
   if (customType === "tote") return "tote";
   if (customType === "cup") return "cup";
   if (customType === "cap") return "cap";
+  if (slug.includes("jersey")) return "jersey";
   if (slug.includes("hoodie")) return "hoodie";
   if (slug.includes("sweatshirt") || slug.includes("crewneck")) return "sweatshirt";
   return "tee";
 }
 
 /** Garment outline and detail lines for each side. */
-export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lines: string }>>> = {
+export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lines: string }>>> = { jersey: {},
   tee: {
     front: {
       body: "M140 52 L72 82 L28 152 L82 182 L104 152 L104 360 L296 360 L296 152 L318 182 L372 152 L328 82 L260 52 C246 82 154 82 140 52Z",
@@ -59,6 +60,8 @@ export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lin
     front: { body: "M70 252 C70 96 330 96 330 252Z M110 252 C150 286 250 286 290 252 L330 252 C320 300 80 300 70 252Z", lines: "M200 112 L200 252 M136 130 C160 180 166 220 168 252 M264 130 C240 180 234 220 232 252" },
   },
 };
+
+SHAPES.jersey = SHAPES.tee;
 
 /** Where the design can go for each placement value (sides and print area per side). */
 export const PRINT_AREAS: Record<string, Partial<Record<Side, Area>>> = {
@@ -116,6 +119,10 @@ export const PHOTOS: Partial<Record<MockupKind, Partial<Record<Side, PhotoSide>>
   hoodie: {
     front: { src: "/images/mockups/hoodie-front.webp", area: { x: 35, y: 31, w: 30, h: 25 }, chest: { x: 56, y: 31, w: 11, h: 10 } },
     back: { src: "/images/mockups/hoodie-back.webp", area: { x: 32, y: 33, w: 36, h: 40 } },
+  },
+  jersey: {
+    front: { src: "/images/mockups/jersey-front.webp", area: { x: 32, y: 26, w: 36, h: 44 }, chest: { x: 56, y: 26, w: 11, h: 10 } },
+    back: { src: "/images/mockups/jersey-back.webp", area: { x: 30, y: 18, w: 40, h: 52 } },
   },
   tote: {
     front: { src: "/images/mockups/tote-front.webp", area: { x: 26, y: 45, w: 48, h: 44 } },

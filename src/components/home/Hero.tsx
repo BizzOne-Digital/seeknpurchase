@@ -48,12 +48,17 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
       panel({
         eyebrow: es ? "Estilo Vaquero" : "Western Collection", title1: es ? "Sombreros" : "Western", title2: es ? "Vaqueros" : "Hats",
         text: es ? "Sombreros de fieltro y cuero con detalles clásicos, hechos para durar." : "Classic felt and leather cowboy hats with timeless details, built to last.",
-        primary: { href: "/shop?q=hat", label: es ? "Comprar Sombreros" : "Shop Western Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
+        primary: { href: "/shop?category=western-hats", label: es ? "Comprar Sombreros" : "Shop Western Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
       }),
       panel({
         eyebrow: es ? "Colección de Verano" : "Summer Collection", title1: es ? "Sombreros de" : "Summer", title2: es ? "Verano" : "Hats",
         text: es ? "Sombreros de paja ligeros y frescos para el sol, la playa y cada día." : "Light, breathable straw and bucket hats for sunny days, the beach and every day.",
-        primary: { href: "/shop?q=hat", label: es ? "Comprar Sombreros" : "Shop Summer Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
+        primary: { href: "/shop?category=summer-hats", label: es ? "Comprar Sombreros" : "Shop Summer Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
+      }),
+      panel({
+        eyebrow: es ? "Ropa Deportiva Personalizada" : "Custom Sportswear", title1: es ? "Uniformes" : "Team", title2: es ? "de Equipo" : "Jerseys",
+        text: es ? "Sube el logo o arte de tu equipo y agrega nombres y números. Tallas para adultos y niños." : "Upload your team logo or art and add names and numbers. Adult and kids sizes.",
+        primary: { href: "/custom", label: es ? "Diseñar Uniforme" : "Design Your Jersey", icon: true }, secondary: { href: "/products/custom-team-jersey-kids", label: es ? "Tallas Niños" : "Kids Sizes" },
       }),
     ]} />
   );

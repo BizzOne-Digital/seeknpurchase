@@ -21,7 +21,7 @@ export function Footer({ s, t }: { s: SettingsDTO; t: Dictionary }) {
     },
     {
       title: t.footer.help,
-      links: [["/faq", t.nav.faq], ["/shipping-policy", t.footer.shipping], ["/return-policy", t.footer.returns], ["/faq#payment", t.footer.payment], ["/faq#sizing", t.footer.sizeGuide]],
+      links: [["/faq", t.nav.faq], ["/shipping-policy", t.footer.shipping], ["/return-policy", t.footer.returns], ["/faq#payment", t.footer.payment], ["/size-guide", t.footer.sizeGuide]],
     },
   ];
   const tel = s.phone.replace(/[^\d+]/g, "");

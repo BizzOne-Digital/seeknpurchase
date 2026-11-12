@@ -271,6 +271,7 @@ const ContactSubmissionSchema = new Schema(
     phone: String,
     subject: String,
     message: { type: String, required: true },
+    attachmentUrl: String, // customer artwork uploaded with the request
     status: { type: String, enum: ["new", "read", "replied", "archived"], default: "new" },
   },
   opts,

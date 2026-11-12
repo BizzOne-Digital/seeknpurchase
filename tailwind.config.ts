@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
-    container: { center: true, padding: { DEFAULT: "1rem", lg: "2rem" }, screens: { "2xl": "1320px" } },
+    container: { center: true, padding: { DEFAULT: "1rem", lg: "2rem" }, screens: { "2xl": "1600px" } },
     extend: {
       colors: {
         navy: { DEFAULT: "#172333", 50: "#eef1f5", 100: "#d5dce6", 700: "#22324a", 800: "#1c2a3d", 900: "#172333", 950: "#0f1824" },

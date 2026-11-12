@@ -87,6 +87,9 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
         <fieldset key={v.name}>
           <legend className="mb-2 text-sm font-semibold">
             {v.name}: <span className="font-normal text-slate-500">{sel[v.name] || t.product.select}</span>
+            {/^size$|^talla$/i.test(v.name) && (
+              <Link href="/size-guide" className="ml-3 text-xs font-medium text-slate-500 underline hover:text-gold-600">{locale === "es" ? "Guía de tallas" : "Size guide"}</Link>
+            )}
           </legend>
           <div className="flex flex-wrap gap-2">
             {v.options.map((o) => (
