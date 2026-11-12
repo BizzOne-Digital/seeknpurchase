@@ -3,6 +3,7 @@ import { connectDB } from "./db";
 import { Coupon, Product } from "@/models";
 import { getSettings } from "./data";
 import { HttpError } from "./api";
+import { parseTiers, tierUnit } from "./tiers";
 import {
   DEFAULT_WHOLESALE_MIN, RETAIL_MAX_QTY, TEXT_COLORS, WHOLESALE_MAX_QTY, customizationPrice, customizationSummary, type CustomType, type Customization,
 } from "./customization";
@@ -38,7 +39,10 @@ export async function priceCart(lines: CartLine[], opts: { couponCode?: string; 
   const totals = new Map<string, number>();
   // Wholesale minimums apply to the product total, so buyers can mix sizes/colors.
   const wholesaleTotals = new Map<string, number>();
+  // Quantity tiers use the product's total retail quantity across lines (mixed sizes/colors/designs count together).
+  const retailTotals = new Map<string, number>();
   for (const l of lines) {
+    if (!l.wholesale) retailTotals.set(String(l.slug), (retailTotals.get(String(l.slug)) ?? 0) + Math.max(1, Math.min(RETAIL_MAX_QTY, Math.floor(Number(l.quantity) || 1))));
     if (l.wholesale) wholesaleTotals.set(String(l.slug), (wholesaleTotals.get(String(l.slug)) ?? 0) + Math.max(1, Math.floor(Number(l.quantity) || 1)));
   }
 
@@ -51,7 +55,7 @@ export async function priceCart(lines: CartLine[], opts: { couponCode?: string; 
     totals.set(p.slug, used);
     if ((p.stock ?? 0) < used) throw new HttpError(409, `Only ${p.stock ?? 0} left in stock for "${p.name}".`);
 
-    let unit = p.price;
+    let unit = tierUnit(p.price, parseTiers(p.priceTiers, p.price), retailTotals.get(p.slug) ?? 0);
     if (wholesale) {
       if (!p.wholesalePrice || p.wholesalePrice <= 0) throw new HttpError(400, `"${p.name}" is no longer available at wholesale pricing.`);
       const min = p.wholesaleMinQty || DEFAULT_WHOLESALE_MIN;

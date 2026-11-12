@@ -7,6 +7,7 @@ import {
 import { RESOURCES, type ResourceDef } from "./resources";
 import { HttpError } from "@/lib/api";
 import { slugify } from "@/lib/utils";
+import { formatTiers, parseTiers } from "@/lib/tiers";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MODELS: Record<string, Model<any>> = {
@@ -101,5 +102,6 @@ export function sanitize(def: ResourceDef, input: Record<string, unknown>, parti
     if (!s) throw new HttpError(422, `${f.label} is required`);
     out[f.name] = s;
   }
+  if (typeof out.priceTiers === "string") out.priceTiers = formatTiers(parseTiers(out.priceTiers));
   return out;
 }

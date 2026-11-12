@@ -194,7 +194,7 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
   ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant, color]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
     category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
-    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2),
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : slug === "custom-team-jersey-kids" ? "10=17.99, 25=15.99, 50=13.99" : "",
   })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 

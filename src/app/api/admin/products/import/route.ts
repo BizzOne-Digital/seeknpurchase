@@ -3,6 +3,7 @@ import { HttpError, handle, ok, requireAdmin } from "@/lib/api";
 import { connectDB } from "@/lib/db";
 import { Product } from "@/models";
 import { parseCsv } from "@/lib/csv";
+import { formatTiers, parseTiers } from "@/lib/tiers";
 
 export const runtime = "nodejs";
 
@@ -49,6 +50,8 @@ export const POST = handle(async (req: Request) => {
       str("shortDescription", "short_description", 500); str("description", "description");
       money("price", "price"); money("compareAtPrice", "compare_at_price");
       money("wholesalePrice", "wholesale_price"); int("wholesaleMinQty", "wholesale_min_qty", 1); int("stock", "stock");
+      money("cost", "cost");
+      if ("price_tiers" in r) set.priceTiers = formatTiers(parseTiers(r.price_tiers));
       if (r.status) {
         if (!["published", "draft"].includes(r.status.toLowerCase())) throw new Error('"status" must be published or draft');
         set.status = r.status.toLowerCase();

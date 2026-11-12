@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { CartItem } from "@/lib/types";
 import { formatMoney } from "@/lib/utils";
 import { RETAIL_MAX_QTY, WHOLESALE_MAX_QTY } from "@/lib/customization";
+import { tierUnit } from "@/lib/tiers";
 
 /** Highest quantity allowed for a cart line (stock-limited; wholesale lines allow bulk). */
 export const lineMax = (i: Pick<CartItem, "stock" | "wholesale">) => Math.max(1, Math.min(i.stock || 1, i.wholesale ? WHOLESALE_MAX_QTY : RETAIL_MAX_QTY));
@@ -123,17 +124,26 @@ export function StoreProvider({ loggedIn, currency = "USD", children }: { logged
 
   const pushRecent = useCallback((slug: string) => setRecent((r) => [slug, ...r.filter((s) => s !== slug)].slice(0, 8)), []);
 
+  // Tiered lines: unit price depends on the product's total retail quantity in the cart.
+  const priced = useMemo(() => {
+    const totals = new Map<string, number>();
+    for (const i of items) if (!i.wholesale) totals.set(i.slug, (totals.get(i.slug) ?? 0) + i.quantity);
+    return items.map((i) => (i.tiers?.length && i.basePrice != null && !i.wholesale
+      ? { ...i, price: Math.round((tierUnit(i.basePrice, i.tiers, totals.get(i.slug) ?? 0) + (i.extra || 0)) * 100) / 100 }
+      : i));
+  }, [items]);
+
   const value = useMemo<StoreCtx>(
     () => ({
-      ready, items,
-      count: items.reduce((n, i) => n + i.quantity, 0),
-      subtotal: Math.round(items.reduce((n, i) => n + i.price * i.quantity, 0) * 100) / 100,
+      ready, items: priced,
+      count: priced.reduce((n, i) => n + i.quantity, 0),
+      subtotal: Math.round(priced.reduce((n, i) => n + i.price * i.quantity, 0) * 100) / 100,
       add, update, remove, clear, cartOpen, setCartOpen,
       wishlist, toggleWish, inWishlist: (s: string) => wishlist.includes(s),
       recent, pushRecent,
       currency, money: (n: number) => formatMoney(n, currency),
     }),
-    [ready, items, add, update, remove, clear, cartOpen, wishlist, toggleWish, recent, pushRecent, currency],
+    [ready, priced, add, update, remove, clear, cartOpen, wishlist, toggleWish, recent, pushRecent, currency],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

@@ -11,6 +11,8 @@ export type ProductDTO = {
   compareAtPrice?: number;
   wholesalePrice?: number;
   wholesaleMinQty?: number;
+  priceTiers?: string;
+  cost?: number;
   customizable?: boolean;
   customType?: import("./customization").CustomType;
   stock: number;
@@ -53,6 +55,7 @@ export type ProductCardData = {
   variants?: { name: string; options: string[] }[];
   wholesalePrice?: number;
   wholesaleMinQty?: number;
+  tiers?: import("./tiers").Tier[];
   customizable?: boolean;
   customType?: import("./customization").CustomType;
   category?: string;
@@ -107,4 +110,8 @@ export type CartItem = {
   wholesale?: boolean;
   minQty?: number;
   custom?: import("./customization").Customization;
+  /** Retail quantity tiers: price is recalculated from basePrice + extra (customization charge) by total quantity. */
+  tiers?: import("./tiers").Tier[];
+  basePrice?: number;
+  extra?: number;
 };

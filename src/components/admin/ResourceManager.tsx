@@ -11,12 +11,18 @@ import { FieldInput } from "./FieldInput";
 import { UploadTracker, useUploadTracker } from "./UploadTracker";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { cn, formatDate, formatMoney, normalizeImageUrl } from "@/lib/utils";
+import { margin } from "@/lib/tiers";
 
 type Doc = Record<string, unknown> & { _id: string };
 type Options = Record<string, { value: string; label: string }[]>;
 
-function Cell({ type, v }: { type?: string; v: unknown }) {
+function Cell({ type, v, row }: { type?: string; v: unknown; row?: Doc }) {
   switch (type) {
+    case "margin": {
+      const m = margin(Number(row?.price || 0), Number(row?.cost || 0));
+      if (!m) return <span className="text-slate-400">—</span>;
+      return <span className={m.pct < 20 ? "font-semibold text-red-600" : m.pct < 35 ? "font-semibold text-amber-600" : "font-semibold text-emerald-700"}>{m.pct}% <span className="font-normal text-slate-500">({formatMoney(m.profit)})</span></span>;
+    }
     case "image":
       // eslint-disable-next-line @next/next/no-img-element
       return <img src={normalizeImageUrl(v as string)} alt="" className="h-10 w-10 rounded-md bg-cream object-cover" />;
@@ -260,10 +266,10 @@ export function ResourceManager({ resource, dynamicOptions = {}, description, ex
                           title={`Toggle ${toggle.label}`}
                           className="rounded-full focus-visible:ring-2"
                         >
-                          <Cell type={c.type} v={d[c.name]} />
+                          <Cell type={c.type} v={d[c.name]} row={d} />
                         </button>
                       ) : (
-                        <Cell type={c.type} v={d[c.name]} />
+                        <Cell type={c.type} v={d[c.name]} row={d} />
                       )}
                     </td>
                   ))}

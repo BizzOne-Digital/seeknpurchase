@@ -12,6 +12,7 @@ import { customizationPrice, customizationSummary } from "@/lib/customization";
 import { colorHex, mockupKind } from "@/lib/mockups";
 import { ProductCustomizer, cleanCustomization, defaultCustom, validateCustomization } from "./ProductCustomizer";
 import Link from "next/link";
+import type { Tier } from "@/lib/tiers";
 
 export function QtyStepper({ value, onChange, max = 99, min = 1, size = "md" }: { value: number; onChange: (n: number) => void; max?: number; min?: number; size?: "sm" | "md" }) {
   const { t } = useI18n();
@@ -57,6 +58,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
   const wished = inWishlist(p.slug);
   const colorVariant = variants.find((v) => /colou?r/i.test(v.name));
 
+  const tierFields = p.tiers?.length ? { tiers: p.tiers, basePrice: p.price } : {};
   const doAdd = () => {
     const missing = variants.find((v) => !sel[v.name]);
     if (missing) {
@@ -73,11 +75,12 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
       const c = cleanCustomization(custom);
       const variant = [baseVariant, customizationSummary(c)].filter(Boolean).join(" | ");
       setErr("");
-      add({ slug: p.slug, title: p.title, image: p.image, price: p.price + (customizationPrice(c, p.customType) ?? 0), stock: p.stock, variant, baseVariant, custom: c }, qty);
+      const extra = customizationPrice(c, p.customType) ?? 0;
+      add({ slug: p.slug, title: p.title, image: p.image, price: p.price + extra, stock: p.stock, variant, baseVariant, custom: c, ...tierFields, extra }, qty);
       return true;
     }
     setErr("");
-    add({ slug: p.slug, title: p.title, image: p.image, price: p.price, stock: p.stock, variant: baseVariant }, qty);
+    add({ slug: p.slug, title: p.title, image: p.image, price: p.price, stock: p.stock, variant: baseVariant, ...tierFields }, qty);
     return true;
   };
 
@@ -114,6 +117,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
           color={colorHex(sel[colorVariant?.name || ""] || colorVariant?.options[0])} />
       )}
       {err && <p className="field-error" role="alert">{err}</p>}
+      {!!p.tiers?.length && !out && <PriceTiers base={p.price} tiers={p.tiers} qty={qty} es={locale === "es"} />}
 
       <div className="flex flex-wrap items-center gap-3">
         {!out && <QtyStepper value={qty} onChange={setQty} max={Math.min(p.stock, 99)} />}
@@ -160,6 +164,35 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
           <Link href={`/wholesale#${p.slug}`} className="font-semibold underline hover:text-gold-600">
             {locale === "es" ? "Ver precios de mayoreo" : "See wholesale pricing"}
           </Link>
+        </p>
+      )}
+    </div>
+  );
+}
+
+function PriceTiers({ base, tiers, qty, es }: { base: number; tiers: Tier[]; qty: number; es: boolean }) {
+  const { money } = useStore();
+  const rows = [{ min: 1, price: base }, ...tiers];
+  const activeIdx = rows.reduce((a, r, i) => (qty >= r.min ? i : a), 0);
+  return (
+    <div className="rounded-xl border border-line">
+      <p className="border-b border-line bg-cream px-4 py-2.5 text-sm font-semibold text-navy">{es ? "Compra más, ahorra más" : "Buy More, Save More"}</p>
+      <ul className="divide-y divide-line text-sm">
+        {rows.map((r, i) => {
+          const next = rows[i + 1];
+          const range = next ? `${r.min}–${next.min - 1}` : `${r.min}+`;
+          const save = Math.round((1 - r.price / base) * 100);
+          return (
+            <li key={r.min} className={cn("flex items-center justify-between px-4 py-2", i === activeIdx && "bg-gold/10 font-semibold")}>
+              <span>{range} {es ? "unidades" : "units"}</span>
+              <span>{money(r.price)} <span className="text-slate-500">/ {es ? "c.u." : "each"}</span>{save > 0 && <span className="ml-2 rounded bg-emerald-50 px-1.5 py-0.5 text-xs font-semibold text-emerald-700">{es ? "Ahorra" : "Save"} {save}%</span>}</span>
+            </li>
+          );
+        })}
+      </ul>
+      {activeIdx < rows.length - 1 && (
+        <p className="border-t border-line px-4 py-2 text-xs text-slate-600">
+          {es ? `Agrega ${rows[activeIdx + 1].min - qty} más para pagar ${money(rows[activeIdx + 1].price)} c/u.` : `Add ${rows[activeIdx + 1].min - qty} more to pay ${money(rows[activeIdx + 1].price)} each.`}
         </p>
       )}
     </div>

@@ -6,6 +6,7 @@ import type { FieldDef } from "@/lib/admin/resources";
 import { LocalImageField, MultiImageField } from "./LocalImageField";
 import { ICON_NAMES, Icon } from "@/components/ui/Icon";
 import { cn, slugify } from "@/lib/utils";
+import { margin, parseTiers } from "@/lib/tiers";
 
 type Variant = { name: string; options: string[] };
 
@@ -69,7 +70,34 @@ function VariantsInput({ value, onChange }: { value: Variant[]; onChange: (v: Va
   );
 }
 
-export function FieldInput({ f, value, onChange, all }: { f: FieldDef; value: unknown; onChange: (v: unknown) => void; all: Record<string, unknown> }) {
+export function FieldInput(props: { f: FieldDef; value: unknown; onChange: (v: unknown) => void; all: Record<string, unknown> }) {
+  const { f, all } = props;
+  if (f.name !== "cost" && f.name !== "priceTiers") return <FieldInputBase {...props} />;
+  const price = Number(all.price || 0), cost = Number(all.cost || 0);
+  const rows = f.name === "cost"
+    ? [{ label: "Regular price", price }, ...(Number(all.wholesalePrice) > 0 ? [{ label: "Wholesale price", price: Number(all.wholesalePrice) }] : [])]
+    : parseTiers(String(all.priceTiers || ""), price || Infinity).map((t) => ({ label: `${t.min}+ units`, price: t.price }));
+  return (
+    <div>
+      <FieldInputBase {...props} />
+      {rows.length > 0 && price > 0 && (cost > 0 || f.name === "priceTiers") && (
+        <div className="mt-2 overflow-hidden rounded-md border border-line text-xs">
+          {rows.map((r) => {
+            const m = margin(r.price, cost);
+            return (
+              <div key={r.label} className="flex justify-between gap-2 border-b border-line px-3 py-1.5 last:border-0">
+                <span className="text-slate-600">{r.label}: <b>${r.price.toFixed(2)}</b></span>
+                {m ? <span className={m.pct < 20 ? "font-semibold text-red-600" : m.pct < 35 ? "font-semibold text-amber-600" : "font-semibold text-emerald-700"}>Profit ${m.profit.toFixed(2)} · Margin {m.pct}%</span> : <span className="text-slate-400">Add cost to see margin</span>}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FieldInputBase({ f, value, onChange, all }: { f: FieldDef; value: unknown; onChange: (v: unknown) => void; all: Record<string, unknown> }) {
   const id = `fld-${f.name}`;
   const label = (
     <label htmlFor={id} className="label">

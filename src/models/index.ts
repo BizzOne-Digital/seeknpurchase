@@ -66,6 +66,7 @@ const ProductSchema = new Schema(
     customizable: { type: Boolean, default: false }, // shows the product customizer
     customType: { type: String, enum: ["apparel", "tote", "cup", "cap"], default: "apparel" },
     cost: { type: Number, min: 0 },
+    priceTiers: { type: String, default: "" }, // quantity discounts, e.g. "10=12.99, 25=11.49"
     stock: { type: Number, default: 0 },
     lowStockThreshold: { type: Number, default: 5 },
     featured: { type: Boolean, default: false, index: true },

@@ -25,7 +25,7 @@ export type FieldDef = {
   default?: unknown;
 };
 
-export type ColumnDef = { name: string; label: string; type?: "image" | "money" | "boolean" | "status" | "date" | "rating" | "text" };
+export type ColumnDef = { name: string; label: string; type?: "image" | "money" | "margin" | "boolean" | "status" | "date" | "rating" | "text" };
 
 export type ResourceDef = {
   key: string;
@@ -59,6 +59,8 @@ export const RESOURCES: Record<string, ResourceDef> = {
       { name: "name", label: "Name" },
       { name: "sku", label: "SKU" },
       { name: "price", label: "Price", type: "money" },
+      { name: "cost", label: "Cost", type: "money" },
+      { name: "margin", label: "Margin", type: "margin" },
       { name: "stock", label: "Stock" },
       { name: "status", label: "Status", type: "status" },
     ],
@@ -73,7 +75,8 @@ export const RESOURCES: Record<string, ResourceDef> = {
       { name: "description", label: "Full description", type: "longtext", group: "Basics" },
       { name: "price", label: "Price", type: "money", required: true, half: true, group: "Pricing & Inventory" },
       { name: "compareAtPrice", label: "Compare-at price (regular)", type: "money", half: true, group: "Pricing & Inventory", help: "Shown struck-through when higher than price" },
-      { name: "cost", label: "Cost per item", type: "money", half: true, group: "Pricing & Inventory" },
+      { name: "cost", label: "Cost per item", type: "money", half: true, group: "Pricing & Inventory", help: "Only visible in admin. Used to calculate profit and margin." },
+      { name: "priceTiers", label: "Quantity price tiers (buy more, save more)", type: "text", group: "Pricing & Inventory", help: "Format: quantity=price per unit, separated by commas. Example: 10=12.99, 25=11.49, 50=9.99. Leave blank for no tiers." },
       { name: "stock", label: "Stock", type: "number", half: true, default: 0, group: "Pricing & Inventory" },
       { name: "lowStockThreshold", label: "Low-stock threshold", type: "number", half: true, default: 5, group: "Pricing & Inventory" },
       { name: "wholesalePrice", label: "Wholesale price (per unit)", type: "money", half: true, group: "Wholesale & Customization", help: "Leave blank to hide this product from the Wholesale page" },

@@ -5,8 +5,8 @@ import { Download, FileUp, Loader2, X } from "lucide-react";
 import { useToast } from "@/components/providers/ToastProvider";
 
 const TEMPLATE = [
-  "name,slug,sku,category,price,compare_at_price,wholesale_price,wholesale_min_qty,stock,status,short_description,description,images,tags",
-  'Classic Cotton T-Shirt,classic-cotton-t-shirt,SP-TEE-013,everyday-essentials,14.99,,7.99,24,500,published,"Soft everyday crew-neck tee","100% cotton, regular fit",https://example.com/tee-front.jpg|https://example.com/tee-back.jpg,t-shirt|apparel',
+  "name,slug,sku,category,price,compare_at_price,cost,price_tiers,wholesale_price,wholesale_min_qty,stock,status,short_description,description,images,tags",
+  'Classic Cotton T-Shirt,classic-cotton-t-shirt,SP-TEE-013,everyday-essentials,14.99,,6.50,"10=12.99, 25=11.49",7.99,24,500,published,"Soft everyday crew-neck tee","100% cotton, regular fit",https://example.com/tee-front.jpg|https://example.com/tee-back.jpg,t-shirt|apparel',
 ].join("\n");
 
 type Result = { created: number; updated: number; failed: number; errors: { row: number; error: string }[] };
