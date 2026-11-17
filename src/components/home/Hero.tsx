@@ -23,15 +23,15 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
   const panel = (o: { eyebrow: string; title1: string; title2: string; text: string; primary: { href: string; label: string; icon?: boolean }; secondary: { href: string; label: string }; first?: boolean }) => {
     const Heading = o.first ? "h1" : "h2";
     return (
-      <div className="container relative flex justify-center pb-6 pt-8 text-center sm:min-h-[460px] sm:items-center sm:justify-start sm:py-14 sm:text-left lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
-        <div className="w-full max-w-[430px] sm:w-[43%]">
-          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-700 sm:mb-5 sm:text-xs">{o.eyebrow}</p>
-          <Heading id={o.first ? "hero-heading" : undefined} className="font-serif text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-navy sm:text-5xl lg:text-[3.6rem] xl:text-[4.25rem]">
+      <div className="container relative flex justify-center pb-6 pt-8 text-center md:min-h-[460px] md:items-center md:justify-start md:py-14 md:text-left lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
+        <div className="w-full max-w-[430px] md:w-[43%]">
+          <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-700 md:mb-5 md:text-xs">{o.eyebrow}</p>
+          <Heading id={o.first ? "hero-heading" : undefined} className="font-serif text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-navy md:text-5xl lg:text-[3.6rem] xl:text-[4.25rem]">
             <span className="block">{o.title1}</span>
             <span className="block text-gold-600">{o.title2}</span>
           </Heading>
-          <p className="mx-auto mt-3 max-w-[340px] text-sm leading-relaxed text-navy/75 sm:mx-0 sm:mt-5 md:text-base">{o.text}</p>
-          <div className="mt-5 flex flex-wrap justify-center gap-3 sm:mt-7 sm:justify-start">
+          <p className="mx-auto mt-3 max-w-[340px] text-sm leading-relaxed text-navy/75 md:mx-0 md:mt-5 md:text-base">{o.text}</p>
+          <div className="mt-5 flex flex-wrap justify-center gap-3 md:mt-7 md:justify-start">
             <Link href={o.primary.href} className="btn-primary px-5 py-3">
               {o.primary.icon && <Paintbrush className="h-4 w-4" strokeWidth={1.75} />} {o.primary.label}
             </Link>

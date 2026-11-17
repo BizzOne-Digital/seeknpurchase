@@ -68,7 +68,7 @@ export function HeroCarousel({ desktopImage, locale, panels }: {
 
   return (
     <section
-      className="relative isolate aspect-[3/5] min-h-[680px] w-full overflow-hidden bg-cream text-navy sm:aspect-auto sm:min-h-0"
+      className="relative isolate aspect-[3/5] min-h-[680px] w-full overflow-hidden bg-cream text-navy md:aspect-auto md:min-h-0"
       aria-labelledby="hero-heading"
       aria-roledescription={es ? "carrusel" : "carousel"}
       onMouseEnter={() => setHovered(true)}
@@ -91,7 +91,7 @@ export function HeroCarousel({ desktopImage, locale, panels }: {
               className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${index === active ? "opacity-100" : "pointer-events-none opacity-0"}`}
             >
               <picture>
-                <source media="(max-width: 639px)" srcSet={mobile.srcSet} sizes={mobile.sizes} />
+                <source media="(max-width: 767px)" srcSet={mobile.srcSet} sizes={mobile.sizes} />
                 <SmartImage
                   src={slide.desktop}
                   alt={slide.alt}
@@ -99,14 +99,14 @@ export function HeroCarousel({ desktopImage, locale, panels }: {
                   loading="eager"
                   fetchPriority={index === 0 ? "high" : "low"}
                   sizes="100vw"
-                  className="object-contain object-bottom sm:object-cover sm:object-center"
+                  className="object-contain object-bottom md:object-cover md:object-center"
                 />
               </picture>
             </div>
           );
         })}
       </div>
-      <div className="absolute inset-y-0 left-0 hidden w-[60%] bg-gradient-to-r from-cream via-cream/90 to-transparent sm:block lg:w-[45%] lg:via-cream/50" />
+      <div className="absolute inset-y-0 left-0 hidden w-[60%] bg-gradient-to-r from-cream via-cream/90 to-transparent md:block lg:w-[45%] lg:via-cream/50" />
       {/* All text panels share one grid cell so the height stays steady; only the active one is visible. */}
       <div className="relative grid">
         {panels.map((panel, index) => (
@@ -115,7 +115,7 @@ export function HeroCarousel({ desktopImage, locale, panels }: {
           </div>
         ))}
       </div>
-      <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center sm:bottom-4">
+      <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center md:bottom-4">
         <div role="group" aria-label={es ? "Controles del carrusel" : "Hero slideshow controls"} className="flex items-center gap-1 rounded-full border border-navy/10 bg-cream/95 px-1.5 py-0.5 shadow-sm backdrop-blur-sm">
           <button type="button" aria-label={es ? "Diapositiva anterior" : "Previous slide"} className={buttonClass} onClick={() => setActive((slide) => (slide + SLIDE_COUNT - 1) % SLIDE_COUNT)}>
             <ChevronLeft className="h-4 w-4" />

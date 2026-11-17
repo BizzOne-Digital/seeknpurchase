@@ -81,6 +81,17 @@ export const DEMO_CATEGORIES: CategoryDTO[] = [
 
 const d = (daysAgo: number) => new Date(Date.now() - daysAgo * 86400000).toISOString();
 
+/** Sample wholesale price and minimum quantity for the custom products (editable in admin). */
+export const WHOLESALE_SAMPLE: Record<string, [number, number]> = {
+  "custom-crewneck-sweatshirt": [18.99, 12],
+  "custom-pullover-hoodie": [22.99, 12],
+  "custom-canvas-tote-bag": [6.99, 24],
+  "custom-ceramic-cup": [5.49, 36],
+  "custom-baseball-cap": [8.99, 24],
+  "custom-team-jersey-adult": [15.99, 12],
+  "custom-team-jersey-kids": [12.99, 12],
+};
+
 export const DEMO_PRODUCTS: ProductDTO[] = [
   {
     name: "Classic Leather Tote", titleEs: "Bolso Tote de Cuero Clásico", slug: "classic-leather-tote", sku: "SP-BAG-001", category: "fashion-accessories",
@@ -194,7 +205,7 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
   ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant, color]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
     category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
-    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : slug === "custom-team-jersey-kids" ? "10=17.99, 25=15.99, 50=13.99" : "",
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), ...(WHOLESALE_SAMPLE[slug] ? { wholesalePrice: WHOLESALE_SAMPLE[slug][0], wholesaleMinQty: WHOLESALE_SAMPLE[slug][1] } : {}), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : slug === "custom-team-jersey-kids" ? "10=17.99, 25=15.99, 50=13.99" : "",
   })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 
