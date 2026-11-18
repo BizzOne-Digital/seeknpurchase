@@ -95,7 +95,19 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
             )}
           </legend>
           <div className="flex flex-wrap gap-2">
-            {v.options.map((o) => (
+            {v === colorVariant ? v.options.map((o) => (
+              <button
+                key={o}
+                type="button"
+                title={o}
+                aria-label={o}
+                aria-pressed={sel[v.name] === o}
+                onClick={() => setSel((s) => ({ ...s, [v.name]: o }))}
+                className={cn("flex h-10 w-10 items-center justify-center rounded-full border-2 transition", sel[v.name] === o ? "border-navy" : "border-transparent hover:border-line")}
+              >
+                <span className="h-8 w-8 rounded-full border border-black/15 shadow-inner" style={{ backgroundColor: colorHex(o) }} />
+              </button>
+            )) : v.options.map((o) => (
               <button
                 key={o}
                 type="button"
