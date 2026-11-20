@@ -66,6 +66,7 @@ export async function priceCart(lines: CartLine[], opts: { couponCode?: string; 
     let customization: (Customization & { unitCharge: number }) | undefined;
     if (l.custom) {
       if (!p.customizable) throw new HttpError(400, `"${p.name}" cannot be customized.`);
+      if (!p.slug.includes("jersey")) l.custom = { ...l.custom, teamName: undefined, frontNumber: undefined, backName: undefined, backNumber: undefined };
       const charge = customizationPrice(l.custom, (p.customType || "apparel") as CustomType);
       if (charge == null) throw new HttpError(400, `Please choose valid customization options for "${p.name}".`);
       if (l.custom.textColor && !TEXT_COLORS.some((c) => c.value === l.custom!.textColor)) throw new HttpError(400, "Please choose a valid text color.");

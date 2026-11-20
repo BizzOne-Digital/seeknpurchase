@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CUSTOM_TEXT_MAX, WHOLESALE_MAX_QTY } from "./customization";
+import { CUSTOM_TEXT_MAX, ROSTER_NAME_MAX, WHOLESALE_MAX_QTY } from "./customization";
 
 const str = (max = 200) => z.string().trim().max(max);
 export const email = z.string().trim().toLowerCase().email("Please enter a valid email address").max(160);
@@ -17,6 +17,10 @@ export const customizationSchema = z.object({
   backText: str(CUSTOM_TEXT_MAX).optional(),
   layout: str(300).optional(),
   notes: str(500).optional(),
+  teamName: str(ROSTER_NAME_MAX).optional(),
+  frontNumber: z.union([z.literal(""), z.string().trim().regex(/^\d{1,3}$/, "Numbers can be up to 3 digits")]).optional(),
+  backName: str(ROSTER_NAME_MAX).optional(),
+  backNumber: z.union([z.literal(""), z.string().trim().regex(/^\d{1,3}$/, "Numbers can be up to 3 digits")]).optional(),
 });
 
 export const cartLines = z

@@ -6,7 +6,7 @@ import { Paintbrush } from "lucide-react";
 import { useI18n } from "@/components/providers/I18nProvider";
 import { useStore } from "@/components/providers/StoreProvider";
 import { DesignStage } from "./DesignStage";
-import { CUSTOM_TEXT_MAX, TEXT_COLORS, customizationPrice, methodsFor, placementsFor, type CustomType, type Customization } from "@/lib/customization";
+import { CUSTOM_TEXT_MAX, ROSTER_NAME_MAX, ROSTER_PRICES, TEXT_COLORS, customizationPrice, hasRoster, methodsFor, placementsFor, type CustomType, type Customization } from "@/lib/customization";
 import { cn } from "@/lib/utils";
 import { PHOTOS, isDark, sidesFor, type MockupKind } from "@/lib/mockups";
 
@@ -27,7 +27,11 @@ export function cleanCustomization(c: Customization): Customization {
     ...(front && c.artworkUrl?.trim() ? { artworkUrl: c.artworkUrl.trim() } : {}),
     ...(back && c.backText?.trim() ? { backText: c.backText.trim() } : {}),
     ...(back && c.backArtworkUrl?.trim() ? { backArtworkUrl: c.backArtworkUrl.trim() } : {}),
-    ...((front && c.text?.trim()) || (back && c.backText?.trim()) ? { textColor: c.textColor || "black", textFont: c.textFont || "sans", textBold: c.textBold !== false } : {}),
+    ...(c.teamName?.trim() ? { teamName: c.teamName.trim() } : {}),
+    ...(c.frontNumber?.trim() ? { frontNumber: c.frontNumber.trim() } : {}),
+    ...(c.backName?.trim() ? { backName: c.backName.trim() } : {}),
+    ...(c.backNumber?.trim() ? { backNumber: c.backNumber.trim() } : {}),
+    ...((front && c.text?.trim()) || (back && c.backText?.trim()) || hasRoster(c) ? { textColor: c.textColor || "black", textFont: c.textFont || "sans", textBold: c.textBold !== false } : {}),
     ...(c.layout ? { layout: c.layout } : {}),
     ...(c.notes?.trim() ? { notes: c.notes.trim() } : {}),
   };
@@ -152,6 +156,30 @@ export function ProductCustomizer({
               ))}
             </div>
           </fieldset>
+
+          {kind === "jersey" && (
+            <fieldset>
+              <legend className="mb-1 text-sm font-semibold">{es ? "Nombres y números" : "Team Names & Numbers"}</legend>
+              <p className="mb-3 text-xs text-slate-500">{es ? "Opcional. Para un pedido de equipo, agrega cada jugador como un artículo aparte." : "Optional. For a team order, add each player to the cart as a separate item."}</p>
+              <div className="grid grid-cols-2 gap-3">
+                {([
+                  ["teamName", es ? "Nombre del equipo (frente)" : "Front - Team Name", ROSTER_PRICES.teamName, "text"],
+                  ["frontNumber", es ? "Número (frente)" : "Front - Number", ROSTER_PRICES.frontNumber, "num"],
+                  ["backName", es ? "Nombre del jugador (espalda)" : "Back - Player Name", ROSTER_PRICES.back, "text"],
+                  ["backNumber", es ? "Número (espalda)" : "Back - Number", 0, "num"],
+                ] as const).map(([k, label, price, t]) => (
+                  <div key={k}>
+                    <label htmlFor={`r-${k}`} className="label">{label}{price ? <span className="font-normal text-slate-500"> +{money(price)}</span> : null}</label>
+                    <input id={`r-${k}`} className="input" value={(value[k] as string) || ""}
+                      inputMode={t === "num" ? "numeric" : undefined} maxLength={t === "num" ? 3 : ROSTER_NAME_MAX}
+                      placeholder={t === "num" ? "10" : k === "teamName" ? (es ? "LEONES" : "TIGERS") : (es ? "GARCÍA" : "SMITH")}
+                      onChange={(e) => set({ [k]: t === "num" ? e.target.value.replace(/\D/g, "").slice(0, 3) : e.target.value.toUpperCase() })} />
+                  </div>
+                ))}
+              </div>
+              {(value.backName || value.backNumber) && <p className="mt-2 text-xs text-slate-500">{es ? "Nombre y número de espalda: +" : "Back name & number: +"}{money(ROSTER_PRICES.back)} {es ? "en total" : "total"}</p>}
+            </fieldset>
+          )}
 
           <div>
             <label htmlFor="custom-notes" className="label">{es ? "Instrucciones (opcional)" : "Instructions (optional)"}</label>

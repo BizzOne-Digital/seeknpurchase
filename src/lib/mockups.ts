@@ -92,6 +92,7 @@ const COLORS: Record<string, string> = {
   natural: "#e8ddc6", cream: "#efe6d4", red: "#b42318", royal: "#2350a8", "royal blue": "#2350a8", blue: "#3567b5",
   green: "#2f6b45", "forest green": "#244c34", maroon: "#6d1f2c", pink: "#e8a3b5", yellow: "#f2c94c", orange: "#e07a2f",
   purple: "#5b3f8c", brown: "#6b4a33", tan: "#c8a97e", sand: "#d8c6a3", oat: "#dccfb4", charcoal: "#3b3d40",
+  "light blue": "#9cc3e6", "sky blue": "#6fb1e0", "carolina blue": "#7ba7d9", teal: "#1f7a7a", "kelly green": "#2e8b3d", lime: "#9acd32", gold: "#e0a526", "athletic gold": "#f1b434", "light pink": "#f4c2cf", "hot pink": "#e0457b", lavender: "#b9a7d6", "sport grey": "#a9abae", "dark heather": "#4a4c50", cardinal: "#8c1d2c", "safety green": "#c6f04a", "safety orange": "#ff6a13", silver: "#c0c2c4", olive: "#6b6e3a", military: "#5a5f3c", burgundy: "#6d1f2c", "texas orange": "#b85c1e", "vegas gold": "#c5b358", "old gold": "#b08d57",
 };
 
 /** Garment color from a variant name like "Navy"; falls back to white. */

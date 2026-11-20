@@ -143,7 +143,7 @@ const OrderSchema = new Schema(
         quantity: Number,
         wholesale: Boolean,
         customization: {
-          placement: String, method: String, text: String, textColor: String, textFont: String, textBold: Boolean, artworkUrl: String, backText: String, backArtworkUrl: String, layout: String, notes: String, unitCharge: Number,
+          placement: String, method: String, text: String, textColor: String, textFont: String, textBold: Boolean, artworkUrl: String, backText: String, backArtworkUrl: String, layout: String, notes: String, teamName: String, frontNumber: String, backName: String, backNumber: String, unitCharge: Number,
         },
       },
     ],

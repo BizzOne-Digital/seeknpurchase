@@ -57,9 +57,25 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
   const variants = p.variants || [];
   const wished = inWishlist(p.slug);
   const colorVariant = variants.find((v) => /colou?r/i.test(v.name));
+  // Custom products: enter a quantity for every size at once (team and bulk orders).
+  const sizeVariant = p.customizable && !compact ? variants.find((v) => /^(size|talla)$/i.test(v.name)) : undefined;
+  const [sizeQty, setSizeQty] = useState<Record<string, number>>({});
+  const gridTotal = Object.values(sizeQty).reduce((n, q) => n + q, 0);
+  const totalQty = sizeVariant ? gridTotal : qty;
 
   const tierFields = p.tiers?.length ? { tiers: p.tiers, basePrice: p.price } : {};
-  const doAdd = () => {
+  const doAdd = (): boolean => {
+    if (sizeVariant) {
+      const sizes = sizeVariant.options.filter((o) => (sizeQty[o] || 0) > 0);
+      if (!sizes.length) {
+        setErr(locale === "es" ? "Ingresa la cantidad de al menos una talla" : "Enter a quantity for at least one size");
+        return false;
+      }
+      return sizes.every((o) => addOne({ ...sel, [sizeVariant.name]: o }, sizeQty[o]));
+    }
+    return addOne(sel, qty);
+  };
+  const addOne = (sel: Record<string, string>, qty: number) => {
     const missing = variants.find((v) => !sel[v.name]);
     if (missing) {
       setErr(`${t.product.select} ${missing.name}`);
@@ -86,7 +102,25 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
 
   return (
     <div className="space-y-4">
-      {variants.map((v) => (
+      {variants.map((v) => v === sizeVariant ? (
+        <fieldset key={v.name}>
+          <legend className="mb-2 text-sm font-semibold">
+            {locale === "es" ? "Tallas y cantidades" : "Enter Sizes & Quantities"}
+            <Link href="/size-guide" className="ml-3 text-xs font-medium text-slate-500 underline hover:text-gold-600">{locale === "es" ? "Guía de tallas" : "Size guide"}</Link>
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {v.options.map((o) => (
+              <label key={o} className="flex w-[60px] flex-col items-center gap-1 text-xs font-semibold">
+                <input inputMode="numeric" aria-label={`${o} ${locale === "es" ? "cantidad" : "quantity"}`} value={sizeQty[o] || ""} placeholder="0"
+                  onChange={(e) => { const n = Math.min(99, parseInt(e.target.value.replace(/\D/g, ""), 10) || 0); setSizeQty((q) => ({ ...q, [o]: n })); setErr(""); }}
+                  className={cn("h-11 w-full rounded-md border text-center text-sm font-normal outline-none focus:border-navy", sizeQty[o] ? "border-navy bg-cream" : "border-line")} />
+                {o}
+              </label>
+            ))}
+          </div>
+          {gridTotal > 0 && <p className="mt-2 text-xs text-slate-500">{locale === "es" ? "Total" : "Total"}: <b>{gridTotal}</b> {locale === "es" ? "unidades" : "units"}</p>}
+        </fieldset>
+      ) : (
         <fieldset key={v.name}>
           <legend className="mb-2 text-sm font-semibold">
             {v.name}: <span className="font-normal text-slate-500">{sel[v.name] || t.product.select}</span>
@@ -129,10 +163,10 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
           color={colorHex(sel[colorVariant?.name || ""] || colorVariant?.options[0])} />
       )}
       {err && <p className="field-error" role="alert">{err}</p>}
-      {!!p.tiers?.length && !out && <PriceTiers base={p.price} tiers={p.tiers} qty={qty} es={locale === "es"} />}
+      {!!p.tiers?.length && !out && <PriceTiers base={p.price} tiers={p.tiers} qty={Math.max(1, totalQty)} es={locale === "es"} />}
 
       <div className="flex flex-wrap items-center gap-3">
-        {!out && <QtyStepper value={qty} onChange={setQty} max={Math.min(p.stock, 99)} />}
+        {!out && !sizeVariant && <QtyStepper value={qty} onChange={setQty} max={Math.min(p.stock, 99)} />}
         <button
           type="button"
           disabled={out}

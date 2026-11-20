@@ -29,7 +29,9 @@ const field = (side: Side): { art: "artworkUrl" | "backArtworkUrl"; text: "text"
 export function DesignStage({ kind, color, placement, value, onChange, es }: {
   kind: MockupKind; color: string; placement: string; value: Customization; onChange: (patch: Partial<Customization>) => void; es: boolean;
 }) {
-  const sides = sidesFor(placement).filter((s) => SHAPES[kind][s] || photoFor(kind, placement, s));
+  // Jerseys also show a side that only carries a name or number.
+  const rosterSides: Side[] = kind === "jersey" ? [...(value.teamName || value.frontNumber ? ["front" as Side] : []), ...(value.backName || value.backNumber ? ["back" as Side] : [])] : [];
+  const sides = (["front", "back"] as Side[]).filter((s) => sidesFor(placement).includes(s) || rosterSides.includes(s)).filter((s) => SHAPES[kind][s] || photoFor(kind, placement, s) || PHOTOS[kind]?.[s]);
   const [side, setSide] = useState<Side>(sides[0] || "front");
   const [state, setState] = useState<Record<Side, SideState>>({ front: fresh(), back: fresh() });
   const [selected, setSelected] = useState<Layer | null>(null);
@@ -162,6 +164,23 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
     );
     return st.top === "text" ? [art, tx] : [tx, art];
   };
+  // Team jersey names and numbers, in fixed jersey positions.
+  const roster = (s: Side) => {
+    if (kind !== "jersey") return null;
+    const area = PHOTOS.jersey?.[s]?.area;
+    const lines = s === "front"
+      ? [value.teamName && { t: value.teamName, y: 14, size: 13 }, value.frontNumber && { t: value.frontNumber, y: 44, size: 22 }]
+      : [value.backName && { t: value.backName, y: 10, size: 12 }, value.backNumber && { t: value.backNumber, y: 46, size: 52 }];
+    const shown = lines.filter(Boolean) as { t: string; y: number; size: number }[];
+    if (!area || !shown.length) return null;
+    return (
+      <div className="pointer-events-none absolute [container-type:inline-size]" style={{ left: `${area.x}%`, top: `${area.y}%`, width: `${area.w}%`, height: `${area.h}%` }}>
+        {shown.map((l) => (
+          <span key={l.y} className="absolute left-1/2 whitespace-nowrap leading-none" style={{ top: `${l.y}%`, fontSize: `${l.size}cqw`, color: textHex, fontFamily: FONTS[2].css, fontWeight: 700, letterSpacing: "0.02em", transform: "translate(-50%, -50%)", mixBlendMode: blend }}>{l.t}</span>
+        ))}
+      </div>
+    );
+  };
   const face = (s: Side) => {
     const ph = PHOTOS[kind]?.[s];
     if (!ph) return null;
@@ -181,6 +200,7 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
             <div className="absolute inset-0 overflow-hidden">{designLayers(s)}</div>
           </div>
         )}
+        {roster(s)}
       </>
     );
   };
@@ -246,7 +266,7 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
         </div>
       ) : (
       <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-xl bg-[#f3f3f1]" onPointerDown={() => setSelected(null)}>
-        {photo ? face(active) : shape ? (
+        {photo || PHOTOS[kind]?.[active] ? face(active) : shape ? (
           <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden>
             <defs>
               <linearGradient id="mk-shade" x1="0" y1="0" x2="1" y2="0">

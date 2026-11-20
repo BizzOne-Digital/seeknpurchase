@@ -17,7 +17,20 @@ export type Customization = {
   backArtworkUrl?: string; // uploaded design for the back side
   layout?: string; // where the customer placed the design in the print area
   notes?: string; // instructions for the print team
+  // Team jerseys only (name and number roster)
+  teamName?: string; // front, across the chest
+  frontNumber?: string; // front, small number
+  backName?: string; // back, player name
+  backNumber?: string; // back, big number
 };
+
+/** Jersey name/number prices, per item. */
+export const ROSTER_PRICES = { teamName: 3, frontNumber: 3, back: 5 } as const;
+export const ROSTER_NAME_MAX = 20;
+export const hasRoster = (c: Customization) => Boolean(c.teamName || c.frontNumber || c.backName || c.backNumber);
+export function rosterPrice(c: Customization) {
+  return (c.teamName ? ROSTER_PRICES.teamName : 0) + (c.frontNumber ? ROSTER_PRICES.frontNumber : 0) + (c.backName || c.backNumber ? ROSTER_PRICES.back : 0);
+}
 
 /** Which set of print options a product gets. */
 export type CustomType = "apparel" | "tote" | "cup" | "cap";
@@ -70,7 +83,7 @@ export function customizationPrice(c: Customization, type: CustomType = "apparel
   const pl = placementsFor(type).find((p) => p.value === c.placement);
   const me = methodsFor(type).find((m) => m.value === c.method);
   if (!pl || !me) return null;
-  return pl.price + me.price;
+  return pl.price + me.price + rosterPrice(c);
 }
 
 /** Short, human-readable summary saved on the cart line and the order (shown to admin + customer). */
@@ -82,6 +95,9 @@ export function customizationSummary(c: Customization): string {
   if (c.artworkUrl) parts.push(`Artwork: ${c.artworkUrl}`);
   if (c.backText) parts.push(`Back text "${c.backText}"`);
   if (c.backArtworkUrl) parts.push(`Back artwork: ${c.backArtworkUrl}`);
+  if (c.teamName) parts.push(`Team name "${c.teamName}"`);
+  if (c.frontNumber) parts.push(`Front number ${c.frontNumber}`);
+  if (c.backName || c.backNumber) parts.push(`Back: ${[c.backName && `name "${c.backName}"`, c.backNumber && `number ${c.backNumber}`].filter(Boolean).join(", ")}`);
   if (c.layout) parts.push(`Layout: ${c.layout}`);
   if (c.notes) parts.push(`Notes: ${c.notes}`);
   return parts.join(" · ");
