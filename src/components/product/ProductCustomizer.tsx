@@ -17,21 +17,22 @@ export const defaultCustom = (type: CustomType = "apparel"): Customization => ({
 /** Removes empty optional fields so the cart line and order stay clean. */
 export function cleanCustomization(c: Customization): Customization {
   const sides = sidesFor(c.placement);
+  const emb = c.method === "embroidery"; // embroidery is logo only
   const front = sides.includes("front");
   const back = sides.includes("back");
   return {
     placement: c.placement,
     method: c.method,
     // Keep only the sides this placement prints on.
-    ...(front && c.text?.trim() ? { text: c.text.trim() } : {}),
+    ...(!emb && front && c.text?.trim() ? { text: c.text.trim() } : {}),
     ...(front && c.artworkUrl?.trim() ? { artworkUrl: c.artworkUrl.trim() } : {}),
-    ...(back && c.backText?.trim() ? { backText: c.backText.trim() } : {}),
+    ...(!emb && back && c.backText?.trim() ? { backText: c.backText.trim() } : {}),
     ...(back && c.backArtworkUrl?.trim() ? { backArtworkUrl: c.backArtworkUrl.trim() } : {}),
     ...(c.teamName?.trim() ? { teamName: c.teamName.trim() } : {}),
     ...(c.frontNumber?.trim() ? { frontNumber: c.frontNumber.trim() } : {}),
     ...(c.backName?.trim() ? { backName: c.backName.trim() } : {}),
     ...(c.backNumber?.trim() ? { backNumber: c.backNumber.trim() } : {}),
-    ...((front && c.text?.trim()) || (back && c.backText?.trim()) || hasRoster(c) ? { textColor: c.textColor || "black", textFont: c.textFont || "sans", textBold: c.textBold !== false } : {}),
+    ...((!emb && front && c.text?.trim()) || (!emb && back && c.backText?.trim()) || hasRoster(c) ? { textColor: c.textColor || "black", textFont: c.textFont || "sans", textBold: c.textBold !== false } : {}),
     ...(c.layout ? { layout: c.layout } : {}),
     ...(c.notes?.trim() ? { notes: c.notes.trim() } : {}),
   };
@@ -126,6 +127,12 @@ export function ProductCustomizer({
         </div>
       </div>
 
+      {!enabled && (
+        <dl className="mt-4 space-y-1.5 rounded-lg bg-cream p-3 text-sm">
+          <div className="flex justify-between"><dt>{es ? "Producto sin diseño" : "Plain item (no print)"}</dt><dd>{money(basePrice)}</dd></div>
+          <div className="flex justify-between border-t border-line pt-1.5 font-semibold"><dt>{es ? "Precio por unidad" : "Price per item"}</dt><dd>{money(basePrice)}</dd></div>
+        </dl>
+      )}
       {!enabled && slot && PHOTOS[kind]?.front && createPortal(<ColorPreview src={PHOTOS[kind]!.front!.src} color={color} />, slot)}
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
@@ -147,10 +154,10 @@ export function ProductCustomizer({
             <legend className="mb-2 text-sm font-semibold">{es ? "Método de impresión" : "Print method"}</legend>
             <div className="grid gap-2 sm:grid-cols-3">
               {methodsFor(type).map((m) => (
-                <button key={m.value} type="button" aria-pressed={value.method === m.value} onClick={() => set({ method: m.value })} className={cn(opt, value.method === m.value ? on : off)}>
+                <button key={m.value} type="button" aria-pressed={value.method === m.value} onClick={() => set(m.value === "embroidery" ? { method: m.value, text: "", backText: "" } : { method: m.value })} className={cn(opt, value.method === m.value ? on : off)}>
                   <span className="block font-medium">{es ? m.es : m.en}</span>
                   <span className={cn("text-xs", value.method === m.value ? "text-white/80" : "text-slate-500")}>
-                    {m.price ? `+${money(m.price)}` : es ? "Incluido" : "Included"}
+                    {m.price ? `+${money(m.price)}` : es ? "Incluido" : "Included"}{m.value === "embroidery" && (es ? " · solo logo" : " · logo only")}
                   </span>
                 </button>
               ))}

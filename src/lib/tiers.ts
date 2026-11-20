@@ -39,3 +39,19 @@ export function margin(price: number, cost?: number) {
   const profit = Math.round((price - cost) * 100) / 100;
   return { profit, pct: Math.round((profit / price) * 1000) / 10 };
 }
+
+/** Discount used when a product has no tiers of its own, so every product shows "Buy More, Save More". */
+export const DEFAULT_TIER_DISCOUNTS = [
+  { min: 10, off: 0.05 },
+  { min: 25, off: 0.1 },
+  { min: 50, off: 0.15 },
+];
+
+/** A product's tiers: its own, the default discounts when blank, or none when set to "none". */
+export function productTiers(text: string | null | undefined, price: number): Tier[] {
+  const t = String(text || "").trim();
+  if (/^none$/i.test(t)) return [];
+  if (t) return parseTiers(t, price);
+  if (!(price > 0)) return [];
+  return DEFAULT_TIER_DISCOUNTS.map((d) => ({ min: d.min, price: Math.round(price * (1 - d.off) * 100) / 100 })).filter((d) => d.price > 0 && d.price < price);
+}

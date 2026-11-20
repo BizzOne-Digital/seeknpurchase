@@ -16,11 +16,10 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
   const l3 = (es && hero.titleLine3Es) || hero.titleLine3En;
   const sub = (es && hero.subtitleEs) || hero.subtitleEn;
   const p = (es && hero.primaryLabelEs) || hero.primaryLabelEn;
-  const s = (es && hero.secondaryLabelEs) || hero.secondaryLabelEn;
   const desktopImage = hero.image === "/images/hero/custom-printing-banner.webp"
     ? DEFAULT_HOMEPAGE.hero.image : hero.image;
 
-  const panel = (o: { eyebrow: string; title1: string; title2: string; text: string; primary: { href: string; label: string; icon?: boolean }; secondary: { href: string; label: string }; first?: boolean }) => {
+  const panel = (o: { eyebrow: string; title1: string; title2: string; text: string; primary: { href: string; label: string; icon?: boolean }; secondary?: { href: string; label: string }; first?: boolean }) => {
     const Heading = o.first ? "h1" : "h2";
     return (
       <div className="container relative flex justify-center pb-6 pt-8 text-center md:min-h-[460px] md:items-center md:justify-start md:py-14 md:text-left lg:min-h-[440px] xl:min-h-[480px] 2xl:min-h-[540px]">
@@ -35,7 +34,7 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
             <Link href={o.primary.href} className="btn-primary px-5 py-3">
               {o.primary.icon && <Paintbrush className="h-4 w-4" strokeWidth={1.75} />} {o.primary.label}
             </Link>
-            <Link href={o.secondary.href} className="btn-outline px-5 py-3">{o.secondary.label} <ArrowRight className="h-4 w-4" /></Link>
+            {o.secondary && <Link href={o.secondary.href} className="btn-outline px-5 py-3">{o.secondary.label} <ArrowRight className="h-4 w-4" /></Link>}
           </div>
         </div>
       </div>
@@ -44,21 +43,21 @@ export function Hero({ hero, locale }: { hero: HomepageDTO["hero"]; locale: Loca
 
   return (
     <HeroCarousel desktopImage={desktopImage} locale={locale} panels={[
-      panel({ first: true, eyebrow: l3, title1: l1, title2: l2, text: sub, primary: { href: hero.primaryLink || "/custom", label: p, icon: true }, secondary: { href: hero.secondaryLink || "/shop", label: s } }),
+      panel({ first: true, eyebrow: l3, title1: l1, title2: l2, text: sub, primary: { href: hero.primaryLink || "/custom", label: p, icon: true } }),
       panel({
         eyebrow: es ? "Estilo Vaquero" : "Western Collection", title1: es ? "Sombreros" : "Western", title2: es ? "Vaqueros" : "Hats",
         text: es ? "Sombreros de fieltro y cuero con detalles clásicos, hechos para durar." : "Classic felt and leather cowboy hats with timeless details, built to last.",
-        primary: { href: "/shop?category=western-hats", label: es ? "Comprar Sombreros" : "Shop Western Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
+        primary: { href: "/shop?category=western-hats", label: es ? "Comprar Sombreros" : "Shop Western Hats" },
       }),
       panel({
         eyebrow: es ? "Colección de Verano" : "Summer Collection", title1: es ? "Sombreros de" : "Summer", title2: es ? "Verano" : "Hats",
         text: es ? "Sombreros de paja ligeros y frescos para el sol, la playa y cada día." : "Light, breathable straw and bucket hats for sunny days, the beach and every day.",
-        primary: { href: "/shop?category=summer-hats", label: es ? "Comprar Sombreros" : "Shop Summer Hats" }, secondary: { href: "/shop", label: es ? "Ver Todo" : "Shop All" },
+        primary: { href: "/shop?category=summer-hats", label: es ? "Comprar Sombreros" : "Shop Summer Hats" },
       }),
       panel({
         eyebrow: es ? "Ropa Deportiva Personalizada" : "Custom Sportswear", title1: es ? "Uniformes" : "Team", title2: es ? "de Equipo" : "Jerseys",
         text: es ? "Sube el logo o arte de tu equipo y agrega nombres y números. Tallas para adultos y niños." : "Upload your team logo or art and add names and numbers. Adult and kids sizes.",
-        primary: { href: "/custom", label: es ? "Diseñar Uniforme" : "Design Your Jersey", icon: true }, secondary: { href: "/products/custom-team-jersey-kids", label: es ? "Tallas Niños" : "Kids Sizes" },
+        primary: { href: "/jerseys", label: es ? "Diseñar Uniforme" : "Design Your Jersey", icon: true },
       }),
     ]} />
   );

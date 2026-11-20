@@ -3,7 +3,7 @@ import { connectDB } from "./db";
 import { Coupon, Product } from "@/models";
 import { getSettings } from "./data";
 import { HttpError } from "./api";
-import { parseTiers, tierUnit } from "./tiers";
+import { productTiers, tierUnit } from "./tiers";
 import {
   DEFAULT_WHOLESALE_MIN, RETAIL_MAX_QTY, TEXT_COLORS, WHOLESALE_MAX_QTY, customizationPrice, customizationSummary, type CustomType, type Customization,
 } from "./customization";
@@ -55,7 +55,7 @@ export async function priceCart(lines: CartLine[], opts: { couponCode?: string; 
     totals.set(p.slug, used);
     if ((p.stock ?? 0) < used) throw new HttpError(409, `Only ${p.stock ?? 0} left in stock for "${p.name}".`);
 
-    let unit = tierUnit(p.price, parseTiers(p.priceTiers, p.price), retailTotals.get(p.slug) ?? 0);
+    let unit = tierUnit(p.price, productTiers(p.priceTiers, p.price), retailTotals.get(p.slug) ?? 0);
     if (wholesale) {
       if (!p.wholesalePrice || p.wholesalePrice <= 0) throw new HttpError(400, `"${p.name}" is no longer available at wholesale pricing.`);
       const min = p.wholesaleMinQty || DEFAULT_WHOLESALE_MIN;

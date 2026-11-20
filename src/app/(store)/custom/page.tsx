@@ -28,22 +28,21 @@ export default async function CustomPage() {
   return (
     <>
       <section className="bg-navy text-white">
-        <div className="container grid items-center gap-8 py-12 md:grid-cols-[1.2fr_1fr] md:py-16">
+        <div className="container grid items-center gap-6 py-7 md:grid-cols-[1fr_auto] md:py-8">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold-100">{es ? "Personalizados" : "Custom Products"}</p>
-            <h1 className="text-4xl text-white md:text-5xl">{es ? "Crea Algo Solo Tuyo" : "Make It Yours"}</h1>
-            <p className="mt-4 max-w-lg text-white/80">
+            <h1 className="text-3xl text-white md:text-4xl">{es ? "Crea Algo Solo Tuyo" : "Make It Yours"}</h1>
+            <p className="mt-2 max-w-xl text-white/80">
               {es ? "Camisetas, sudaderas, bolsas, tazas, hoodies y gorras con tu texto, logo o diseño." : "T-shirts, sweatshirts, tote bags, cups, hoodies and caps with your text, logo or design."}
             </p>
-            <a href="#custom-products" className="btn mt-6 bg-gold-100 text-navy hover:bg-gold hover:text-white">{es ? "Ver Productos" : "Browse Products"} <ArrowRight className="h-4 w-4" /></a>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-            <SmartImage src="/images/products/classic-cotton-t-shirt-1.webp" alt={es ? "Camiseta lista para personalizar" : "T-shirt ready to customize"} fill priority sizes="(max-width:768px) 100vw, 45vw" className="object-cover" />
+          <div className="relative hidden h-32 w-56 overflow-hidden rounded-xl md:block">
+            <SmartImage src="/images/products/classic-cotton-t-shirt-1.webp" alt={es ? "Camiseta lista para personalizar" : "T-shirt ready to customize"} fill priority sizes="224px" className="object-cover" />
           </div>
         </div>
       </section>
 
-      <section id="custom-products" className="container section scroll-mt-24" aria-labelledby="custom-heading">
+      <section id="custom-products" className="container scroll-mt-24 py-10 md:py-12" aria-labelledby="custom-heading">
         <h2 id="custom-heading" className="h-section mb-8">{es ? "Elige Qué Personalizar" : "Choose What to Customize"}</h2>
         {cards.length === 0 ? (
           <EmptyState icon={Paintbrush} title={es ? "Próximamente" : "Coming soon"} actionHref="/contact" actionLabel={es ? "Contáctanos" : "Contact us"} />

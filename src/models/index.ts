@@ -184,6 +184,19 @@ const TestimonialSchema = new Schema(
 );
 export const Testimonial = m("Testimonial", TestimonialSchema);
 
+/** Clip art customers can pick in the product designer. */
+const ClipArtSchema = new Schema(
+  {
+    title: { type: String, required: true, trim: true },
+    category: { type: String, trim: true, default: "General" },
+    image: { type: String, required: true },
+    active: { type: Boolean, default: true },
+    sortOrder: { type: Number, default: 0 },
+  },
+  opts,
+);
+export const ClipArt = m("ClipArt", ClipArtSchema);
+
 const BlogPostSchema = new Schema(
   {
     title: { type: String, required: true },

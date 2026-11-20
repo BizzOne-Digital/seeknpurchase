@@ -76,12 +76,24 @@ export const DEMO_CATEGORIES: CategoryDTO[] = [
   { name: "Unique Finds", nameEs: "Hallazgos Únicos", slug: "unique-finds", description: "Distinctive pieces you won't see everywhere.", image: "/images/categories/unique-finds.webp", active: true, sortOrder: 3 },
   { name: "Western Hats", nameEs: "Sombreros Vaqueros", slug: "western-hats", description: "Classic felt and leather cowboy hats with timeless western details.", image: "/images/hero/western-hats-desktop.webp", active: true, sortOrder: 5 },
   { name: "Summer Hats", nameEs: "Sombreros de Verano", slug: "summer-hats", description: "Light, breathable straw and bucket hats for sunny days and the beach.", image: "/images/hero/summer-hats-desktop.webp", active: true, sortOrder: 6 },
+  { name: "Team Jerseys", nameEs: "Uniformes de Equipo", slug: "team-jerseys", description: "Custom jerseys and uniforms for every sport, with your logo, names and numbers.", image: "/images/hero/sportswear-desktop.webp", active: true, sortOrder: 7 },
   { name: "Gifts", nameEs: "Regalos", slug: "gifts", description: "Thoughtful gifts for every occasion.", image: IMG.gifts, active: true, sortOrder: 4 },
 ];
 
 const d = (daysAgo: number) => new Date(Date.now() - daysAgo * 86400000).toISOString();
 
 /** Sample wholesale price and minimum quantity for the custom products (editable in admin). */
+/** Garment colors for T-shirts, sweatshirts, hoodies and jerseys. */
+export const APPAREL_COLORS = ["White", "Black", "Navy", "Royal Blue", "Light Blue", "Red", "Maroon", "Orange", "Gold", "Kelly Green", "Forest Green", "Purple", "Heather Gray", "Charcoal"];
+
+/** Team jersey options (like the big sportswear stores). */
+export const JERSEY_OPTIONS = [
+  { name: "Gender", options: ["Men's", "Women's", "Youth"] },
+  { name: "Sleeve", options: ["Short Sleeve", "Long Sleeve"] },
+  { name: "Style", options: ["Top Only", "Uniform (Top + Shorts)"] },
+  { name: "Material", options: ["Printed", "Blank (No Name/Number)"] },
+];
+
 export const WHOLESALE_SAMPLE: Record<string, [number, number]> = {
   "custom-crewneck-sweatshirt": [18.99, 12],
   "custom-pullover-hoodie": [22.99, 12],
@@ -191,21 +203,20 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     descriptionEs: "Hecha de 100% algodón peinado con un corte regular cómodo. Elige una camiseta lisa o personalízala con tu texto, logo o diseño.",
     price: 14.99, stock: 500, featured: true, newArrival: true, customizable: true,
     images: ["/images/products/classic-cotton-t-shirt-1.webp"], rating: 4.7, reviewCount: 64, soldCount: 290,
-    variants: [{ name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray"] }],
+    variants: [{ name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
     tags: ["t-shirt", "custom", "apparel"], createdAt: d(3),
   },
   ...([
-    ["Custom Crewneck Sweatshirt", "Sudadera Personalizada", "custom-crewneck-sweatshirt", "SP-CUS-014", 29.99, "apparel", "sweatshirt", "A warm fleece crewneck ready for your name, logo or design.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray", "Red", "Forest Green"] }],
-    ["Custom Pullover Hoodie", "Hoodie Personalizado", "custom-pullover-hoodie", "SP-CUS-015", 34.99, "apparel", "hoodie", "A soft pullover hoodie with a front pocket, ready for your own print.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Heather Gray", "Red", "Forest Green"] }],
+    ["Custom Crewneck Sweatshirt", "Sudadera Personalizada", "custom-crewneck-sweatshirt", "SP-CUS-014", 29.99, "apparel", "sweatshirt", "A warm fleece crewneck ready for your name, logo or design.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
+    ["Custom Pullover Hoodie", "Hoodie Personalizado", "custom-pullover-hoodie", "SP-CUS-015", 34.99, "apparel", "hoodie", "A soft pullover hoodie with a front pocket, ready for your own print.", { name: "Size", options: ["S", "M", "L", "XL", "2XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
     ["Custom Canvas Tote Bag", "Bolsa Tote Personalizada", "custom-canvas-tote-bag", "SP-CUS-016", 12.99, "tote", "tote", "A sturdy cotton canvas tote for events, shops and gifts.", { name: "Color", options: ["Natural", "Black"] }],
     ["Custom Ceramic Cup", "Taza de Cerámica Personalizada", "custom-ceramic-cup", "SP-CUS-017", 9.99, "cup", "cup", "A glossy ceramic cup printed with your photo, logo or message.", { name: "Size", options: ["11 oz", "15 oz"] }, { name: "Color", options: ["White", "Black"] }],
     ["Custom Baseball Cap", "Gorra Personalizada", "custom-baseball-cap", "SP-CUS-018", 14.99, "cap", "cap", "An adjustable cotton cap with your embroidered or printed design.", { name: "Color", options: ["Black", "Navy", "White"] }],
-    ["Custom Team Jersey - Adult", "Camiseta de Equipo Personalizada - Adulto", "custom-team-jersey-adult", "SP-CUS-019", 24.99, "apparel", "jersey", "A breathable V-neck sports jersey. Upload your team logo or art and add player names and numbers.", { name: "Size", options: ["S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Royal Blue", "Red", "Forest Green", "Yellow"] }],
-    ["Custom Team Jersey - Kids", "Camiseta de Equipo Personalizada - Niños", "custom-team-jersey-kids", "SP-CUS-020", 19.99, "apparel", "jersey", "A lightweight V-neck jersey sized for kids. Upload your team logo or art and add names and numbers.", { name: "Size", options: ["4XS", "3XS", "2XS", "XS", "S"] }, { name: "Color", options: ["White", "Black", "Navy", "Royal Blue", "Red", "Forest Green", "Yellow"] }],
+    ["Custom Team Jersey", "Camiseta de Equipo Personalizada", "custom-team-jersey-adult", "SP-CUS-019", 24.99, "apparel", "jersey", "A breathable V-neck sports jersey. Upload your team logo or art and add player names and numbers.", { name: "Size", options: ["YS", "YM", "YL", "YXL", "S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
   ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant, color]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
     category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
-    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), ...(WHOLESALE_SAMPLE[slug] ? { wholesalePrice: WHOLESALE_SAMPLE[slug][0], wholesaleMinQty: WHOLESALE_SAMPLE[slug][1] } : {}), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : slug === "custom-team-jersey-kids" ? "10=17.99, 25=15.99, 50=13.99" : "",
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), ...(slug.includes("jersey") ? { category: "team-jerseys", subcategory: "soccer", variants: [...JERSEY_OPTIONS, { name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])] } : {}), ...(WHOLESALE_SAMPLE[slug] ? { wholesalePrice: WHOLESALE_SAMPLE[slug][0], wholesaleMinQty: WHOLESALE_SAMPLE[slug][1] } : {}), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : "",
   })),
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 

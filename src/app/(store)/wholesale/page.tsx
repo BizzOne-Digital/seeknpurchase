@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ClipboardList, PackageCheck, Paintbrush, PackageSearch, Search, Truck, BadgeDollarSign } from "lucide-react";
-import { getCategories, getWholesaleProducts, toCard } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n/server";
 import { PageHero } from "@/components/ui/SectionHeading";
-import { WholesaleOrder } from "@/components/shop/WholesaleOrder";
 
 export const metadata: Metadata = {
   title: "Wholesale Ordering",
@@ -15,21 +13,20 @@ export const metadata: Metadata = {
 export default async function WholesalePage() {
   const { locale, t } = await getDictionary();
   const es = locale === "es";
-  const [products, categories] = await Promise.all([getWholesaleProducts(), getCategories()]);
-  const cards = products.map((p) => toCard(p, locale)).filter((p) => p.wholesalePrice);
-
+  // Wholesale is for approved customers only: no public catalog, just a quote request.
+  const quote = "/contact?subject=Wholesale%20quote%20request";
   const steps = [
-    { icon: ClipboardList, title: es ? "Elige cantidades" : "Choose quantities", text: es ? "Ingresa unidades por talla o producto. Cada producto muestra su mínimo." : "Enter units per size or product. Each product shows its minimum." },
-    { icon: PackageCheck, title: es ? "Revisa tu total" : "Review your total", text: es ? "Ve tu total y ahorro en tiempo real antes de pagar." : "See your total and savings update live before you pay." },
-    { icon: Truck, title: es ? "Paga y recibe" : "Check out & receive", text: es ? "Pago seguro. Te confirmamos el envío por correo." : "Secure checkout. We confirm shipping by email." },
+    { icon: ClipboardList, title: es ? "Envía tu solicitud" : "Send your request", text: es ? "Dinos qué producto buscas y la cantidad. Puedes adjuntar una foto o muestra." : "Tell us the product and quantity you need. You can attach a photo or sample." },
+    { icon: PackageCheck, title: es ? "Recibe tu cotización" : "Get your quote", text: es ? "Buscamos el producto y te enviamos precios de mayoreo." : "We source the product and send you wholesale pricing." },
+    { icon: Truck, title: es ? "Aprobación y entrega" : "Approve & receive", text: es ? "Los clientes aprobados ordenan y lo entregamos a su negocio." : "Approved customers place the order and we deliver to your business." },
   ];
 
   return (
     <>
       <PageHero
         eyebrow={t.nav.wholesale}
-        title={es ? "Pedidos al Por Mayor" : "Wholesale Ordering"}
-        subtitle={es ? "Compra en volumen a precios de mayoreo. Pedido simple, precios claros." : "Buy in bulk at wholesale prices. Simple ordering, clear pricing."}
+        title={es ? "Mayoreo" : "Wholesale"}
+        subtitle={es ? "Para clientes aprobados. Solicita una cotización y te respondemos con precios de mayoreo." : "For approved business customers. Request a quote and we'll reply with wholesale pricing."}
       />
       <section className="container pt-10" aria-labelledby="sourcing-heading">
         <div className="grid gap-8 overflow-hidden rounded-2xl bg-navy p-7 text-white md:grid-cols-[1.4fr_1fr] md:p-10">
@@ -44,10 +41,9 @@ export default async function WholesalePage() {
                 : "At SeeknPurchase, we can help with that. Tell us the product you need, the quantity and your target price, and we'll source it for you at wholesale prices, without the hassle."}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/contact?subject=Wholesale%20sourcing%20request" className="btn bg-gold-100 px-6 text-navy hover:bg-gold hover:text-white">
-                {es ? "Envía tu solicitud" : "Send Your Request"} <ArrowRight className="h-4 w-4" />
+              <Link href={quote} className="btn bg-gold-100 px-6 text-navy hover:bg-gold hover:text-white">
+                {es ? "Solicitar cotización" : "Request a Quote"} <ArrowRight className="h-4 w-4" />
               </Link>
-              <a href="#ws-heading" className="btn border border-white/40 px-6 text-white hover:bg-white/10">{es ? "Ver catálogo" : "Browse Catalog"}</a>
             </div>
           </div>
           <ul className="grid content-center gap-4 text-sm">
@@ -78,16 +74,13 @@ export default async function WholesalePage() {
           ))}
         </ol>
       </section>
-      <section className="container section pt-10" aria-labelledby="ws-heading">
-        <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <h2 id="ws-heading" className="h-section">{es ? "Catálogo de Mayoreo" : "Wholesale Catalog"}</h2>
-          <p className="flex items-center gap-2 text-sm text-slate-600">
-            <Paintbrush className="h-4 w-4 text-gold" />
-            {es ? "¿Camisetas personalizadas en volumen?" : "Need custom-printed shirts in bulk?"}{" "}
-            <Link href="/contact?subject=Custom%20bulk%20order" className="font-semibold underline hover:text-gold-600">{es ? "Solicita una cotización" : "Request a quote"}</Link>
-          </p>
+      <section className="container section pt-10 text-center" aria-labelledby="ws-cta">
+        <h2 id="ws-cta" className="h-section">{es ? "¿Listo para cotizar?" : "Ready for a Quote?"}</h2>
+        <p className="mx-auto mt-3 max-w-xl text-slate-600">{es ? "Completa el formulario con tu nombre, correo, teléfono y el producto que necesitas. Puedes adjuntar una imagen de referencia." : "Fill in the form with your name, email, phone and the products you need. You can attach a reference image or sample photo."}</p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link href={quote} className="btn-primary px-6">{es ? "Solicitar cotización" : "Request a Quote"} <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/contact?subject=Custom%20bulk%20order" className="btn-outline px-6"><Paintbrush className="h-4 w-4" /> {es ? "Camisetas personalizadas en volumen" : "Custom-printed shirts in bulk"}</Link>
         </div>
-        <WholesaleOrder products={cards} categories={categories} />
       </section>
     </>
   );

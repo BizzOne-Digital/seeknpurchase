@@ -9,6 +9,7 @@ import { PageHero } from "@/components/ui/SectionHeading";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { cn } from "@/lib/utils";
+import { JERSEY_CATEGORY, SPORTS, sportHref } from "@/lib/sports";
 
 export type ShopSearchParams = Record<string, string | string[] | undefined>;
 const SORTS = ["featured", "newest", "price-asc", "price-desc", "best-selling"] as const;
@@ -71,6 +72,19 @@ export async function ShopPage({ searchParams }: { searchParams: ShopSearchParam
         </section>
       ) : (
         <PageHero title={title} subtitle={activeCat?.description || t.shop.subtitle} eyebrow={t.nav.shop} />
+      )}
+      {activeCat?.slug === JERSEY_CATEGORY && (
+        <nav aria-label={locale === "es" ? "Deporte" : "Sport"} className="container flex flex-wrap gap-2 pt-8">
+          {[{ slug: "", en: "All Sports", es: "Todos" }, ...SPORTS].map((s) => {
+            const on = (q.sub || "").toLowerCase() === s.slug;
+            return (
+              <Link key={s.slug || "all"} href={sportHref(s.slug || undefined)} aria-current={on ? "page" : undefined}
+                className={cn("rounded-full border px-5 py-2 text-sm font-medium transition", on ? "border-navy bg-navy text-white" : "border-line hover:border-navy")}>
+                {locale === "es" ? s.es : s.en}
+              </Link>
+            );
+          })}
+        </nav>
       )}
       {activeCat && /hats?$/.test(activeCat.slug) && (
         <nav aria-label={locale === "es" ? "Filtrar por" : "Shop by"} className="container flex flex-wrap gap-2 pt-8">

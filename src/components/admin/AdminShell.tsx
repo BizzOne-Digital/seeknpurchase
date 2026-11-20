@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   BadgePercent, BookOpen, CalendarCheck, FileText, FolderTree, Gift, HelpCircle, Home, Image as ImageIcon, LayoutDashboard, LogOut,
-  Mail, Menu, MessageSquareQuote, Newspaper, Package, Settings, ShoppingCart, Sparkles, Star, Users, UsersRound, X, ExternalLink,
+  Mail, Menu, MessageSquareQuote, Newspaper, Package, Settings, ShoppingCart, Sparkles, Star, Users, UsersRound, X, ExternalLink, Shapes,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +28,7 @@ const NAV = [
     items: [
       { href: "/admin/homepage", label: "Hero / Homepage", Icon: Home },
       { href: "/admin/testimonials", label: "Testimonials", Icon: MessageSquareQuote },
+      { href: "/admin/cliparts", label: "Clip Art", Icon: Shapes },
       { href: "/admin/blogs", label: "Blogs", Icon: Newspaper },
       { href: "/admin/faqs", label: "FAQs", Icon: HelpCircle },
       { href: "/admin/team", label: "Team", Icon: UsersRound },

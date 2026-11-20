@@ -2,7 +2,7 @@ import "server-only";
 import type { Model } from "mongoose";
 import {
   BlogPost, BookingRequest, Category, ContactSubmission, Coupon, FAQ, NewsletterSubscriber, Page, Product, Review, Service,
-  SpecialOffer, TeamMember, Testimonial,
+  SpecialOffer, TeamMember, Testimonial, ClipArt,
 } from "@/models";
 import { RESOURCES, type ResourceDef } from "./resources";
 import { HttpError } from "@/lib/api";
@@ -13,7 +13,7 @@ import { formatTiers, parseTiers } from "@/lib/tiers";
 const MODELS: Record<string, Model<any>> = {
   products: Product, categories: Category, reviews: Review, testimonials: Testimonial, blogs: BlogPost, faqs: FAQ, team: TeamMember,
   services: Service, pages: Page, offers: SpecialOffer, coupons: Coupon, bookings: BookingRequest, contacts: ContactSubmission,
-  newsletter: NewsletterSubscriber,
+  newsletter: NewsletterSubscriber, cliparts: ClipArt,
 };
 
 export function getResource(key: string): { def: ResourceDef; model: Model<any> } { // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -102,6 +102,6 @@ export function sanitize(def: ResourceDef, input: Record<string, unknown>, parti
     if (!s) throw new HttpError(422, `${f.label} is required`);
     out[f.name] = s;
   }
-  if (typeof out.priceTiers === "string") out.priceTiers = formatTiers(parseTiers(out.priceTiers));
+  if (typeof out.priceTiers === "string") out.priceTiers = /^\s*none\s*$/i.test(out.priceTiers) ? "none" : formatTiers(parseTiers(out.priceTiers));
   return out;
 }

@@ -13,7 +13,7 @@ import type {
 import { escapeRegex, normalizeImageUrl } from "./utils";
 import type { Locale } from "./i18n/dictionaries";
 import { productTitle } from "./i18n/localize";
-import { parseTiers } from "./tiers";
+import { productTiers } from "./tiers";
 
 /** Runs a DB query; falls back to demo content when no DB is configured or it is unreachable. */
 async function withDb<T>(query: () => Promise<unknown>, fallback: T): Promise<T> {
@@ -186,8 +186,8 @@ export async function getWholesaleProducts(): Promise<ProductDTO[]> {
 
 export async function getCustomProducts(): Promise<ProductDTO[]> {
   return withDb(
-    () => Product.find({ status: "published", customizable: true }).sort({ soldCount: -1 }).limit(60).lean(),
-    DEMO_PRODUCTS.filter((p) => p.customizable),
+    () => Product.find({ status: "published", customizable: true, slug: { $not: /jersey/ } }).sort({ soldCount: -1 }).limit(60).lean(),
+    DEMO_PRODUCTS.filter((p) => p.customizable && !p.slug.includes("jersey")),
   );
 }
 
@@ -216,7 +216,7 @@ export function toCard(p: ProductDTO, locale: Locale): ProductCardData {
     variants: p.variants?.filter((v) => v.name && v.options?.length),
     wholesalePrice: p.wholesalePrice && p.wholesalePrice > 0 ? p.wholesalePrice : undefined,
     wholesaleMinQty: p.wholesaleMinQty && p.wholesaleMinQty > 0 ? p.wholesaleMinQty : undefined,
-    tiers: parseTiers(p.priceTiers, p.price),
+    tiers: productTiers(p.priceTiers, p.price),
     customizable: Boolean(p.customizable),
     customType: p.customType || "apparel",
     category: p.category,

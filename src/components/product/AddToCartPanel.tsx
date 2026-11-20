@@ -12,6 +12,7 @@ import { customizationPrice, customizationSummary } from "@/lib/customization";
 import { colorHex, mockupKind } from "@/lib/mockups";
 import { ProductCustomizer, cleanCustomization, defaultCustom, validateCustomization } from "./ProductCustomizer";
 import Link from "next/link";
+import { SizeGuideButton } from "./SizeGuideButton";
 import type { Tier } from "@/lib/tiers";
 
 export function QtyStepper({ value, onChange, max = 99, min = 1, size = "md" }: { value: number; onChange: (n: number) => void; max?: number; min?: number; size?: "sm" | "md" }) {
@@ -106,7 +107,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
         <fieldset key={v.name}>
           <legend className="mb-2 text-sm font-semibold">
             {locale === "es" ? "Tallas y cantidades" : "Enter Sizes & Quantities"}
-            <Link href="/size-guide" className="ml-3 text-xs font-medium text-slate-500 underline hover:text-gold-600">{locale === "es" ? "Guía de tallas" : "Size guide"}</Link>
+            <SizeGuideButton es={locale === "es"} />
           </legend>
           <div className="flex flex-wrap gap-2">
             {v.options.map((o) => (
@@ -125,7 +126,7 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
           <legend className="mb-2 text-sm font-semibold">
             {v.name}: <span className="font-normal text-slate-500">{sel[v.name] || t.product.select}</span>
             {/^size$|^talla$/i.test(v.name) && (
-              <Link href="/size-guide" className="ml-3 text-xs font-medium text-slate-500 underline hover:text-gold-600">{locale === "es" ? "Guía de tallas" : "Size guide"}</Link>
+              <SizeGuideButton es={locale === "es"} />
             )}
           </legend>
           <div className="flex flex-wrap gap-2">
@@ -207,8 +208,8 @@ export function AddToCartPanel({ p, onAdded, compact }: { p: ProductCardData; on
       {!compact && p.wholesalePrice && (
         <p className="rounded-lg bg-gold-50 px-4 py-3 text-sm text-navy">
           {locale === "es" ? "¿Compras al por mayor?" : "Buying in bulk?"}{" "}
-          <Link href={`/wholesale#${p.slug}`} className="font-semibold underline hover:text-gold-600">
-            {locale === "es" ? "Ver precios de mayoreo" : "See wholesale pricing"}
+          <Link href="/wholesale" className="font-semibold underline hover:text-gold-600">
+            {locale === "es" ? "Solicita una cotización de mayoreo" : "Request a wholesale quote"}
           </Link>
         </p>
       )}

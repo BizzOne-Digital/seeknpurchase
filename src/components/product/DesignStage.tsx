@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { webglAvailable, type Face3D } from "./Product3D";
+import { ClipArtPicker } from "./ClipArtPicker";
 import { ArrowDownToLine, ArrowUpToLine, Box as Cube, Crosshair, ImagePlus, Loader2, Trash2, Type } from "lucide-react";
 import { FONTS, TEXT_COLORS, CUSTOM_TEXT_MAX, type Customization } from "@/lib/customization";
 import { PHOTOS, SHAPES, isDark, photoFor, printArea, sidesFor, type MockupKind, type Side } from "@/lib/mockups";
@@ -26,12 +27,15 @@ const field = (side: Side): { art: "artworkUrl" | "backArtworkUrl"; text: "text"
  * Product designer: real product photo tinted to the chosen color (drawn mockup when no photo exists),
  * front/back views, upload + text layers that can be moved, resized, centered and reordered.
  */
+/** Placement that also prints the other side. */
+const WIDEN: Record<string, string> = { front: "front-back", back: "front-back", "left-chest": "front-back", "one-side": "both-sides" };
+
 export function DesignStage({ kind, color, placement, value, onChange, es }: {
   kind: MockupKind; color: string; placement: string; value: Customization; onChange: (patch: Partial<Customization>) => void; es: boolean;
 }) {
   // Jerseys also show a side that only carries a name or number.
   const rosterSides: Side[] = kind === "jersey" ? [...(value.teamName || value.frontNumber ? ["front" as Side] : []), ...(value.backName || value.backNumber ? ["back" as Side] : [])] : [];
-  const sides = (["front", "back"] as Side[]).filter((s) => sidesFor(placement).includes(s) || rosterSides.includes(s)).filter((s) => SHAPES[kind][s] || photoFor(kind, placement, s) || PHOTOS[kind]?.[s]);
+  const sides = (["front", "back"] as Side[]).filter((s) => sidesFor(placement).includes(s) || rosterSides.includes(s) || Boolean(PHOTOS[kind]?.front && PHOTOS[kind]?.back)).filter((s) => SHAPES[kind][s] || photoFor(kind, placement, s) || PHOTOS[kind]?.[s]);
   const [side, setSide] = useState<Side>(sides[0] || "front");
   const [state, setState] = useState<Record<Side, SideState>>({ front: fresh(), back: fresh() });
   const [selected, setSelected] = useState<Layer | null>(null);
@@ -51,10 +55,11 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
   useEffect(() => { if (active !== side) setSide(active); }, [active, side]);
 
   const photo = photoFor(kind, placement, active);
+  const logoOnly = value.method === "embroidery";
   const shape = SHAPES[kind][active] || SHAPES[kind].front;
   const box = photo?.area ?? printArea(kind, placement, active);
   const cur = state[active];
-  const label = (value[field(active).text] as string | undefined)?.trim() || "";
+  const label = logoOnly ? "" : (value[field(active).text] as string | undefined)?.trim() || "";
   const textHex = TEXT_COLORS.find((c) => c.value === value.textColor)?.hex ?? "#111111";
   const font = FONTS.find((f) => f.value === value.textFont) ?? FONTS[0];
   const dark = isDark(color);
@@ -65,7 +70,7 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
     const r = Math.round;
     const describe = (s: Side) => {
       const st = state[s];
-      const txt = (value[field(s).text] as string | undefined)?.trim();
+      const txt = logoOnly ? "" : (value[field(s).text] as string | undefined)?.trim();
       const parts = [st.url ? `image x${r(st.art.x)}% y${r(st.art.y)}% width ${r(st.art.size)}%` : "", txt ? `text x${r(st.text.x)}% y${r(st.text.y)}% size ${r(st.text.size)}` : ""].filter(Boolean);
       if (st.url && txt) parts.push(st.top === "text" ? "text on top" : "image on top");
       return parts.length ? `${s === "front" ? "Front" : "Back"}: ${parts.join(", ")}` : "";
@@ -148,7 +153,7 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
   });
   const designLayers = (s: Side) => {
     const st = state[s];
-    const txt = (value[field(s).text] as string | undefined)?.trim();
+    const txt = logoOnly ? "" : (value[field(s).text] as string | undefined)?.trim();
     const art = st.url && (
       // eslint-disable-next-line @next/next/no-img-element
       <img key="art" src={st.url} alt="" draggable={false}
@@ -214,7 +219,7 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
   const faces3d = (): Record<Side, Face3D> => {
     const one = (s: Side): Face3D => {
       const st = state[s];
-      const txt = (value[field(s).text] as string | undefined)?.trim();
+      const txt = logoOnly ? "" : (value[field(s).text] as string | undefined)?.trim();
       return {
         photo: PH![s]!.src,
         area: photoFor(kind, placement, s)?.area,
@@ -303,6 +308,16 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
             )}
           </div>
         )}
+        {!box && !(kind === "jersey" && rosterSides.includes(active)) && (
+          <div className="absolute inset-x-4 bottom-4 rounded-lg bg-white/90 p-3 text-center text-xs text-slate-600 shadow-sm">
+            {es ? "Este lado no se imprime con la ubicación elegida." : "This side isn't printed with the placement you chose."}
+            {WIDEN[placement] && (
+              <button type="button" onClick={() => onChange({ placement: WIDEN[placement] })} className="ml-2 font-semibold text-navy underline">
+                {es ? "Imprimir también aquí" : "Print on this side too"}
+              </button>
+            )}
+          </div>
+        )}
         {!cur.url && !label && box && (
           <p className="pointer-events-none absolute inset-x-0 bottom-3 text-center text-xs text-slate-500">{es ? "Sube una imagen o agrega texto para empezar." : "Upload an image or add text to start."}</p>
         )}
@@ -314,14 +329,20 @@ export function DesignStage({ kind, color, placement, value, onChange, es }: {
 
       <input ref={input} type="file" accept="image/png,image/jpeg,image/webp" className="sr-only" aria-label={es ? "Subir diseño" : "Upload design"} onChange={(e) => upload(e.target.files?.[0])} />
       <div className="grid grid-cols-2 gap-2">
-        <button type="button" onClick={() => { setView3d(false); input.current?.click(); }} disabled={uploading} className="btn-primary">
+        <button type="button" onClick={() => { setView3d(false); input.current?.click(); }} disabled={uploading || !box} className="btn-primary">
           {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />}
           {cur.url ? (es ? "Cambiar imagen" : "Replace image") : es ? "Subir imagen" : "Upload image"}
         </button>
-        <button type="button" onClick={() => { setView3d(false); setSelected("text"); textInput.current?.focus(); }} className="btn-outline">
+        <button type="button" onClick={() => { setView3d(false); setSelected("text"); textInput.current?.focus(); }} disabled={!box || logoOnly} title={logoOnly ? (es ? "El bordado es solo para logos" : "Embroidery is for logos only") : undefined} className="btn-outline disabled:opacity-40">
           <Type className="h-4 w-4" /> {es ? "Agregar texto" : "Add text"}
         </button>
       </div>
+      <ClipArtPicker es={es} disabled={!box} onPick={(img) => {
+        setView3d(false);
+        patchSide(active, { url: img, art: { x: 50, y: 50, size: 60 } });
+        onChange({ [field(active).art]: /^https?:/i.test(img) ? img : `${window.location.origin}${img}` });
+        setSelected("art");
+      }} />
       {error && <p className="field-error" role="alert">{error}</p>}
 
       <div className="space-y-3 rounded-xl border border-line p-4">
