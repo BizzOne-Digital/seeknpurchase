@@ -32,6 +32,9 @@ const HMAP = 256; // heightmap resolution
 const SHAPE: Record<MockupKind, { depth: number; reach: number }> = {
   tee: { depth: 0.075, reach: 0.11 },
   jersey: { depth: 0.075, reach: 0.11 },
+  polo: { depth: 0.075, reach: 0.11 },
+  shorts: { depth: 0.07, reach: 0.12 },
+  phonecase: { depth: 0.03, reach: 0.06 },
   sweatshirt: { depth: 0.085, reach: 0.12 },
   hoodie: { depth: 0.09, reach: 0.12 },
   tote: { depth: 0.035, reach: 0.12 },

@@ -97,7 +97,7 @@ export function ProductCustomizer({
   useEffect(() => {
     setSlot(document.getElementById("design-slot"));
     // Plain mode also replaces the gallery once a color photo can be shown.
-    if (!enabled && !PHOTOS[kind]?.front) return;
+    if (!enabled && (!PHOTOS[kind]?.front || kind === "jersey")) return;
     document.documentElement.dataset.designing = "1";
     return () => { delete document.documentElement.dataset.designing; };
   }, [enabled, kind]);
@@ -133,7 +133,7 @@ export function ProductCustomizer({
           <div className="flex justify-between border-t border-line pt-1.5 font-semibold"><dt>{es ? "Precio por unidad" : "Price per item"}</dt><dd>{money(basePrice)}</dd></div>
         </dl>
       )}
-      {!enabled && slot && PHOTOS[kind]?.front && createPortal(<ColorPreview src={PHOTOS[kind]!.front!.src} color={color} />, slot)}
+      {!enabled && slot && PHOTOS[kind]?.front && kind !== "jersey" && createPortal(<ColorPreview src={PHOTOS[kind]!.front!.src} color={color} />, slot)}
       {enabled && (
         <div className="mt-5 space-y-5 animate-fade-in">
           {slot ? createPortal(<DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />, slot) : <DesignStage kind={kind} color={color} placement={value.placement} value={value} onChange={set} es={es} />}

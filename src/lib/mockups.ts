@@ -3,7 +3,7 @@
  * and show a back side. All coordinates use a 400x400 box; print areas are percentages of it.
  */
 
-export type MockupKind = "tee" | "sweatshirt" | "hoodie" | "tote" | "cup" | "cap" | "jersey";
+export type MockupKind = "tee" | "sweatshirt" | "hoodie" | "tote" | "cup" | "cap" | "jersey" | "polo" | "shorts" | "phonecase";
 export type Side = "front" | "back";
 export type Area = { x: number; y: number; w: number; h: number };
 
@@ -11,6 +11,9 @@ export function mockupKind(slug: string, customType?: string): MockupKind {
   if (customType === "tote") return "tote";
   if (customType === "cup") return "cup";
   if (customType === "cap") return "cap";
+  if (customType === "shorts") return "shorts";
+  if (customType === "phonecase") return "phonecase";
+  if (slug.includes("polo")) return "polo";
   if (slug.includes("jersey")) return "jersey";
   if (slug.includes("hoodie")) return "hoodie";
   if (slug.includes("sweatshirt") || slug.includes("crewneck")) return "sweatshirt";
@@ -18,7 +21,7 @@ export function mockupKind(slug: string, customType?: string): MockupKind {
 }
 
 /** Garment outline and detail lines for each side. */
-export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lines: string }>>> = { jersey: {},
+export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lines: string }>>> = { jersey: {}, polo: {}, shorts: {}, phonecase: {},
   tee: {
     front: {
       body: "M140 52 L72 82 L28 152 L82 182 L104 152 L104 360 L296 360 L296 152 L318 182 L372 152 L328 82 L260 52 C246 82 154 82 140 52Z",
@@ -62,6 +65,7 @@ export const SHAPES: Record<MockupKind, Partial<Record<Side, { body: string; lin
 };
 
 SHAPES.jersey = SHAPES.tee;
+SHAPES.polo = SHAPES.tee;
 
 /** Where the design can go for each placement value (sides and print area per side). */
 export const PRINT_AREAS: Record<string, Partial<Record<Side, Area>>> = {
@@ -75,6 +79,10 @@ export const PRINT_AREAS: Record<string, Partial<Record<Side, Area>>> = {
   "cup-wrap": { front: { x: 26, y: 32, w: 42, h: 48 } },
   "cap-front": { front: { x: 37, y: 36, w: 26, h: 20 } },
   "cap-side": { front: { x: 21, y: 44, w: 16, h: 14 } },
+  leg: { front: { x: 56, y: 55, w: 20, h: 22 } },
+  "shorts-back": { back: { x: 33, y: 22, w: 34, h: 22 } },
+  "leg-back": { front: { x: 56, y: 55, w: 20, h: 22 }, back: { x: 33, y: 22, w: 34, h: 22 } },
+  "case-full": { front: { x: 31, y: 40, w: 37, h: 47 } },
 };
 
 /** Hoodie front has the pocket and drawstrings, so its front print sits higher. */
@@ -124,6 +132,17 @@ export const PHOTOS: Partial<Record<MockupKind, Partial<Record<Side, PhotoSide>>
   jersey: {
     front: { src: "/images/mockups/jersey-front.webp", area: { x: 32, y: 26, w: 36, h: 44 }, chest: { x: 56, y: 26, w: 11, h: 10 } },
     back: { src: "/images/mockups/jersey-back.webp", area: { x: 30, y: 18, w: 40, h: 52 } },
+  },
+  polo: {
+    front: { src: "/images/mockups/polo-front.webp", area: { x: 33, y: 33, w: 34, h: 40 }, chest: { x: 55, y: 26, w: 12, h: 10 } },
+    back: { src: "/images/mockups/polo-back.webp", area: { x: 31, y: 21, w: 38, h: 50 } },
+  },
+  shorts: {
+    front: { src: "/images/mockups/shorts-front.webp", area: { x: 56, y: 55, w: 20, h: 22 } },
+    back: { src: "/images/mockups/shorts-back.webp", area: { x: 33, y: 22, w: 34, h: 22 } },
+  },
+  phonecase: {
+    front: { src: "/images/mockups/phonecase-front.webp", area: { x: 31, y: 40, w: 37, h: 47 } },
   },
   tote: {
     front: { src: "/images/mockups/tote-front.webp", area: { x: 26, y: 45, w: 48, h: 44 } },

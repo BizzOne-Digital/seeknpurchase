@@ -86,6 +86,17 @@ const d = (daysAgo: number) => new Date(Date.now() - daysAgo * 86400000).toISOSt
 /** Garment colors for T-shirts, sweatshirts, hoodies and jerseys. */
 export const APPAREL_COLORS = ["White", "Black", "Navy", "Royal Blue", "Light Blue", "Red", "Maroon", "Orange", "Gold", "Kelly Green", "Forest Green", "Purple", "Heather Gray", "Charcoal"];
 
+/** One customizable jersey per sport (the soccer jersey is the original "custom-team-jersey-adult"). */
+export const SPORT_JERSEY_LIST = [
+  ["soccer", "Custom Soccer Jersey", "Uniforme de Fútbol Personalizado", "custom-team-jersey-adult"],
+  ["baseball", "Custom Baseball Jersey", "Uniforme de Béisbol Personalizado", "custom-baseball-jersey"],
+  ["basketball", "Custom Basketball Jersey", "Uniforme de Baloncesto Personalizado", "custom-basketball-jersey"],
+  ["football", "Custom Football Jersey", "Uniforme de Fútbol Americano Personalizado", "custom-football-jersey"],
+  ["softball", "Custom Softball Jersey", "Uniforme de Sóftbol Personalizado", "custom-softball-jersey"],
+  ["volleyball", "Custom Volleyball Jersey", "Uniforme de Voleibol Personalizado", "custom-volleyball-jersey"],
+  ["hockey", "Custom Hockey Jersey", "Uniforme de Hockey Personalizado", "custom-hockey-jersey"],
+] as const;
+
 /** Team jersey options (like the big sportswear stores). */
 export const JERSEY_OPTIONS = [
   { name: "Gender", options: ["Men's", "Women's", "Youth"] },
@@ -93,6 +104,15 @@ export const JERSEY_OPTIONS = [
   { name: "Style", options: ["Top Only", "Uniform (Top + Shorts)"] },
   { name: "Material", options: ["Printed", "Blank (No Name/Number)"] },
 ];
+
+export const SPORT_JERSEYS = SPORT_JERSEY_LIST.filter(([, , , slug]) => slug !== "custom-team-jersey-adult").map(([sport, name, titleEs, slug], i) => ({
+  name, titleEs, slug, sku: `SP-JER-${String(i + 2).padStart(3, "0")}`, price: 24.99, customType: "apparel" as const, category: "team-jerseys", subcategory: sport,
+  shortDescription: `A custom ${sport} jersey for your team. Choose men's, women's or youth, sleeve and style, then add your logo, names and numbers.`,
+  description: `A custom ${sport} jersey for your team. Choose men's, women's or youth, sleeve and style, then add your logo, names and numbers.`,
+  stock: 500, customizable: true, images: [`/images/sports/${sport}.webp`], rating: 0, reviewCount: 0, soldCount: 0,
+  variants: [...JERSEY_OPTIONS, { name: "Size", options: ["YS", "YM", "YL", "YXL", "S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
+  tags: ["custom", "jersey", sport], priceTiers: "10=22.99, 25=19.99, 50=17.99", createdAt: new Date().toISOString(),
+}));
 
 export const WHOLESALE_SAMPLE: Record<string, [number, number]> = {
   "custom-crewneck-sweatshirt": [18.99, 12],
@@ -212,12 +232,16 @@ export const DEMO_PRODUCTS: ProductDTO[] = [
     ["Custom Canvas Tote Bag", "Bolsa Tote Personalizada", "custom-canvas-tote-bag", "SP-CUS-016", 12.99, "tote", "tote", "A sturdy cotton canvas tote for events, shops and gifts.", { name: "Color", options: ["Natural", "Black"] }],
     ["Custom Ceramic Cup", "Taza de Cerámica Personalizada", "custom-ceramic-cup", "SP-CUS-017", 9.99, "cup", "cup", "A glossy ceramic cup printed with your photo, logo or message.", { name: "Size", options: ["11 oz", "15 oz"] }, { name: "Color", options: ["White", "Black"] }],
     ["Custom Baseball Cap", "Gorra Personalizada", "custom-baseball-cap", "SP-CUS-018", 14.99, "cap", "cap", "An adjustable cotton cap with your embroidered or printed design.", { name: "Color", options: ["Black", "Navy", "White"] }],
-    ["Custom Team Jersey", "Camiseta de Equipo Personalizada", "custom-team-jersey-adult", "SP-CUS-019", 24.99, "apparel", "jersey", "A breathable V-neck sports jersey. Upload your team logo or art and add player names and numbers.", { name: "Size", options: ["YS", "YM", "YL", "YXL", "S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
+    ["Custom Soccer Jersey", "Uniforme de Fútbol Personalizado", "custom-team-jersey-adult", "SP-CUS-019", 24.99, "apparel", "jersey", "A breathable V-neck sports jersey. Upload your team logo or art and add player names and numbers.", { name: "Size", options: ["YS", "YM", "YL", "YXL", "S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
+    ["Custom Polo Shirt", "Polo Personalizada", "custom-polo-shirt", "SP-CUS-021", 24.99, "apparel", "polo", "A classic piqué polo with collar and 3-button placket. Add your logo on the chest or back.", { name: "Size", options: ["S", "M", "L", "XL", "2XL", "3XL"] }, { name: "Color", options: [...APPAREL_COLORS] }],
+    ["Custom Athletic Shorts", "Shorts Deportivos Personalizados", "custom-athletic-shorts", "SP-CUS-022", 19.99, "shorts", "shorts", "Lightweight athletic shorts with an elastic waistband and drawstring. Add your logo or number.", { name: "Size", options: ["YS", "YM", "YL", "S", "M", "L", "XL", "2XL"] }, { name: "Color", options: ["White", "Black", "Navy", "Royal Blue", "Red", "Maroon", "Kelly Green", "Charcoal"] }],
+    ["Custom Phone Case", "Funda de Teléfono Personalizada", "custom-phone-case", "SP-CUS-023", 19.99, "phonecase", "phonecase", "A slim, protective phone case printed in full color with your photo, logo or design.", { name: "Phone Model", options: ["iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 16", "iPhone 15 Pro Max", "iPhone 15", "iPhone 14", "Samsung Galaxy S24", "Samsung Galaxy S24 Ultra"] }, { name: "Color", options: ["White", "Black", "Navy", "Light Pink"] }],
   ] as const).map(([name, titleEs, slug, sku, price, customType, img, shortDescription, variant, color]) => ({
     name, titleEs, slug, sku, price, customType, shortDescription, description: shortDescription,
     category: "everyday-essentials", stock: 200, customizable: true, images: [`/images/products/${slug}-1.webp`],
-    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), ...(slug.includes("jersey") ? { category: "team-jerseys", subcategory: "soccer", variants: [...JERSEY_OPTIONS, { name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])] } : {}), ...(WHOLESALE_SAMPLE[slug] ? { wholesalePrice: WHOLESALE_SAMPLE[slug][0], wholesaleMinQty: WHOLESALE_SAMPLE[slug][1] } : {}), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : "",
+    rating: 0, reviewCount: 0, soldCount: 0, variants: [{ name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])], tags: ["custom", img], createdAt: d(2), ...(slug.includes("jersey") ? { images: ["/images/sports/soccer.webp"], category: "team-jerseys", subcategory: "soccer", variants: [...JERSEY_OPTIONS, { name: variant.name, options: [...variant.options] }, ...(color ? [{ name: color.name, options: [...color.options] }] : [])] } : {}), ...(WHOLESALE_SAMPLE[slug] ? { wholesalePrice: WHOLESALE_SAMPLE[slug][0], wholesaleMinQty: WHOLESALE_SAMPLE[slug][1] } : {}), priceTiers: slug === "custom-team-jersey-adult" ? "10=22.99, 25=19.99, 50=17.99" : "",
   })),
+  ...SPORT_JERSEYS,
 ].map((p) => ({ status: "published" as const, lowStockThreshold: 5, ...p }));
 
 export const DEMO_TESTIMONIALS: TestimonialDTO[] = [

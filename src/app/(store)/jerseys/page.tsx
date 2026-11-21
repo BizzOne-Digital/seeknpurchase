@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Shirt } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { SmartImage } from "@/components/ui/SmartImage";
 import { getDictionary } from "@/lib/i18n/server";
 import { SPORTS, sportHref } from "@/lib/sports";
 
@@ -30,12 +31,12 @@ export default async function JerseysPage() {
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {SPORTS.map((s) => (
             <li key={s.slug}>
-              <Link href={sportHref(s.slug)} className="card group flex h-full flex-col items-center justify-center gap-3 p-8 text-center transition hover:border-navy hover:shadow-soft">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold-50 text-gold-700 transition group-hover:bg-navy group-hover:text-white">
-                  <Shirt className="h-7 w-7" strokeWidth={1.6} />
+              <Link href={sportHref(s.slug)} className="card group flex h-full flex-col overflow-hidden text-center transition hover:border-navy hover:shadow-soft">
+                <span className="relative block aspect-square bg-cream">
+                  <SmartImage src={`/images/sports/${s.slug}.webp`} alt={es ? `Uniforme de ${s.es}` : `${s.en} uniform`} fill sizes="(max-width:640px) 50vw, 25vw" className="object-cover transition duration-500 group-hover:scale-105" />
                 </span>
-                <span className="font-serif text-xl text-navy">{es ? s.es : s.en}</span>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 group-hover:text-navy">{es ? "Ver uniformes" : "Shop jerseys"} <ArrowRight className="h-4 w-4" /></span>
+                <span className="mt-4 font-serif text-xl text-navy">{es ? s.es : s.en}</span>
+                <span className="mb-5 mt-1 inline-flex items-center justify-center gap-1 text-sm font-semibold text-slate-600 group-hover:text-navy">{es ? "Ver uniformes" : "Shop jerseys"} <ArrowRight className="h-4 w-4" /></span>
               </Link>
             </li>
           ))}

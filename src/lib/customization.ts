@@ -33,7 +33,7 @@ export function rosterPrice(c: Customization) {
 }
 
 /** Which set of print options a product gets. */
-export type CustomType = "apparel" | "tote" | "cup" | "cap";
+export type CustomType = "apparel" | "tote" | "cup" | "cap" | "shorts" | "phonecase";
 
 type Option = { value: string; en: string; es: string; price: number; types: CustomType[] };
 
@@ -48,12 +48,17 @@ export const PLACEMENTS: Option[] = [
   { value: "cup-wrap", en: "Full Wrap", es: "Envolvente", price: 7, types: ["cup"] },
   { value: "cap-front", en: "Front Panel", es: "Panel Frontal", price: 6, types: ["cap"] },
   { value: "cap-side", en: "Side", es: "Lateral", price: 4, types: ["cap"] },
+  { value: "leg", en: "Left Leg", es: "Pierna Izquierda", price: 6, types: ["shorts"] },
+  { value: "shorts-back", en: "Back", es: "Atrás", price: 6, types: ["shorts"] },
+  { value: "leg-back", en: "Left Leg & Back", es: "Pierna y Atrás", price: 10, types: ["shorts"] },
+  { value: "case-full", en: "Full Back of Case", es: "Parte Trasera Completa", price: 0, types: ["phonecase"] },
 ];
 
 export const METHODS: Option[] = [
-  { value: "screen-print", en: "Screen Print", es: "Serigrafía", price: 0, types: ["apparel", "tote"] },
-  { value: "dtf", en: "Full-Color Print (DTF)", es: "Impresión a Todo Color (DTF)", price: 3, types: ["apparel", "tote", "cap"] },
-  { value: "embroidery", en: "Embroidery", es: "Bordado", price: 6, types: ["apparel", "cap"] },
+  { value: "screen-print", en: "Screen Print", es: "Serigrafía", price: 0, types: ["apparel", "tote", "shorts"] },
+  { value: "dtf", en: "Full-Color Print (DTF)", es: "Impresión a Todo Color (DTF)", price: 3, types: ["apparel", "tote", "cap", "shorts"] },
+  { value: "embroidery", en: "Embroidery", es: "Bordado", price: 6, types: ["apparel", "cap", "shorts"] },
+  { value: "uv-print", en: "Full-Color UV Print", es: "Impresión UV a Todo Color", price: 0, types: ["phonecase"] },
   { value: "sublimation", en: "Full-Color Sublimation", es: "Sublimación a Todo Color", price: 0, types: ["cup"] },
 ];
 

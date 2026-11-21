@@ -64,7 +64,7 @@ const ProductSchema = new Schema(
     wholesalePrice: { type: Number, min: 0 }, // blank/0 = not offered on the wholesale page
     wholesaleMinQty: { type: Number, min: 1, default: 12 },
     customizable: { type: Boolean, default: false }, // shows the product customizer
-    customType: { type: String, enum: ["apparel", "tote", "cup", "cap"], default: "apparel" },
+    customType: { type: String, enum: ["apparel", "tote", "cup", "cap", "shorts", "phonecase"], default: "apparel" },
     cost: { type: Number, min: 0 },
     priceTiers: { type: String, default: "" }, // quantity discounts, e.g. "10=12.99, 25=11.49"
     stock: { type: Number, default: 0 },
